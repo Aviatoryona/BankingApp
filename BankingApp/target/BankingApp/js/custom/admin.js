@@ -52,6 +52,18 @@ function validate(input) {
     }
 }
 
+function validateData(isEmail, data) {
+    if (isEmail) {
+        if ((data.trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/)) == null) {
+            return false;
+        }
+    } else {
+        if ((data.trim()) == '') {
+            return false;
+        }
+    }
+}
+
 /*
  *
  * @returns {undefined}
@@ -425,7 +437,7 @@ admin.addCountry = function () {
  */
 admin.processIndex6 = function (parent) {//client details
 
-    var usr_email = $(parent).text();
+    var usr_email = $.trim($(parent).text());
 
     console.log(usr_email);
 
@@ -460,7 +472,7 @@ admin.processIndex6 = function (parent) {//client details
  *
  */
 admin.processIndex7 = function (parent) {//user details
-    var id = $(parent).attr('data');
+    var id = $.trim($(parent).attr('data'));
     var index = 7;
     var page = adminPages[index];
     loadTemplate(page);
@@ -485,3 +497,27 @@ admin.processIndex7 = function (parent) {//user details
 /*
  *
  */
+admin.updateUserUsername = function (parent) {
+
+    var email = $('input[name="txtEmail"]').val();
+    var txtUsrName = $('input[name="txtUsrName"]').val();
+    if (!validateData(false, txtUsrName)) {
+        showValidate('input[name="txtUsrName"]');
+        return;
+    }
+    $.ajax({
+        url: "admin",
+        type: 'PUT',
+        data: {
+            'usrname': txtUsrName,
+            'email': email
+        },
+        beforeSend: function (xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        }
+    }).done(function (data) {
+        if (console && console.log) {
+            console.log("Sample of data:", data.slice(0, 100));
+        }
+    });
+};

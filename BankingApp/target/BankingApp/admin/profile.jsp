@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getClientUserSd().getCtEmail()%>" readonly=""></div>
+                            <div class="col-sm-10"><input type="text" name="txtEmail" class="form-control" value="<%= cm.getClientUserSd().getCtEmail()%>" readonly=""></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
@@ -61,9 +61,11 @@
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Username</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" value="<%= cm.getUsrUsername()%>">
+                                <input type="text" class="form-control" name="txtUsrName" value="<%= cm.getUsrUsername()%>">
                             </div>
-                            <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                            <div class="col-sm-2">
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning" onclick="admin.updateUserUsername()">update</a>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
@@ -71,7 +73,9 @@
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" value="<%= cm.getUsrPwd()%>">
                             </div>
-                            <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                            <div class="col-sm-2">
+                                <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>
