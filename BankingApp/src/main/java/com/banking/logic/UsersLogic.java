@@ -80,4 +80,9 @@ public class UsersLogic implements UsersLogicI {
         }
     }
 
+    @Override
+    public MessageModel updateUser(Users users) {
+        return new MessageModel(true, "");
+    }
+
 }

@@ -38,4 +38,6 @@ public interface UsersLogicI {
     MessageModel removeUser(Users users);
 
     List<Users> getUsers(int limit);
+
+    MessageModel updateUser(Users users);
 }
