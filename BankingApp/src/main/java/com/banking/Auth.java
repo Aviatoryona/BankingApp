@@ -7,6 +7,7 @@ package com.banking;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,14 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Auth", urlPatterns = {"/auth"})
 public class Auth extends HttpServlet {
+
+    ServletContext ctx;
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        ctx = getServletContext();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,7 +49,7 @@ public class Auth extends HttpServlet {
             out.println("<title>Servlet Auth</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Auth at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Hello  " + ctx.getAttribute("Name") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
