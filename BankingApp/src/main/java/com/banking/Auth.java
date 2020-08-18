@@ -7,12 +7,15 @@ package com.banking;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -83,8 +86,12 @@ public class Auth extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         String email = request.getParameter("email");
+
+        Map<String, String> map = new HashMap<>();
+        map.put("email", email);
+        JSONObject jSONObject = new JSONObject(map);
 //        response.setContentType("json");
-        response.getWriter().write("{'email':" + email + "}");
+        response.getWriter().write(jSONObject.toJSONString());
     }
 
     /**
