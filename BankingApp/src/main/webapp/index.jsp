@@ -111,8 +111,8 @@
                             $.ajax({
                                 url: "auth",
                                 method: 'POST',
-//                                processData: false,
-//                                contentType: false,
+                                processData: false,
+                                contentType: false,
                                 dataType: 'json',
                                 data: {
                                     "email": email,
@@ -129,9 +129,7 @@
                                     console.log(jqXHR);
                                     alert(textStatus);
                                 }
-
                             });
-
                         }
 
                         $('#btnSubmit').click(function () {
