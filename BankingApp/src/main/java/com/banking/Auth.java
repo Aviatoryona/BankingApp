@@ -5,10 +5,15 @@
  */
 package com.banking;
 
+import com.banking.db.DbConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,11 +30,13 @@ import org.json.simple.JSONObject;
 public class Auth extends HttpServlet {
 
     ServletContext ctx;
+    DbConnection dbConnection;
 
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         ctx = getServletContext();
+        dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
     }
 
     /**
@@ -89,6 +96,18 @@ public class Auth extends HttpServlet {
 
         Map<String, String> map = new HashMap<>();
         map.put("email", email);
+        if (dbConnection != null) {
+            try {
+                ResultSet rs = dbConnection.executeQuery("SELECT * FROM  users");
+                while (rs.next()) {
+                    map.put(rs.getString("usr_id"), rs.getString("usr_email"));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
         JSONObject jSONObject = new JSONObject(map);
 //        response.setContentType("json");
         response.getWriter().write(jSONObject.toJSONString());
