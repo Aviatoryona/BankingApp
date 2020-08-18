@@ -123,7 +123,7 @@
                                 },
                                 success: function (data, textStatus, jqXHR) {
                                     console.log(data);
-                                    alert(data);
+                                    alert(data.email);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     console.log(jqXHR);
