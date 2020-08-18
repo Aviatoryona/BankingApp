@@ -73,7 +73,7 @@
             <div id="container">
                 <div class="container">
                     <img alt="bg image" src="img/bg.png" height="50" width="100%"/>
-                    <form action="javascript:void(0)" style="padding: 22px">
+                    <form action="javascript:void(0)" style="padding: 22px" onsubmit="return false">
                         <h3>Concorde Bank</h3>
                         <h4>Sign In</h4>
 
@@ -81,10 +81,10 @@
                         <br/>
                         <input type="password" name="input_pwd" value="" placeholder="Password"/>
                         <br/>
-                        <button type="submit">Submit</button>
+                        <button id="btnSubmit" type="submit">Submit</button>
 
                         <div class="copy">
-                            &copy;Concorde 2020
+                            &copy; Concorde 2020
                         </div>
                     </form>
                 </div>
@@ -94,11 +94,51 @@
 
         <!--===============================================================================================-->
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-
         <script>
-            (function ($) {
-                alert("Hello");
-            })(JQuery);
+
+                        function submitForm() {
+                            var email = $('input[name="input_email"]').val();
+                            var pwd = $('input[name="input_pwd"]').val();
+
+                            if (email == '') {
+                                alert("Provide email");
+                                return;
+                            }
+                            if (pwd == '') {
+                                alert("Provide password");
+                                return;
+                            }
+                            $.ajax({
+                                url: "auth",
+                                method: 'POST',
+//                                processData: false,
+//                                contentType: false,
+                                dataType: 'json',
+                                data: {
+                                    "email": email,
+                                    "pwd": pwd
+                                },
+                                beforeSend: function (xhr) {
+
+                                },
+                                success: function (data, textStatus, jqXHR) {
+                                    console.log(data);
+                                    alert(data);
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.log(jqXHR);
+                                    alert(textStatus);
+                                }
+
+                            });
+
+                        }
+
+                        $('#btnSubmit').click(function () {
+                            submitForm();
+                        });
+
+
         </script>
 
     </body>

@@ -81,7 +81,10 @@ public class Auth extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        String email = request.getParameter("email");
+//        response.setContentType("json");
+        response.getWriter().write("{'email':" + email + "}");
     }
 
     /**
