@@ -51,17 +51,13 @@ public class Auth extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try ( var out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Auth</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Hello  " + ctx.getAttribute("Name") + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+//            out.println("Hello  " + ctx.getAttribute("Name"));
+            Map<String, String> map = new HashMap<>();
+            map.put("email", "admin@admin.com");
+            JSONObject jSONObject = new JSONObject(map);
+            out.write(jSONObject.toJSONString());
         }
     }
 
