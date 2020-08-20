@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->
-        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <link rel="icon" type="image/png" href="img/05.png"/>
         <!--===============================================================================================-->
         <style>
             body{
@@ -123,15 +123,13 @@
                                 },
                                 success: function (data, textStatus, jqXHR) {
                                     console.log(data);
-                                    alert(data);
+                                    alert(data.email);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     console.log(jqXHR);
                                     alert(textStatus);
                                 }
-
                             });
-
                         }
 
                         $('#btnSubmit').click(function () {
@@ -140,6 +138,7 @@
 
 
         </script>
+        <script src="js/test.js" type="text/javascript"></script>
 
     </body>
 </html>

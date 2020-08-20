@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--===============================================================================================-->
-        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <link rel="icon" type="image/png" href="img/05.png"/>
         <!--===============================================================================================-->
         <style>
             body{
@@ -111,8 +111,8 @@
                             $.ajax({
                                 url: "auth",
                                 method: 'POST',
-                                processData: false,
-                                contentType: false,
+//                                processData: false,
+//                                contentType: false,
                                 dataType: 'json',
                                 data: {
                                     "email": email,
@@ -138,6 +138,7 @@
 
 
         </script>
+        <script src="js/test.js" type="text/javascript"></script>
 
     </body>
 </html>
