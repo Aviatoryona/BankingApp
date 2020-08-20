@@ -6,6 +6,7 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -39,28 +40,6 @@ public class Auth extends HttpServlet {
         dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( var out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("Hello  " + ctx.getAttribute("Name"));
-            Map<String, String> map = new HashMap<>();
-            map.put("email", "admin@admin.com");
-            JSONObject jSONObject = new JSONObject(map);
-            out.write(jSONObject.toJSONString());
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -73,7 +52,15 @@ public class Auth extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try ( var out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+//            out.println("Hello  " + ctx.getAttribute("Name"));
+            Map<String, String> map = new HashMap<>();
+            map.put("email", "admin@admin.com");
+            JSONObject jSONObject = new JSONObject(map);
+            out.write(jSONObject.toJSONString());
+        }
     }
 
     /**
@@ -104,9 +91,11 @@ public class Auth extends HttpServlet {
 
         }
 
-        JSONObject jSONObject = new JSONObject(map);
+//        JSONObject jSONObject = new JSONObject(map);
 //        response.setContentType("json");
-        response.getWriter().write(jSONObject.toJSONString());
+//        response.getWriter().write(jSONObject.toJSONString());
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(mapper.writeValueAsString(map));
     }
 
     /**

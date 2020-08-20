@@ -33,7 +33,7 @@ var data = [
 ];
 
 data.forEach(dt => {
-    console.log('Number value ${dt.val}' + dt.val);
+    console.log(`Number value ${dt.val}` + dt.val);
 });
 
 //prototype add attribute
