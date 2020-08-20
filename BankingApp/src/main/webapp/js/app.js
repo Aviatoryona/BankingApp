@@ -58,3 +58,8 @@ function registerInit(data) {
         element.innerHTML = content;
     }
 }
+
+//do register
+function doRegister() {
+
+}

@@ -53,25 +53,20 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     but in Africa at large.
                 </p>
                 <p>Register Now</p>
-                <form class="m-t" role="form" action="" onsubmit="return false" style="padding: 36px">
+                <form class="m-t" role="form" action="" onsubmit="return register()" style="padding: 36px">
 
                     <div class="form-group row">
-                        <input type="text" class="form-control col-md-6" placeholder="First Name" required="">
-                        <input type="text" class="form-control col-md-6" placeholder="Last Name" required="">
+                        <input id="input_fname" type="text" class="form-control col-md-6" placeholder="First Name" required="">
+                        <input id="input_lname" type="text" class="form-control col-md-6" placeholder="Last Name" required="">
                     </div>
 
                     <div class="form-group row">
-                        <input type="email" class="form-control" placeholder="Email" required="">
+                        <input id="input_email" type="email" class="form-control" placeholder="Email" required="">
                     </div>
 
                     <div class="form-group row">
-                        <select id="input_countries" class="form-control col-md-6" required="">
-                            <option selected disabled>Country</option>
-                            <option value="Kenya">Kenya</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Tanzania">Tanzania</option>
-                        </select>
-                        <input type="text" class="form-control col-md-6" placeholder="City" required="">
+                        <select id="input_countries" class="form-control col-md-6" required=""> </select>
+                        <input id="input_city" type="text" class="form-control col-md-6" placeholder="City" required="">
                     </div>
 
                     <div class="form-group row">
@@ -80,23 +75,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
-                        <input type="text" class="form-control col-md-6" placeholder="Address" required="">
+                        <input id="input_address" type="text" class="form-control col-md-6" placeholder="Address" required="">
                     </div>
 
                     <div class="form-group row">
-                        <input type="tel" class="form-control" placeholder="Phone" required="">
+                        <input id="input_phone" type="tel" class="form-control" placeholder="Phone" required="">
                     </div>
                     <div class="form-group row">
-                        <select id="input_accounttypes" class="form-control" required="">
-                            <option selected disabled>Account Type</option>
-                        </select>
+                        <select id="input_accounttypes" class="form-control" required=""></select>
                     </div>
                     <small>Attach picture</small>
                     <div class="form-group row">
-                        <input type="file" class="form-control" placeholder="Picture" required="">
+                        <input id="input_pic" type="file" class="form-control" placeholder="Picture" required="">
                     </div>
 
-                    <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+                    <button type="submit" id="btnRegister" class="btn btn-primary block full-width m-b">Register</button>
 
                     <a href="#"><small>Forgot password?</small></a>
                     <p class="text-muted text-center"><small>Have an account?</small></p>
@@ -121,6 +114,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                             registerInit(data);
                         }
                     });
+
+                    function register() {
+                        var inputs = document.getElementsByTagName("input");
+                        for (var input in inputs) {
+                            console.log(input.valu);
+                        }
+                        return false;
+                    }
         </script>
     </body>
 </html>
