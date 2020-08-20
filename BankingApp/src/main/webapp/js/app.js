@@ -26,15 +26,35 @@ app.loadData = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
                 me.data = eval('(' + xhr.responseText + ')');
-                console.log(me.data);
+//                console.log(me.data);
+                me.callBack(me.data);
             }
         }
     };
 
-    xhr.open('get', me.dataUrl, true);
+    xhr.open(me.method, me.dataUrl, true);
     xhr.send();
 };
 
-app.loadData.call({
-    dataUrl: "auth"
-});
+//called when register.html is loaded
+function registerInit(data) {
+    var countries = data.countries;
+    if (countries != null) {
+        var element = document.getElementById("input_countries");
+        var content = `<option selected disabled>Country</option>`;
+        countries.forEach(country => {
+            content += `<option value="${country.ctry_name}">${country.ctry_name}</option>`;
+        });
+        element.innerHTML = content;
+    }
+
+    var acctypes = data.acctypes;
+    if (acctypes != null) {
+        var element = document.getElementById("input_accounttypes");
+        var content = `<option selected disabled>Account Type</option>`;
+        acctypes.forEach(acctype => {
+            content += `<option value="${acctype.acctype}">${acctype.acctype}</option>`;
+        });
+        element.innerHTML = content;
+    }
+}
