@@ -17,11 +17,16 @@
  */
 
 var app = {};
-
 ///////http request
 app.loadData = function () {
     var me = this;
-    var xhr = new XMLHttpRequest();
+    var xhr;
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    } else {
+        // code for IE6, IE5
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
@@ -31,11 +36,10 @@ app.loadData = function () {
             }
         }
     };
-
     xhr.open(me.method, me.dataUrl, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send();
 };
-
 //called when register.html is loaded
 function registerInit(data) {
     var countries = data.countries;
@@ -60,6 +64,22 @@ function registerInit(data) {
 }
 
 //do register
-function doRegister() {
-
+app.doRegister = function () {
+    var url = `fname=` + this.fname
+            + `&lname=` + this.lname
+            + `&email=` + this.email
+            + `&phone=` + this.phone
+            + `&country=` + this.country
+            + `&city=` + this.city
+            + `&address=` + this.address
+            + `&gender=` + this.gender
+            + `&acctype=` + this.acctype;
+    app.loadData().call({
+        dataUrl: "register",
+        method: 'POST',
+        params: url,
+        callBack: function (data) {
+            alert(data);
+        }
+    });
 }
