@@ -99,12 +99,12 @@ public class App {
     }
 
     //register customer
-    boolean RegisterCustomer(CustomerModel customerModel) {
+    boolean registerCustomer(CustomerModel customerModel) {
         try {
             String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
                     + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
                     + " `ct_accesscode`) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = connection.getPreparedStatement(sql);
             ps.setString(1, customerModel.getCt_fname());
@@ -118,7 +118,7 @@ public class App {
             ps.setString(9, customerModel.getCt_accounttype());
             ps.setString(10, getAccountNumber());
             ps.setString(11, getAccessCode(""));
-
+            return connection.execute(ps);
         } catch (SQLException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -150,4 +150,5 @@ public class App {
         code += String.valueOf(cs[new Random().nextInt(cs.length)]);
         return code.length() == 8 ? code : getAccessCode(code);
     }
+
 }

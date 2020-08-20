@@ -4,6 +4,7 @@ com\banking\models\AccountTypes.class
 com\banking\models\CountryModel.class
 com\banking\Test.class
 com\banking\db\DbConnection.class
+com\banking\models\MessageModel.class
 com\banking\models\CustomerModel.class
 com\banking\App.class
 com\banking\Register.class

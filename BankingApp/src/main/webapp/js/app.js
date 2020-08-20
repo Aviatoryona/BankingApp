@@ -17,6 +17,13 @@
  */
 
 var app = {};
+
+app.init = function () {
+    $('#btnRegister').click(function () {
+        register();
+    });
+};
+
 ///////http request
 app.loadData = function () {
     var me = this;
@@ -31,14 +38,18 @@ app.loadData = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
                 me.data = eval('(' + xhr.responseText + ')');
-//                console.log(me.data);
+                console.log(me.data);
                 me.callBack(me.data);
             }
         }
     };
     xhr.open(me.method, me.dataUrl, true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send();
+    if (me.params != null) {
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(me.params);
+    } else {
+        xhr.send();
+    }
 };
 //called when register.html is loaded
 function registerInit(data) {
@@ -74,12 +85,17 @@ app.doRegister = function () {
             + `&address=` + this.address
             + `&gender=` + this.gender
             + `&acctype=` + this.acctype;
-    app.loadData().call({
+    app.loadData.call({
         dataUrl: "register",
         method: 'POST',
         params: url,
         callBack: function (data) {
-            alert(data);
+            alert(data.message);
         }
     });
-}
+};
+
+
+
+//initialize app
+app.init.call();

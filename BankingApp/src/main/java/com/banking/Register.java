@@ -18,9 +18,12 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.models.CustomerModel;
+import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -76,7 +79,27 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CustomerModel cm = new CustomerModel();
+        cm.setCt_fname(request.getParameter("fname"));
+        cm.setCt_lname(request.getParameter("lname"));
+        cm.setCt_email(request.getParameter("email"));
+        cm.setCt_phone(request.getParameter("phone"));
+        cm.setCt_country(request.getParameter("country"));
+        cm.setCt_city(request.getParameter("city"));
+        cm.setCt_address(request.getParameter("address"));
+        cm.setCt_gender(request.getParameter("gender"));
+        cm.setCt_accounttype(request.getParameter("acctype"));
 
+        ObjectMapper mapper = new ObjectMapper();
+        response.getWriter().write(
+                App.getInstance(dbConnection).registerCustomer(cm)
+                ? mapper.writeValueAsString(
+                        new MessageModel(true, "Registration sucessfull")
+                )
+                : mapper.writeValueAsString(
+                        new MessageModel(false, "Failed, please try again")
+                )
+        );
     }
 
     /**
