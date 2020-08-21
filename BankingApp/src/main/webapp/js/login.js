@@ -23,7 +23,7 @@ var buildFormContent = {
         "placeholder": "Email",
         "btnText": "Next",
         btnCallBack: function () {
-            console.log("check mail");
+            console.log('check mail');
             //checkEmail();
         }
     },
