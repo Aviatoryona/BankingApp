@@ -78,5 +78,6 @@ function checkEmail() {
         callBack: function (data) {
             alert(data);
         }
-    });
+    }
+    );
 }
