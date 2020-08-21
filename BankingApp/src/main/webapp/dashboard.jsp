@@ -10,7 +10,18 @@
     <head>
         <%@include file="includes/styles.jsp" %>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body class="top-navigation">
+        <div id="wrapper">
+            <div id="page-wrapper" class="gray-bg">
+                <%@include file="includes/navbar.jsp" %>
+                <div class="wrapper wrapper-content">
+                    <div class="container">
+                        <%@include file="includes/home_dashboard.jsp" %>
+                    </div>
+                </div>
+                <%@include file="includes/footer.jsp" %>
+            </div>
+        </div>
+        <%@include file="includes/scripts.jsp" %>
     </body>
 </html>
