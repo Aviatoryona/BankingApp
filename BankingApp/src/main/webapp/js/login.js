@@ -19,19 +19,26 @@
 //
 var buildFormContent = {
     email: {
+        "id": "input_email",
         "type": "email",
         "placeholder": "Email",
         "btnText": "Next",
         btnCallBack: function () {
-            console.log('check mail');
-            //checkEmail();
+//            console.log('check mail');
+            var email = document.getElementById("input_email").value;
+            if (email == '') {
+                return;
+            }
+            checkEmail(email);
         }
     },
     pwd: {
+        "id": "input_pwd",
         "type": "password",
-        "placeholder": "Email",
+        "placeholder": "Password",
         "btnText": "Next",
         btnCallBack: function () {
+            window.location.replace('dashboard');
         }
     }
 };
@@ -51,9 +58,14 @@ function buildRequestFormField(field) {
             return;
     }
     var content = `<div class="form-group">
-                                <input type="${data.type}" class="form-control" placeholder="${data.placeholder}" required="">
-                            </div>
-                <button type="submit" class="btn btn-primary block full-width m-b" onclick="${data.btnCallBack.bind()}">${data.btnText}</button>`;
+                                <input id="${data.id}" type="${data.type}" class="form-control" placeholder="${data.placeholder}" required="">
+                            </div>`;
+
+    var btn = document.getElementById('mibtn');
+    btn.textContent = data.btnText;
+    btn.addEventListener('click', function () {
+        data.btnCallBack();
+    });
     return content;
 }
 
@@ -70,14 +82,18 @@ function otherFormUtils() {
 }
 
 //
-function checkEmail() {
+function checkEmail(email) {
     app.loadData.call({
         dataUrl: "auth",
-        method: 'get',
-        params: null,
+        method: 'POST',
+        params: `action=checkmail&email=` + email,
         callBack: function (data) {
-            alert(data);
+//            alert(data.message);
+            if (data.success) {
+                document.getElementById("formData").innerHTML =
+                        `<small style="color:red;">Password has been sent to your email</small>` +
+                        buildRequestFormField("pwd");
+            }
         }
-    }
-    );
+    });
 }

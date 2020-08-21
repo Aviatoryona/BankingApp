@@ -75,27 +75,13 @@ public class Auth extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-        String email = request.getParameter("email");
-
-        Map<String, String> map = new HashMap<>();
-        map.put("email", email);
-        if (dbConnection != null) {
-            try {
-                ResultSet rs = dbConnection.executeQuery("SELECT * FROM  users");
-                while (rs.next()) {
-                    map.put(rs.getString("usr_id"), rs.getString("usr_email"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Auth.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+        String action = request.getParameter("action");
+        if (action.equalsIgnoreCase("checkmail")) {
+            String email = request.getParameter("email");
+            response.getWriter().write(
+                    new ObjectMapper().writeValueAsString(App.getInstance(dbConnection).checkEmail(email))
+            );
         }
-
-//        JSONObject jSONObject = new JSONObject(map);
-//        response.setContentType("json");
-//        response.getWriter().write(jSONObject.toJSONString());
-        ObjectMapper mapper = new ObjectMapper();
-        response.getWriter().write(mapper.writeValueAsString(map));
     }
 
     /**

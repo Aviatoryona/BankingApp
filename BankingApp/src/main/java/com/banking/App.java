@@ -21,6 +21,7 @@ import com.banking.db.DbConnection;
 import com.banking.models.AccountTypes;
 import com.banking.models.CountryModel;
 import com.banking.models.CustomerModel;
+import com.banking.models.MessageModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -145,10 +146,27 @@ public class App {
     //get access code. A Random generate key like a password
     private final String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$*";
 
+    //generate access code
     private String getAccessCode(String code) {
         char[] cs = characters.toCharArray();
         code += String.valueOf(cs[new Random().nextInt(cs.length)]);
         return code.length() == 8 ? code : getAccessCode(code);
     }
 
+    //do customer check email
+    public MessageModel checkEmail(String email) {
+        try {
+            String sql = "SELECT * FROM customers WHERE ct_email=?";
+            PreparedStatement ps = connection.getPreparedStatement(sql);
+            ps.setString(1, email);
+            ResultSet rs = connection.executeQuery(ps);
+            if (rs.next()) {
+                return new MessageModel(true, rs.getString("ct_fname"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return new MessageModel(false, "Failed");
+    }
 }
