@@ -41,7 +41,6 @@ app.processTemplate = function () {
     });
 };
 
-
 /*
  *
  *
