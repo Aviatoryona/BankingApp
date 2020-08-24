@@ -29,7 +29,6 @@
         </div>
 
         <%@include file="includes/scripts.jsp" %>
-
         <script type="text/javascript" src="js/custom/app.js"></script>
         <script type="text/javascript" src="js/custom/template.js"></script>
     </body>
