@@ -20,3 +20,6 @@ var pages = {
     1: ""
 };
 
+app.processTemplate = function () {
+
+};
