@@ -7,6 +7,7 @@ package com.banking;
 
 import com.banking.db.DbConnection;
 import com.banking.logic.CustomerLogic;
+import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -51,14 +52,19 @@ public class Auth extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( var out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("Hello  " + ctx.getAttribute("Name"));
-            Map<String, String> map = new HashMap<>();
-            map.put("email", "admin@admin.com");
-            JSONObject jSONObject = new JSONObject(map);
-            out.write(jSONObject.toJSONString());
+        if (request.getParameterMap().containsKey("q")) {
+            String action = request.getParameter("q");
+            if (action.equalsIgnoreCase("logout")) {
+                Cookie[] cookies = request.getCookies();
+                for (Cookie cooky : cookies) {
+                    if (cooky.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
+                        cooky.setMaxAge(0);
+                        response.addCookie(cooky);
+                    }
+                }
+            }
         }
+        response.sendRedirect("login.html");
     }
 
     /**
@@ -78,7 +84,13 @@ public class Auth extends HttpServlet {
             String email = request.getParameter("email");
             MessageModel messageModel = CustomerLogic.getInstance(dbConnection).checkEmail(email);
             if (messageModel.isSuccess()) {
-                Cookie cookie = new Cookie(AppEnum.LOGGED_IN_USER.getName(), email);
+                CustomerModel cm = (CustomerModel) messageModel.getObject();
+                Cookie cookie = new Cookie(
+                        AppEnum.LOGGED_IN_USER.getName(),
+                        new ObjectMapper().writeValueAsString(cm)
+                );
+                cookie.setSecure(true);
+                cookie.setMaxAge(24 * 60 * 60);
                 response.addCookie(cookie);
             }
             response.getWriter().write(
