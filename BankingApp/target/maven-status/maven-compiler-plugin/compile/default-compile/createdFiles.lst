@@ -9,5 +9,6 @@ com\banking\models\CountryModel.class
 com\banking\Dashboard.class
 com\banking\db\DbConnection.class
 com\banking\models\CustomerModel.class
+com\banking\AppEnum.class
 com\banking\Register.class
 com\banking\listeners\DbInitListener.class
