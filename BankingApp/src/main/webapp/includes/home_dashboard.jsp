@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <div class="row">
     <div class="col-md-2">
         <div class="ibox ">
