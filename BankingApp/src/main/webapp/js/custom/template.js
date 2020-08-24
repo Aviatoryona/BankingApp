@@ -44,6 +44,4 @@ app.processTemplate = function () {
  *
  *
  */
-app.processTemplate.call({
-    index: 0
-});
+app.processTemplate.call({index: 0});
