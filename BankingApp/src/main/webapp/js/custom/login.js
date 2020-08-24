@@ -92,7 +92,7 @@ function otherFormUtils() {
 }
 
 /*
- * 
+ *
  */
 function checkEmail(email) {
     app.loadData.call({
@@ -100,7 +100,7 @@ function checkEmail(email) {
         method: 'POST',
         params: `action=checkmail&email=` + email,
         callBack: function (data) {
-//            alert(data.message);
+            //alert(data.message);
             if (data.success) {
                 document.getElementById("formData").innerHTML =
                         `<small style="color:red;">Password has been sent to your email</small>` +

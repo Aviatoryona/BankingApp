@@ -15,11 +15,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
+/*
+ *
+ */
 var pages = {
-    0: "home_dashboard.jsp",
+    0: "includes/home_dashboard.jsp",
     1: ""
 };
 
 app.processTemplate = function () {
+    var page = pages[this.index];
+
+    app.loadData.call({
+        dataUrl: page,
+        method: 'get',
+        params: null,
+        callBack: function (data) {
+            registerInit(data);
+        }
+    });
 
 };
