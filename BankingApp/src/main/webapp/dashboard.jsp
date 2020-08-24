@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Cookie[] cookie = request.getCookies();
+    if (cookie.length == 0) {
+        response.sendRedirect("login.html");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>

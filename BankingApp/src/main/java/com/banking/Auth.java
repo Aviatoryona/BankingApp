@@ -6,18 +6,15 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,8 +75,13 @@ public class Auth extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equalsIgnoreCase("checkmail")) {
             String email = request.getParameter("email");
+            MessageModel messageModel = App.getInstance(dbConnection).checkEmail(email);
+            if (messageModel.isSuccess()) {
+                Cookie cookie = new Cookie(AppEnum.LOGGED_IN_USER.getName(), email);
+                response.addCookie(cookie);
+            }
             response.getWriter().write(
-                    new ObjectMapper().writeValueAsString(App.getInstance(dbConnection).checkEmail(email))
+                    new ObjectMapper().writeValueAsString(messageModel)
             );
         }
     }

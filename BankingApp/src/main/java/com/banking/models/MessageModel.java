@@ -25,10 +25,17 @@ public class MessageModel {
 
     private boolean success;
     private String message;
+    private Object object;
 
     public MessageModel(boolean success, String message) {
         this.success = success;
         this.message = message;
+    }
+
+    public MessageModel(boolean success, String message, Object object) {
+        this.success = success;
+        this.message = message;
+        this.object = object;
     }
 
     /**
@@ -57,6 +64,20 @@ public class MessageModel {
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    /**
+     * @return the object
+     */
+    public Object getObject() {
+        return object;
+    }
+
+    /**
+     * @param object the object to set
+     */
+    public void setObject(Object object) {
+        this.object = object;
     }
 
 }

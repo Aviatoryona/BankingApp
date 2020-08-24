@@ -105,7 +105,7 @@ public class App {
             String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
                     + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
                     + " `ct_accesscode`) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,md5(?))";
 
             PreparedStatement ps = connection.getPreparedStatement(sql);
             ps.setString(1, customerModel.getCt_fname());
