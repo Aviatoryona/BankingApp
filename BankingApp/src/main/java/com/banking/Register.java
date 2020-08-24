@@ -18,6 +18,7 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.logic.CustomerLogic;
 import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,7 +93,7 @@ public class Register extends HttpServlet {
 
         ObjectMapper mapper = new ObjectMapper();
         response.getWriter().write(
-                App.getInstance(dbConnection).registerCustomer(cm)
+                CustomerLogic.getInstance(dbConnection).createCustomer(cm)
                 ? mapper.writeValueAsString(
                         new MessageModel(true, "Registration sucessfull")
                 )

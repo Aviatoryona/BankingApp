@@ -7,7 +7,6 @@ package com.banking;
 
 import com.banking.db.DbConnection;
 import com.banking.logic.CustomerLogic;
-import com.banking.logic.CustomerLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;

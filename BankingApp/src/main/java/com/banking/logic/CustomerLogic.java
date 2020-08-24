@@ -77,7 +77,30 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public CustomerModel getCustomer(ResultSet rs) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            CustomerModel cm = new CustomerModel();
+            cm.setCt_id(rs.getInt("ct_id"));
+            cm.setCt_fname(rs.getString("ct_fname"));
+            cm.setCt_lname(rs.getString("ct_lname"));
+            cm.setCt_email(rs.getString("ct_email"));
+            cm.setCt_phone(rs.getString("ct_phone"));
+            cm.setCt_nextkin(rs.getString("ct_nextkin"));
+            cm.setCt_country(rs.getString("ct_country"));
+            cm.setCt_city(rs.getString("ct_city"));
+            cm.setCt_address(rs.getString("ct_address"));
+            cm.setCt_gender(rs.getString("ct_gender"));
+            cm.setCt_accounttype(rs.getString("ct_accounttype"));
+            cm.setCt_accountnumber(rs.getString("ct_accountnumber"));
+            cm.setCt_accbalance(rs.getDouble("ct_accbalance"));
+            cm.setCt_accesscode(rs.getString("ct_accesscode"));
+            cm.setCt_pic(rs.getString("ct_pic"));
+            cm.setCt_date(rs.getString("ct_date"));
+
+            return cm;
+        } catch (SQLException e) {
+            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
     }
 
     @Override
@@ -88,7 +111,8 @@ public class CustomerLogic implements CustomerLogicI {
             ps.setString(1, email);
             ResultSet rs = dbConnection.executeQuery(ps);
             if (rs.next()) {
-                return new MessageModel(true, rs.getString("ct_fname"));
+                CustomerModel cm = getCustomer(rs);
+                return new MessageModel(true, rs.getString("ct_fname"), cm);
             }
         } catch (SQLException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

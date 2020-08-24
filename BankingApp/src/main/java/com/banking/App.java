@@ -100,11 +100,6 @@ public class App {
         return null;
     }
 
-    //register customer
-    boolean registerCustomer(CustomerModel customerModel) {
-        return CustomerLogic.getInstance(connection).createCustomer(customerModel);
-    }
-
     //Generate account number
     public static String getAccountNumber() {
         Date date = new Date();
