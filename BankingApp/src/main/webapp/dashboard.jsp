@@ -27,6 +27,7 @@
                 <%@include file="includes/footer.jsp" %>
             </div>
         </div>
+
         <%@include file="includes/scripts.jsp" %>
 
         <script type="text/javascript" src="js/custom/app.js"></script>
