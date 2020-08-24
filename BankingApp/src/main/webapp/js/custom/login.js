@@ -16,7 +16,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
-//
+/*
+ *
+ * @type type
+ */
 var buildFormContent = {
     email: {
         "id": "input_email",
@@ -43,7 +46,11 @@ var buildFormContent = {
     }
 };
 
-//
+/*
+ *
+ * @param {type} field
+ * @returns {undefined|String}
+ */
 function buildRequestFormField(field) {
     var data;
     switch (field) {
@@ -69,7 +76,10 @@ function buildRequestFormField(field) {
     return content;
 }
 
-//
+/*
+ *
+ * @returns {String}
+ */
 function otherFormUtils() {
     return `<a href="#">
                                 <small>Forgot password?</small>
@@ -81,7 +91,9 @@ function otherFormUtils() {
                             <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>`;
 }
 
-//
+/*
+ * 
+ */
 function checkEmail(email) {
     app.loadData.call({
         dataUrl: "auth",
