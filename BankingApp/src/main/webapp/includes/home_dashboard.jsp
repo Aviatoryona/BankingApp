@@ -10,30 +10,22 @@
     <div class="col-md-2">
         <div class="ibox ">
             <div class="ibox-title">
-                <div class="ibox-tools">
-                    <span class="label label-success float-right">Monthly</span>
-                </div>
-                <h5>Views</h5>
+                <h5>Deposits</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">386,200</h1>
-                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                <small>Total views</small>
+                <small>Total deposits</small>
             </div>
         </div>
     </div>
     <div class="col-md-2">
         <div class="ibox ">
             <div class="ibox-title">
-                <div class="ibox-tools">
-                    <span class="label label-info float-right">Annual</span>
-                </div>
-                <h5>Orders</h5>
+                <h5>Withdrawals</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">80,800</h1>
-                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                <small>New orders</small>
+                <small>Total withdrawals</small>
             </div>
         </div>
     </div>
@@ -41,42 +33,34 @@
     <div class="col-md-4">
         <div class="ibox ">
             <div class="ibox-title">
-                <div class="ibox-tools">
-                    <span class="label label-primary float-right">Today</span>
-                </div>
-                <h5>visits</h5>
+                <h5>Balance</h5>
             </div>
             <div class="ibox-content">
-
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 class="no-margins">$ 406,420</h1>
-                        <div class="font-bold text-navy">44% <i class="fa fa-level-up"></i> <small>Rapid pace</small></div>
-                    </div>
-                    <div class="col-md-6">
-                        <h1 class="no-margins">206,120</h1>
-                        <div class="font-bold text-navy">22% <i class="fa fa-level-up"></i> <small>Slow pace</small></div>
+                        <h1 class="no-margins">KES 406,420</h1>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Monthly income</h5>
+                <h5>Account</h5>
                 <div class="ibox-tools">
-                    <span class="label label-primary">Updated 12.2015</span>
+                    <span class="label label-primary">21.08.2020</span>
                 </div>
             </div>
             <div class="ibox-content no-padding">
-                <div class="flot-chart m-t-lg" style="height: 55px;">
-                    <div class="flot-chart-content" id="flot-chart1"></div>
-                </div>
+                <ul>
+                    <li><a href="">Withdraw</a></li>
+                    <li><a href="">Deposit</a></li>
+                    <li><a href="">Balance</a></li>
+                    <li><a href="">Settings</a></li>
+                    <li><a href="">Logout</a></li>
+                </ul>
             </div>
-
         </div>
     </div>
 </div>
@@ -86,33 +70,10 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Recent Transactions</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#" class="dropdown-item">Config option 1</a>
-                        </li>
-                        <li><a href="#" class="dropdown-item">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-sm-9 m-b-xs">
-                        <div data-toggle="buttons" class="btn-group btn-group-toggle">
-                            <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
-                            <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
-                            <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                        </div>
-                    </div>
+                    <div class="col-sm-9 m-b-xs"></div>
                     <div class="col-sm-3">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control form-control-sm" placeholder="Search">
@@ -164,7 +125,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
