@@ -18,6 +18,7 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.logic.CustomerLogic;
 import com.banking.models.AccountTypes;
 import com.banking.models.CountryModel;
 import com.banking.models.CustomerModel;
@@ -101,40 +102,18 @@ public class App {
 
     //register customer
     boolean registerCustomer(CustomerModel customerModel) {
-        try {
-            String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
-                    + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
-                    + " `ct_accesscode`) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,md5(?))";
-
-            PreparedStatement ps = connection.getPreparedStatement(sql);
-            ps.setString(1, customerModel.getCt_fname());
-            ps.setString(2, customerModel.getCt_lname());
-            ps.setString(3, customerModel.getCt_email());
-            ps.setString(4, customerModel.getCt_phone());
-            ps.setString(5, customerModel.getCt_address());
-            ps.setString(6, customerModel.getCt_city());
-            ps.setString(7, customerModel.getCt_country());
-            ps.setString(8, customerModel.getCt_gender());
-            ps.setString(9, customerModel.getCt_accounttype());
-            ps.setString(10, getAccountNumber());
-            ps.setString(11, getAccessCode(""));
-            return connection.execute(ps);
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
+        return CustomerLogic.getInstance(connection).createCustomer(customerModel);
     }
 
     //Generate account number
-    private String getAccountNumber() {
+    public static String getAccountNumber() {
         Date date = new Date();
         long l = date.getTime();
         String cvv = getCvv();
         return String.valueOf(l).concat(cvv);
     }
 
-    private String getCvv() {
+    public static String getCvv() {
         int x = new Random().nextInt(10000);
         String s = String.valueOf(x);
         if (s.length() < 3) {
@@ -144,29 +123,13 @@ public class App {
     }
 
     //get access code. A Random generate key like a password
-    private final String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$*";
+    private static final String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$*";
 
     //generate access code
-    private String getAccessCode(String code) {
+    public static String getAccessCode(String code) {
         char[] cs = characters.toCharArray();
         code += String.valueOf(cs[new Random().nextInt(cs.length)]);
         return code.length() == 8 ? code : getAccessCode(code);
     }
 
-    //do customer check email
-    public MessageModel checkEmail(String email) {
-        try {
-            String sql = "SELECT * FROM customers WHERE ct_email=?";
-            PreparedStatement ps = connection.getPreparedStatement(sql);
-            ps.setString(1, email);
-            ResultSet rs = connection.executeQuery(ps);
-            if (rs.next()) {
-                return new MessageModel(true, rs.getString("ct_fname"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return new MessageModel(false, "Failed");
-    }
 }

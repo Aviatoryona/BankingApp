@@ -6,6 +6,8 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.logic.CustomerLogic;
+import com.banking.logic.CustomerLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -75,7 +77,7 @@ public class Auth extends HttpServlet {
         String action = request.getParameter("action");
         if (action.equalsIgnoreCase("checkmail")) {
             String email = request.getParameter("email");
-            MessageModel messageModel = App.getInstance(dbConnection).checkEmail(email);
+            MessageModel messageModel = CustomerLogic.getInstance(dbConnection).checkEmail(email);
             if (messageModel.isSuccess()) {
                 Cookie cookie = new Cookie(AppEnum.LOGGED_IN_USER.getName(), email);
                 response.addCookie(cookie);

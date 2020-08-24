@@ -18,6 +18,7 @@
 package com.banking.logic;
 
 import com.banking.models.CustomerModel;
+import com.banking.models.MessageModel;
 import java.sql.ResultSet;
 
 /**
@@ -29,4 +30,6 @@ public interface CustomerLogicI {
     boolean createCustomer(CustomerModel customerModel);
 
     CustomerModel getCustomer(ResultSet rs);
+
+    MessageModel checkEmail(String email);
 }
