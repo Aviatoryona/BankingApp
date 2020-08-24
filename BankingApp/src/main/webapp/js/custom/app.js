@@ -50,7 +50,7 @@ app.loadData = function () {
                 me.data = me.isJson ? eval('(' + xhr.responseText + ')') : xhr.responseText;
                 me.callBack(me.data);
             }
-            console.log(xhr.responseText);
+//            console.log(xhr.responseText);
         }
     };
     xhr.open(me.method, me.dataUrl, true);

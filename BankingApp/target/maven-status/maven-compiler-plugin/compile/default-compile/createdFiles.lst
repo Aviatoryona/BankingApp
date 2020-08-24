@@ -1,3 +1,4 @@
+com\banking\logic\CustomerLogicI.class
 com\banking\Test.class
 com\banking\models\MessageModel.class
 com\banking\App.class
@@ -10,5 +11,6 @@ com\banking\Dashboard.class
 com\banking\db\DbConnection.class
 com\banking\models\CustomerModel.class
 com\banking\AppEnum.class
+com\banking\logic\CustomerLogic.class
 com\banking\Register.class
 com\banking\listeners\DbInitListener.class

@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  */
 public class CustomerLogic implements CustomerLogicI {
 
-    private DbConnection dbConnection;
+    private final DbConnection dbConnection;
 
     private CustomerLogic(DbConnection dbConnection) {
         this.dbConnection = dbConnection;

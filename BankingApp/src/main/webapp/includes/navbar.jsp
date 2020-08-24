@@ -9,15 +9,6 @@
 <%@page import="com.banking.models.CustomerModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    CustomerModel cm = null;
-    Cookie[] cookies = request.getCookies();
-    for (int i = 0; i < cookies.length; i++) {
-        Cookie cookie1 = cookies[0];
-        if (cookie1.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
-            String s = cookie1.getValue();
-            cm = new ObjectMapper().convertValue(s, CustomerModel.class);
-        }
-    }
     if (cm != null) {
 %>
 

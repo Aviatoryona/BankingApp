@@ -4,10 +4,30 @@
     Author     : Aviator
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!CustomerModel cm = null;%>
 <%
-    Cookie[] cookie = request.getCookies();
-    if (cookie.length == 0) {
+    Enumeration<String> vals = session.getAttributeNames();
+
+//    Cookie[] cookies = request.getCookies();
+//    for (int i = 0; i < cookies.length; i++) {
+//        Cookie cookie1 = cookies[i];
+//        response.getWriter().println(cookie1.getName());
+//        if (cookie1.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
+//            String s = cookie1.getValue();
+//            cm = new ObjectMapper().convertValue(s, CustomerModel.class);
+//        }
+//    }
+    while (vals.hasMoreElements()) {
+        String nextElement = vals.nextElement();
+//        response.getWriter().println(nextElement);
+        if (nextElement.equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
+            cm = (CustomerModel) session.getAttribute(AppEnum.LOGGED_IN_USER.getName());
+        }
+    }
+    if (cm == null) {
         response.sendRedirect("login.html");
         return;
     }

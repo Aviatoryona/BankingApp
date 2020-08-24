@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 /**
@@ -52,18 +53,19 @@ public class Auth extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameterMap().containsKey("q")) {
-            String action = request.getParameter("q");
-            if (action.equalsIgnoreCase("logout")) {
-                Cookie[] cookies = request.getCookies();
-                for (Cookie cooky : cookies) {
-                    if (cooky.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
-                        cooky.setMaxAge(0);
-                        response.addCookie(cooky);
-                    }
-                }
-            }
-        }
+//        if (request.getParameterMap().containsKey("q")) {
+//            String action = request.getParameter("q");
+//            if (action.equalsIgnoreCase("logout")) {
+//                Cookie[] cookies = request.getCookies();
+//                for (Cookie cooky : cookies) {
+//                    if (cooky.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
+//                        cooky.setMaxAge(0);
+//                        response.addCookie(cooky);
+//                    }
+//                }
+//            }
+//        }
+        request.getSession().removeAttribute(AppEnum.LOGGED_IN_USER.getName());
         response.sendRedirect("login.html");
     }
 
@@ -85,13 +87,15 @@ public class Auth extends HttpServlet {
             MessageModel messageModel = CustomerLogic.getInstance(dbConnection).checkEmail(email);
             if (messageModel.isSuccess()) {
                 CustomerModel cm = (CustomerModel) messageModel.getObject();
-                Cookie cookie = new Cookie(
-                        AppEnum.LOGGED_IN_USER.getName(),
-                        new ObjectMapper().writeValueAsString(cm)
-                );
-                cookie.setSecure(true);
-                cookie.setMaxAge(24 * 60 * 60);
-                response.addCookie(cookie);
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
+//                Cookie cookie = new Cookie(
+//                        AppEnum.LOGGED_IN_USER.getName(),
+//                        new ObjectMapper().writeValueAsString(cm)
+//                );
+//                cookie.setSecure(true);
+//                cookie.setMaxAge(24 * 60 * 60);
+//                response.addCookie(cookie);
             }
             response.getWriter().write(
                     new ObjectMapper().writeValueAsString(messageModel)
