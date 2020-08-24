@@ -4,10 +4,26 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.AppEnum"%>
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+<%@page import="com.banking.models.CustomerModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    CustomerModel cm = null;
+    Cookie[] cookies = request.getCookies();
+    for (int i = 0; i < cookies.length; i++) {
+        Cookie cookie1 = cookies[0];
+        if (cookie1.getName().equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
+            String s = cookie1.getValue();
+            cm = new ObjectMapper().convertValue(s, CustomerModel.class);
+        }
+    }
+    if (cm != null) {
+%>
+
 <div class="row border-bottom white-bg">
     <nav class="navbar navbar-expand-lg navbar-static-top" role="navigation">
-        <a href="#" class="navbar-brand">Yonathaniel K</a>
+        <a href="#" class="navbar-brand"><%=cm.getCt_fname().toUpperCase()%></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-reorder"></i>
         </button>
@@ -29,3 +45,6 @@
         </div>
     </nav>
 </div>
+<%
+    }
+%>
