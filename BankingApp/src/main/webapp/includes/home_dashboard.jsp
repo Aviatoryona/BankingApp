@@ -35,8 +35,9 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <h1 class="no-margins">KES 406,420</h1>
+                        <small>Acc. Balance</small>
                     </div>
                 </div>
             </div>
@@ -56,7 +57,6 @@
                     <li><a href="">Deposit</a></li>
                     <li><a href="">Balance</a></li>
                     <li><a href="">Settings</a></li>
-                    <li><a href="">Logout</a></li>
                 </ul>
             </div>
         </div>

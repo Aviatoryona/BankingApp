@@ -98,6 +98,7 @@ function checkEmail(email) {
     app.loadData.call({
         dataUrl: "auth",
         method: 'POST',
+        isJson: true,
         params: `action=checkmail&email=` + email,
         callBack: function (data) {
             //alert(data.message);

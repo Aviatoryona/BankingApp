@@ -46,10 +46,11 @@ app.loadData = function () {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             if (xhr.status == 200) {
-                me.data = eval('(' + xhr.responseText + ')');
-                console.log(me.data);
+//                alert(xhr.responseText);
+                me.data = me.isJson ? eval('(' + xhr.responseText + ')') : xhr.responseText;
                 me.callBack(me.data);
             }
+            console.log(xhr.responseText);
         }
     };
     xhr.open(me.method, me.dataUrl, true);
@@ -59,6 +60,22 @@ app.loadData = function () {
     } else {
         xhr.send();
     }
+};
+
+app.loadTemplate = function () {
+    var me = this;
+    $.ajax({
+        url: this.dataUrl,
+        type: this.method,
+        success: function (data, textStatus, jqXHR) {
+//            console.log(data);
+            me.callBack(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+//            console.log(jqXHR);
+            this.callBack("Error encountered");
+        }
+    });
 };
 
 /*
@@ -102,6 +119,7 @@ app.doRegister = function () {
     app.loadData.call({
         dataUrl: "register",
         method: 'POST',
+        isJson: true,
         params: url,
         callBack: function (data) {
             alert(data.message);

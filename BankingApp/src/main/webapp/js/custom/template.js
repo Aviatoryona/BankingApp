@@ -31,11 +31,13 @@ var pages = {
  */
 app.processTemplate = function () {
     var page = pages[this.index];
-    app.loadData.call({
+    app.loadTemplate.call({
         dataUrl: page,
-        method: 'get',
+        method: 'GET',
+        isJson: false,
         params: null,
         callBack: function (data) {
+//            console.log(data);
             $('.container').html(data);
         }
     });
