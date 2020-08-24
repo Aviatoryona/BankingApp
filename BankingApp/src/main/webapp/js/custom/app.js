@@ -18,13 +18,18 @@
 
 var app = {};
 
+/*
+ * init
+ */
 app.init = function () {
     $('#btnRegister').click(function () {
         register();
     });
 };
 
-///////http request
+/*
+ * http request
+ */
 app.loadData = function () {
     var me = this;
     var xhr;
@@ -51,7 +56,10 @@ app.loadData = function () {
         xhr.send();
     }
 };
-//called when register.html is loaded
+
+/*
+ * called when register.html is loaded
+ */
 function registerInit(data) {
     var countries = data.countries;
     if (countries != null) {
@@ -74,7 +82,9 @@ function registerInit(data) {
     }
 }
 
-//do register
+/*
+ * do register
+ */
 app.doRegister = function () {
     var url = `fname=` + this.fname
             + `&lname=` + this.lname
@@ -95,7 +105,7 @@ app.doRegister = function () {
     });
 };
 
-
-
-//initialize app
+/*
+ * initialize app
+ */
 app.init.call();
