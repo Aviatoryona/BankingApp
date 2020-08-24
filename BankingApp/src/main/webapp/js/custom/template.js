@@ -17,7 +17,6 @@
  */
 
 
-
 /*
  *
  */
@@ -41,7 +40,6 @@ app.processTemplate = function () {
             $('.container').html(data);
         }
     });
-
 };
 
 
