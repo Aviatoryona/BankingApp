@@ -114,6 +114,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                     app.loadData.call({
                         dataUrl: "register",
                         method: 'get',
+                        isJson: true,
                         params: null,
                         callBack: function (data) {
                             registerInit(data);
