@@ -25,15 +25,25 @@ var pages = {
 };
 
 app.processTemplate = function () {
-    var page = pages[this.index];
 
+    var page = pages[this.index];
     app.loadData.call({
         dataUrl: page,
         method: 'get',
         params: null,
         callBack: function (data) {
-            registerInit(data);
+            $('.container').html(data);
         }
     });
 
+
 };
+
+
+/*
+ *
+ *
+ */
+app.processTemplate.call({
+    index: 0
+});
