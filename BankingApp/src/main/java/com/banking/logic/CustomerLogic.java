@@ -21,9 +21,13 @@ import com.banking.App;
 import com.banking.db.DbConnection;
 import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
+import com.banking.models.TransactionModel;
+import com.banking.models.TransactionType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +58,7 @@ public class CustomerLogic implements CustomerLogicI {
             String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
                     + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
                     + " `ct_accesscode`) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,md5(?))";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = dbConnection.getPreparedStatement(sql);
             ps.setString(1, customerModel.getCt_fname());
@@ -106,9 +110,40 @@ public class CustomerLogic implements CustomerLogicI {
     @Override
     public MessageModel checkEmail(String email) {
         try {
+            String accessCode = App.getAccessCode("");
+
             String sql = "SELECT * FROM customers WHERE ct_email=?";
             PreparedStatement ps = dbConnection.getPreparedStatement(sql);
             ps.setString(1, email);
+            ResultSet rs = dbConnection.executeQuery(ps);
+            if (rs.next()) {
+                CustomerModel cm = getCustomer(rs);
+                sql = "UPDATE customers SET ct_accesscode=? WHERE ct_email=?";
+                ps = dbConnection.getPreparedStatement(sql);
+                ps.setString(1, accessCode);
+                ps.setString(2, email);
+                if (dbConnection.execute(ps)) {
+                    //send code to email here
+                    if (cm != null) {
+                        cm.setCt_accesscode(accessCode);
+                    }
+                }
+                return new MessageModel(true, rs.getString("ct_fname"), cm);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return new MessageModel(false, "Failed");
+    }
+
+    @Override
+    public MessageModel checkPassword(String email, String pwd) {
+        try {
+            String sql = "SELECT * FROM customers WHERE ct_email=? && ct_accesscode=?";
+            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, pwd);
             ResultSet rs = dbConnection.executeQuery(ps);
             if (rs.next()) {
                 CustomerModel cm = getCustomer(rs);
@@ -119,6 +154,57 @@ public class CustomerLogic implements CustomerLogicI {
         }
 
         return new MessageModel(false, "Failed");
+    }
+
+    @Override
+    public double getTotalDeposits(CustomerModel cm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TransactionModel> getDeposits(CustomerModel cm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TransactionModel> getWithdrawals(CustomerModel cm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<TransactionModel> getAllTransactions(CustomerModel cm, TransactionType transactionType) {
+        try {
+            String sql = transactionType != null
+                    ? "SELECT * FROM transactions WHERE (tr_accountnumber=?) AND (tr_type=?) ORDER BY tr_id DESC LIMIT 300"
+                    : "SELECT * FROM transactions WHERE (tr_accountnumber=?) ORDER BY tr_id DESC LIMIT 300 ";
+
+            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
+            ps.setString(1, cm.getCt_accountnumber());
+            if (transactionType != null) {
+                ps.setString(2, transactionType.getTp_type());
+            }
+
+            ResultSet rs = dbConnection.executeQuery(ps);
+            return TranasctionLogic.getInstance(dbConnection).getTransactionModels(rs);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public MessageModel deposit(CustomerModel cm, double amount) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public MessageModel withdraw(CustomerModel cm, double amount) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public MessageModel checkBalance(CustomerModel cm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

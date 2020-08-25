@@ -17,10 +17,8 @@
  */
 package com.banking.logic;
 
-import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.banking.models.TransactionModel;
-import com.banking.models.TransactionType;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -28,27 +26,14 @@ import java.util.List;
  *
  * @author Aviator
  */
-public interface CustomerLogicI {
+public interface TranasctionLogicI {
 
-    boolean createCustomer(CustomerModel customerModel);
+    MessageModel createTransaction(TransactionModel model);
 
-    CustomerModel getCustomer(ResultSet rs);
+    List<TransactionModel> getTransactionModels(ResultSet rs);
 
-    MessageModel checkEmail(String email);
+    List<TransactionModel> getTransactionModels(String sql);
 
-    MessageModel checkPassword(String email, String pwd);
+    List<TransactionModel> getTransactionModels();
 
-    double getTotalDeposits(CustomerModel cm);
-
-    List<TransactionModel> getDeposits(CustomerModel cm);
-
-    List<TransactionModel> getWithdrawals(CustomerModel cm);
-
-    List<TransactionModel> getAllTransactions(CustomerModel cm, TransactionType transactionType);
-
-    MessageModel deposit(CustomerModel cm, double amount);
-
-    MessageModel withdraw(CustomerModel cm, double amount);
-
-    MessageModel checkBalance(CustomerModel cm);
 }

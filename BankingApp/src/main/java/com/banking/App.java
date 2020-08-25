@@ -18,12 +18,8 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
-import com.banking.logic.CustomerLogic;
 import com.banking.models.AccountTypes;
 import com.banking.models.CountryModel;
-import com.banking.models.CustomerModel;
-import com.banking.models.MessageModel;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
