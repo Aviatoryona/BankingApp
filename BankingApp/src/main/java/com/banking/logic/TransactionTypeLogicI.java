@@ -17,30 +17,13 @@
  */
 package com.banking.logic;
 
-import com.banking.models.MessageModel;
-import com.banking.models.TransactionModel;
-import java.sql.ResultSet;
-import java.util.List;
+import com.banking.models.TransactionType;
 
 /**
  *
  * @author Aviator
  */
-public interface TranasctionLogicI {
+public interface TransactionTypeLogicI {
 
-    /*
-    Executes and returns transaction result
-     */
-    MessageModel executeTransaction(TransactionModel model);
-
-    /*
-    Inserts a new record to db
-     */
-    MessageModel createTransaction(TransactionModel model);
-
-    List<TransactionModel> getTransactionModels(ResultSet rs);
-
-    List<TransactionModel> getTransactionModels(String sql);
-
-    List<TransactionModel> getTransactionModels();
+    TransactionType getTransactionType(String type);
 }

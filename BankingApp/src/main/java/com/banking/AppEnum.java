@@ -22,6 +22,9 @@ package com.banking;
  * @author Aviator
  */
 public enum AppEnum {
+    WITHDRAW("withdraw"),
+    DEPOSIT("deposit"),
+    BALANCE("balance"),
     LOGGED_IN_USER("user");
 
     private final String name;

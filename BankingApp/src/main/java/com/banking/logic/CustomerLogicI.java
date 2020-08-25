@@ -32,6 +32,8 @@ public interface CustomerLogicI {
 
     boolean createCustomer(CustomerModel customerModel);
 
+    CustomerModel getCustomer(String email);
+
     CustomerModel getCustomer(ResultSet rs);
 
     MessageModel checkEmail(String email);
@@ -39,6 +41,10 @@ public interface CustomerLogicI {
     MessageModel checkPassword(String email, String pwd);
 
     double getTotalDeposits(CustomerModel cm);
+
+    double getTotalWithdrawals(CustomerModel cm);
+
+    double getBalance(CustomerModel cm);
 
     List<TransactionModel> getDeposits(CustomerModel cm);
 

@@ -51,6 +51,11 @@ public class TranasctionLogic implements TranasctionLogicI {
     }
 
     @Override
+    public MessageModel executeTransaction(TransactionModel model) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public MessageModel createTransaction(TransactionModel model) {
         try {
             String sql = "INSERT INTO " + tbName + " (tr_accountnumber,tr_type,tr_amount,tr_charge) VALUES(?,?,?,?)";
@@ -105,5 +110,4 @@ public class TranasctionLogic implements TranasctionLogicI {
         }
         return null;
     }
-
 }
