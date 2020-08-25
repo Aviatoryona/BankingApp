@@ -17,8 +17,14 @@
  */
 package com.banking;
 
+import com.banking.db.DbConnection;
+import com.banking.logic.DashboardLogic;
+import com.banking.models.CustomerModel;
+import com.banking.models.MessageModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,11 +38,32 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Dashboard", urlPatterns = {"/dashboard"})
 public class Dashboard extends HttpServlet {
 
+    ServletContext ctx;
+    DbConnection dbConnection;
+    CustomerModel customerModel;
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+        ctx = getServletContext();
+        dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         if (request.getParameterMap().containsKey("q")) {
-            return;
+            String q = request.getParameter("q");
+            switch (q) {
+                case "0":
+                    if (customerModel != null) {
+                        MessageModel messageModel = DashboardLogic.getInstance(dbConnection).processIndex0(customerModel);
+                        out.print(new ObjectMapper().writeValueAsString(messageModel));
+                        return;
+                    }
+                default:
+            }
         }
         response.sendRedirect("dashboard.jsp");
     }
