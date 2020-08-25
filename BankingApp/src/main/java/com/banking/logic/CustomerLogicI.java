@@ -57,4 +57,6 @@ public interface CustomerLogicI {
     MessageModel withdraw(CustomerModel cm, double amount);
 
     MessageModel checkBalance(CustomerModel cm);
+
+    MessageModel updateAccountBal(double newBal, CustomerModel cm);
 }
