@@ -21,8 +21,13 @@ import com.banking.AppEnum;
 import com.banking.db.DbConnection;
 import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,5 +57,25 @@ public class DashboardLogic implements DashboardLogicI {
         map.put(AppEnum.WITHDRAW.getName(), CustomerLogic.getInstance(dbConnection).getTotalWithdrawals(cm));
         map.put(AppEnum.TRANSACTIONS.getName(), CustomerLogic.getInstance(dbConnection).getAllTransactions(cm, null));
         return new MessageModel(true, "", map);
+    }
+
+    /*
+    Test class
+     */
+    public static void main(String[] args) {
+        try {
+            DbConnection dbConnection1 = DbConnection.getInstance();
+            CustomerModel cm = CustomerLogic.getInstance(dbConnection1).getCustomer("av@gmail.com");
+            MessageModel messageModel = DashboardLogic.getInstance(dbConnection1).processIndex0(cm);
+            System.out.println(
+                    new ObjectMapper().writeValueAsString(messageModel)
+            );
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
