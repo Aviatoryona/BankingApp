@@ -38,6 +38,7 @@
     <head>
         <%@include file="includes/styles.jsp" %>
     </head>
+
     <body class="top-navigation">
         <div id="wrapper">
             <div id="page-wrapper" class="gray-bg">
@@ -53,4 +54,5 @@
         <script type="text/javascript" src="js/custom/app.js"></script>
         <script type="text/javascript" src="js/custom/template.js"></script>
     </body>
+
 </html>
