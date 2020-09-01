@@ -70,11 +70,7 @@ public class DashboardLogic implements DashboardLogicI {
             System.out.println(
                     new ObjectMapper().writeValueAsString(messageModel)
             );
-        } catch (SQLException ex) {
-            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JsonProcessingException ex) {
+        } catch (SQLException | ClassNotFoundException | JsonProcessingException ex) {
             Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
