@@ -7,6 +7,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%!CustomerModel cm = null;%>
 
 <%Enumeration<String> vals = session.getAttributeNames();
@@ -32,6 +33,7 @@
         return;
     }
 %>
+
 
 <!DOCTYPE html>
 <html>
