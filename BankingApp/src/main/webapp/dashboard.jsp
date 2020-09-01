@@ -8,8 +8,8 @@
 <%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!CustomerModel cm = null;%>
-<%
-    Enumeration<String> vals = session.getAttributeNames();
+
+<%Enumeration<String> vals = session.getAttributeNames();
 
 //    Cookie[] cookies = request.getCookies();
 //    for (int i = 0; i < cookies.length; i++) {
@@ -32,6 +32,7 @@
         return;
     }
 %>
+
 <!DOCTYPE html>
 <html>
     <head>
