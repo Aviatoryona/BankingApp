@@ -17,7 +17,6 @@
     DbConnection dbConnection = (DbConnection) getServletContext().getAttribute("dbConnection");
     CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 //    TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.WITHDRAW.getName());
-
 %>
 <!DOCTYPE html>
 <div class="row">
