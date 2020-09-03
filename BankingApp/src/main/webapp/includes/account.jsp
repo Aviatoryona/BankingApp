@@ -16,7 +16,11 @@
     CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 %>
 <div class="row m-b-lg m-t-lg">
-    <div class="col-md-3"></div>
+    <div class="col-md-3">
+        <button class="btn btn-info btn-circle" type="button" onclick="getTemplate(0)">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+    </div>
     <div class="col-md-6">
         <div class="profile-image">
             <img src="img/05.png" class="rounded-circle circle-border m-b-md" alt="profile">

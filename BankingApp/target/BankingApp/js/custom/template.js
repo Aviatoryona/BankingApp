@@ -22,7 +22,11 @@
  */
 var pages = {
     0: "includes/home_dashboard.jsp",
-    1: ""
+    1: "includes/account.jsp",
+    2: "includes/balance.jsp",
+    3: "includes/transactions.jsp",
+    4: "includes/deposit.jsp",
+    5: "includes/withdraw.jsp"
 };
 
 /*
@@ -40,9 +44,6 @@ app.processTemplate = function () {
         callBack: function (data) {
 //            console.log(data);
             $('.container').html(data);
-            app.processIndex.call({
-                index: index0
-            });
         }
     });
 };
@@ -50,5 +51,12 @@ app.processTemplate = function () {
 /*
  *
  *
+ */
+function getTemplate(tmp_index) {
+    app.processTemplate.call({index: tmp_index});
+}
+
+/*
+ * Default home
  */
 app.processTemplate.call({index: 0});

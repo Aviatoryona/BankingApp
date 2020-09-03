@@ -17,9 +17,8 @@
  */
 
 app.processIndex = function () {
-    var index0 = this.index;
     app.loadData.call({
-        dataUrl: "dashboard?q=" + index0,
+        dataUrl: "dashboard?q=0",
         method: 'GET',
         isJson: true,
         params: null,

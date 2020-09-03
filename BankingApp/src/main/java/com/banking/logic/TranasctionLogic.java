@@ -18,6 +18,7 @@
 package com.banking.logic;
 
 import com.banking.db.DbConnection;
+import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.banking.models.TransactionModel;
 import java.sql.PreparedStatement;
@@ -92,6 +93,11 @@ public class TranasctionLogic implements TranasctionLogicI {
             Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+
+    @Override
+    public List<TransactionModel> getTransactionModels(CustomerModel cm) {
+        return getTransactionModels("SELECT * FROM " + tbName + " WHERE tr_accountnumber='" + cm.getCt_accountnumber() + "' ORDER BY tr_id DESC LIMIT 1000;");
     }
 
     @Override

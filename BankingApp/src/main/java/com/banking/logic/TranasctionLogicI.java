@@ -17,6 +17,7 @@
  */
 package com.banking.logic;
 
+import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.banking.models.TransactionModel;
 import java.sql.ResultSet;
@@ -43,4 +44,6 @@ public interface TranasctionLogicI {
     List<TransactionModel> getTransactionModels(String sql);
 
     List<TransactionModel> getTransactionModels();
+
+    List<TransactionModel> getTransactionModels(CustomerModel cm);
 }

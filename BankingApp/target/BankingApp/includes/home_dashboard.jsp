@@ -74,10 +74,11 @@
             </div>
             <div class="ibox-content no-padding">
                 <ul>
-                    <li><a href="">Withdraw</a></li>
-                    <li><a href="">Deposit</a></li>
-                    <li><a href="">Balance</a></li>
-                    <li><a href="javascript:void(0)" onclick="">My Account</a></li>
+                    <li><a href="javascript:void(0)" onclick="getTemplate(5)">Withdraw</a></li>
+                    <li><a href="javascript:void(0)" onclick="getTemplate(4)">Deposit</a></li>
+                    <li><a href="javascript:void(0)" onclick="getTemplate(2)">Balance</a></li>
+                    <li><a href="javascript:void(0)" onclick="getTemplate(3)">Transactions</a></li>
+                    <li><a href="javascript:void(0)" onclick="getTemplate(1)">My Account</a></li>
                 </ul>
             </div>
         </div>
