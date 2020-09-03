@@ -81,7 +81,7 @@ function buildRequestFormField(field) {
  * @returns {String}
  */
 function otherFormUtils() {
-    return `<a href="#">
+    return `<div id="mimsg"></div><a href="#">
                                 <small>Forgot password?</small>
                             </a>
 
@@ -106,6 +106,12 @@ function checkEmail(email) {
                 document.getElementById("formData").innerHTML =
                         `<small style="color:red;">Password has been sent to your email</small>` +
                         buildRequestFormField("pwd");
+            } else {
+                document.getElementById("mimsg").innerHTML =
+                        `<small style="color:red;">${data.message}</small>`;
+                setTimeout(function () {
+                    document.getElementById("mimsg").innerHTML = '';
+                }, 5000);
             }
         }
     });

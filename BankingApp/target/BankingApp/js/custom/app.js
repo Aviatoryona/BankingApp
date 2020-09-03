@@ -73,7 +73,7 @@ app.loadTemplate = function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
 //            console.log(jqXHR);
-            this.callBack("Error encountered");
+            me.callBack("Error encountered");
         }
     });
 };

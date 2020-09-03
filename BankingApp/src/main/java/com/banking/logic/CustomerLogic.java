@@ -179,7 +179,7 @@ public class CustomerLogic implements CustomerLogicI {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return new MessageModel(false, "Failed");
+        return new MessageModel(false, "Account not registered");
     }
 
     @Override

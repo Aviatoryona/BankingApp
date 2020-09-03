@@ -18,12 +18,15 @@
 package com.banking;
 
 import com.banking.db.DbConnection;
+import com.banking.logic.CustomerLogic;
 import com.banking.logic.DashboardLogic;
 import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,7 +75,7 @@ public class Dashboard extends HttpServlet {
                     return;
             }
         }
-    
+
         response.sendRedirect("dashboard.jsp");
     }
 
@@ -87,7 +90,20 @@ public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String action = request.getParameter("action");
+        if (action != null) {
+            switch (action) {
+                case "w":
+                    doWithdraw(request, response);
+                    return;
+                case "d":
+                    doDeposit(request, response);
+                    return;
+            }
+        }
+        response.getWriter().print(new ObjectMapper().writeValueAsString(
+                new MessageModel(false, "", request.getParameterMap())
+        ));
     }
 
     /**
@@ -99,5 +115,35 @@ public class Dashboard extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void doWithdraw(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String amt = request.getParameter("amount");
+        if (amt != null) {
+            double amount = Double.parseDouble(amt);
+            response.getWriter().print(new ObjectMapper().writeValueAsString(
+                    CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount)
+            ));
+            return;
+        }
+        response.getWriter().print(new ObjectMapper().writeValueAsString(
+                new MessageModel(false, "", request.getParameterMap())
+        ));
+
+    }
+
+    private void doDeposit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String amt = request.getParameter("amount");
+        if (amt != null) {
+            double amount = Double.parseDouble(amt);
+            response.getWriter().print(new ObjectMapper().writeValueAsString(
+                    CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount)
+            ));
+            return;
+        }
+        response.getWriter().print(new ObjectMapper().writeValueAsString(
+                new MessageModel(false, "", request.getParameterMap())
+        ));
+    }
 
 }
