@@ -28,3 +28,6 @@
 <script src="js/plugins/peity/jquery.peity.min.js"></script>
 <!-- Peity demo -->
 <script src="js/demo/peity-demo.js"></script>
+
+<!-- Sweet alert -->
+<script src="js/plugins/sweetalert/sweetalert.min.js"></script>

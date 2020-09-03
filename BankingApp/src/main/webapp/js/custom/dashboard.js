@@ -61,22 +61,26 @@ function doWithdraw() {
         isJson: true,
         params: "q=w&amt=" + amntTxt,
         callBack: function (data) {
-//            console.log(data);
-            alert(data.message);
             if (data.success) {
-//                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
+                swal({
+                    title: "Transaction Successful",
+                    text: data.message,
+                    type: "success"
+                });
                 setTimeout(function () {
                     getTemplate(0); //display balance after a successful transaction
                 }, 5000);
             } else {
-//                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
-//                setTimeout(function () {
-//                    $('.mismsg').html(``);
-//                }, 5000);
+                swal({
+                    title: "Transaction Failed",
+                    text: data.message,
+                    type: "error"
+                });
             }
 
         }
-    });
+    }
+    );
 }
 
 /*
@@ -96,18 +100,21 @@ function doDeposit() {
         params: "q=d&amt=" + amntTxt,
         callBack: function (data) {
 //            console.log(data);
-            alert(data.message);
             if (data.success) {
-//                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
+                swal({
+                    title: "Transaction Successful",
+                    text: data.message,
+                    type: "success"
+                });
                 setTimeout(function () {
                     getTemplate(0); //display balance after a successful transaction
                 }, 5000);
             } else {
-//                alert(data.message);
-//                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
-//                setTimeout(function () {
-//                    $('.mismsg').html(``);
-//                }, 5000);
+                swal({
+                    title: "Transaction Failed",
+                    text: data.message,
+                    type: "error"
+                });
             }
 
         }

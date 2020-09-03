@@ -102,6 +102,11 @@ function checkEmail(email) {
         params: `action=checkmail&email=` + email,
         callBack: function (data) {
             //alert(data.message);
+//            swal({
+//                title: "Transaction Failed",
+//                text: data.message,
+//                type: "error"
+//            });
             if (data.success) {
                 document.getElementById("formData").innerHTML =
                         `<small style="color:red;">Password has been sent to your email</small>` +

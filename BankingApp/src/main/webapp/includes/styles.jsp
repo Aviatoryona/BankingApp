@@ -12,5 +12,9 @@
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<!-- Sweet Alert -->
+<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">

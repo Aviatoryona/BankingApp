@@ -116,14 +116,15 @@ public class Dashboard extends HttpServlet {
     }// </editor-fold>
 
     private void doWithdraw(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/json;charset=UTF-8");
 
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm=CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount);
-            if(mm.isSuccess()){
-                Map<String, Object> map=(Map<String, Object>) mm.getObject();
-                CustomerModel cm=(CustomerModel) map.get("account");
+            MessageModel mm = CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount);
+            if (mm.isSuccess()) {
+                Map<String, Object> map = (Map<String, Object>) mm.getObject();
+                CustomerModel cm = (CustomerModel) map.get("account");
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
@@ -138,13 +139,15 @@ public class Dashboard extends HttpServlet {
     }
 
     private void doDeposit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/json;charset=UTF-8");
+
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm=CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount);
-            if(mm.isSuccess()){
-                Map<String, Object> map=(Map<String, Object>) mm.getObject();
-                CustomerModel cm=(CustomerModel) map.get("account");
+            MessageModel mm = CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount);
+            if (mm.isSuccess()) {
+                Map<String, Object> map = (Map<String, Object>) mm.getObject();
+                CustomerModel cm = (CustomerModel) map.get("account");
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(

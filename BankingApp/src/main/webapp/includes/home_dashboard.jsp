@@ -25,29 +25,29 @@
     List<TransactionModel> models = (List<TransactionModel>) map.get(AppEnum.TRANSACTIONS.getName());
 %>
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Deposits</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins"><%= map.get(AppEnum.DEPOSIT.getName())%></h1>
-                <small>Total deposits</small>
+                <small>Total deposits(Kes)</small>
             </div>
         </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Withdrawals</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins"><%= map.get(AppEnum.WITHDRAW.getName())%></h1>
-                <small>Total withdrawals</small>
+                <small>Total withdrawals(Kes)</small>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Balance</h5>
@@ -55,14 +55,14 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins">KES <%= cm.getCt_accbalance()%></h1>
-                        <small>Acc. Balance</small>
+                        <h1 class="no-margins"><%= cm.getCt_accbalance()%></h1>
+                        <small>Acc. Balance(Kes)</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Account</h5>
