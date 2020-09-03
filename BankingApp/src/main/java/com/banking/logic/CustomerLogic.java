@@ -273,7 +273,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel deposit(CustomerModel cm, double amount) {
-        if (Math.abs(amount) > 300000) {
+        if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
         CustomerModel cm1 = getCustomer(cm.getCt_email());
@@ -292,8 +292,8 @@ public class CustomerLogic implements CustomerLogicI {
                 transactionModel.setTr_type(transactionType.getTp_type());
                 MessageModel messageModel1 = TranasctionLogic.getInstance(dbConnection).createTransaction(transactionModel);
                 Map<String, Object> map = new HashMap<>();
-                map.put("account", messageModel);
-                map.put("transaction", messageModel1);
+                map.put("account", messageModel.getObject());
+                map.put("transaction", messageModel1.getObject());
                 return new MessageModel(true, "Successfully deposited " + amount, map);
             }
             return new MessageModel(false, "Failed to complete transaction");
@@ -303,7 +303,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel withdraw(CustomerModel cm, double amount) {
-        if (Math.abs(amount) > 300000) {
+        if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
         CustomerModel cm1 = getCustomer(cm.getCt_email());
@@ -326,8 +326,8 @@ public class CustomerLogic implements CustomerLogicI {
                 transactionModel.setTr_type(transactionType.getTp_type());
                 MessageModel messageModel1 = TranasctionLogic.getInstance(dbConnection).createTransaction(transactionModel);
                 Map<String, Object> map = new HashMap<>();
-                map.put("account", messageModel);
-                map.put("transaction", messageModel1);
+                map.put("account", messageModel.getObject());
+                map.put("transaction", messageModel1.getObject());
                 return new MessageModel(true, "Successfully withdrawn " + amount, map);
             }
             return new MessageModel(false, "Failed to complete transaction");

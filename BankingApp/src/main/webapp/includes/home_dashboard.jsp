@@ -42,7 +42,7 @@
                 <h5>Withdrawals</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins"><%= map.get(AppEnum.DEPOSIT.getName())%></h1>
+                <h1 class="no-margins"><%= map.get(AppEnum.WITHDRAW.getName())%></h1>
                 <small>Total withdrawals</small>
             </div>
         </div>
@@ -126,7 +126,7 @@
                                 <td><%= model.getTr_type()%></td>
                                 <td><%= model.getTr_amount()%></td>
                                 <td><%= model.getTr_charge()%></td>
-                                <td><%=new SimpleDateFormat("MMM dd, YYYY").format(DateFormat.getDateInstance().parse(model.getTr_date()))%></td>
+                                <td><%=model.getTr_date()%></td>
                                 <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                             </tr>
                             <%

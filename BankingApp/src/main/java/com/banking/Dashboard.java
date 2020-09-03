@@ -25,6 +25,7 @@ import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -119,8 +120,14 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
+            MessageModel mm=CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount);
+            if(mm.isSuccess()){
+                Map<String, Object> map=(Map<String, Object>) mm.getObject();
+                CustomerModel cm=(CustomerModel) map.get("account");
+                request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
+            }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
-                    CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount)
+                    mm
             ));
             return;
         }
@@ -134,8 +141,14 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
+            MessageModel mm=CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount);
+            if(mm.isSuccess()){
+                Map<String, Object> map=(Map<String, Object>) mm.getObject();
+                CustomerModel cm=(CustomerModel) map.get("account");
+                request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
+            }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
-                    CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount)
+                    mm
             ));
             return;
         }

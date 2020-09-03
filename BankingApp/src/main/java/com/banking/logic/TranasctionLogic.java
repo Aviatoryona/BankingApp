@@ -66,7 +66,7 @@ public class TranasctionLogic implements TranasctionLogicI {
             ps.setDouble(3, model.getTr_amount());
             ps.setDouble(4, model.getTr_charge());
             if (dbConnection.execute(ps)) {
-                return new MessageModel(true, "Done");
+                return new MessageModel(true, "Done",model);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,7 +85,7 @@ public class TranasctionLogic implements TranasctionLogicI {
                 model.setTr_type(rs.getString("tr_type"));
                 model.setTr_amount(rs.getDouble("tr_amount"));
                 model.setTr_charge(rs.getDouble("tr_charge"));
-                model.setTr_date(rs.getString("tr_accountnumber"));
+                model.setTr_date(rs.getString("tr_date"));
 
                 list.add(model);
             }
