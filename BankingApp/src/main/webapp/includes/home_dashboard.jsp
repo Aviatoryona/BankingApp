@@ -77,7 +77,7 @@
                     <li><a href="">Withdraw</a></li>
                     <li><a href="">Deposit</a></li>
                     <li><a href="">Balance</a></li>
-                    <li><a href="">Settings</a></li>
+                    <li><a href="javascript:void(0)" onclick="">My Account</a></li>
                 </ul>
             </div>
         </div>
