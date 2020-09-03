@@ -55,10 +55,45 @@ function doWithdraw() {
         return;
     }
 
+    $.post("dashboard",
+            {
+                "q": "w",
+                "amt": amntTxt
+            },
+            function (data, status) {
+                if (data.success) {
+                    swal({
+                        title: "Transaction Successful",
+                        text: data.message,
+                        type: "success"
+                    });
+                    setTimeout(function () {
+                        getTemplate(2); //display balance after a successful transaction
+                    }, 5000);
+                } else {
+                    swal({
+                        title: "Transaction Failed",
+                        text: data.message,
+                        type: "error"
+                    });
+                }
+            });
+}
+
+/*
+ *
+ */
+function doWithdraw_1() {
+    var amntTxt = document.getElementById('amntTxt').value;
+    if (amntTxt == '') {
+        $('#amntTxt').css('border', '1px solid red');
+        return;
+    }
+
     app.loadData.call({
         dataUrl: "dashboard",
         method: 'POST',
-        isJson: true,
+        isJson: false,
         params: "q=w&amt=" + amntTxt,
         callBack: function (data) {
             if (data.success) {
@@ -93,6 +128,42 @@ function doDeposit() {
         return;
     }
 
+    $.post("dashboard",
+            {
+                "q": "d",
+                "amt": amntTxt
+            },
+            function (data, status) {
+//                var data = JSON.parse(data1);
+//            console.log(data);
+                if (data.success) {
+                    swal({
+                        title: "Transaction Successful",
+                        text: data.message,
+                        type: "success"
+                    });
+                    setTimeout(function () {
+                        getTemplate(2); //display balance after a successful transaction
+                    }, 5000);
+                } else {
+                    swal({
+                        title: "Transaction Failed",
+                        text: data.message,
+                        type: "error"
+                    });
+                }
+
+            });
+}
+/*
+ *
+ */
+function doDeposit1() {
+    var amntTxt = document.getElementById('amntTxt').value;
+    if (amntTxt == '') {
+        $('#amntTxt').css('border', '1px solid red');
+        return;
+    }
     app.loadData.call({
         dataUrl: "dashboard",
         method: 'POST',

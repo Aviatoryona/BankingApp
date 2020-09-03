@@ -128,7 +128,7 @@ public class Dashboard extends HttpServlet {
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
-                    mm
+                    new MessageModel(mm.isSuccess(), mm.getMessage(), "")
             ));
             return;
         }
@@ -151,7 +151,7 @@ public class Dashboard extends HttpServlet {
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
-                    mm
+                    new MessageModel(mm.isSuccess(), mm.getMessage(), "")
             ));
             return;
         }
