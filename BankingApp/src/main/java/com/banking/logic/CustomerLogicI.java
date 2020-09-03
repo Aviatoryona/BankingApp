@@ -17,6 +17,7 @@
  */
 package com.banking.logic;
 
+import com.banking.db.DbConnection;
 import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.banking.models.TransactionModel;
@@ -31,6 +32,8 @@ import java.util.List;
 public interface CustomerLogicI {
 
     boolean createCustomer(CustomerModel customerModel);
+
+    boolean createCustomer(DbConnection dbConnection, CustomerModel customerModel);
 
     CustomerModel getCustomer(String email);
 

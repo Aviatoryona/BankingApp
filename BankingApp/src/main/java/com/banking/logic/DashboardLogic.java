@@ -52,7 +52,7 @@ public class DashboardLogic implements DashboardLogicI {
     }
 
     @Override
-    public MessageModel processIndex0(CustomerModel cm) {
+    public MessageModel processIndexHome(CustomerModel cm) {
         Map<String, Object> map = new HashMap<>();
         map.put(AppEnum.DEPOSIT.getName(), CustomerLogic.getInstance(dbConnection).getTotalDeposits(cm));
         map.put(AppEnum.WITHDRAW.getName(), CustomerLogic.getInstance(dbConnection).getTotalWithdrawals(cm));
@@ -67,7 +67,7 @@ public class DashboardLogic implements DashboardLogicI {
         try {
             DbConnection dbConnection1 = DbConnection.getInstance();
             CustomerModel cm = CustomerLogic.getInstance(dbConnection1).getCustomer("av@gmail.com");
-            MessageModel messageModel = DashboardLogic.getInstance(dbConnection1).processIndex0(cm);
+            MessageModel messageModel = DashboardLogic.getInstance(dbConnection1).processIndexHome(cm);
             System.out.println(
                     new ObjectMapper().writeValueAsString(messageModel)
             );

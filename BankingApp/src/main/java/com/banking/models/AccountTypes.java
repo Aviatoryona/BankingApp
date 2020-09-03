@@ -25,10 +25,23 @@ public class AccountTypes {
 
     private int accid;
     private String acctype;
+    private double accminbal;
+    private double accmaxbal;
+    private String accdescription;
+    private String accdate;
 
     public AccountTypes(int accid, String acctype) {
         this.accid = accid;
         this.acctype = acctype;
+    }
+
+    public AccountTypes(int accid, String acctype, double accminbal, double accmaxbal, String accdescription, String accdate) {
+        this.accid = accid;
+        this.acctype = acctype;
+        this.accminbal = accminbal;
+        this.accmaxbal = accmaxbal;
+        this.accdescription = accdescription;
+        this.accdate = accdate;
     }
 
     /**
@@ -57,6 +70,62 @@ public class AccountTypes {
      */
     public void setAcctype(String acctype) {
         this.acctype = acctype;
+    }
+
+    /**
+     * @return the accminbal
+     */
+    public double getAccminbal() {
+        return accminbal;
+    }
+
+    /**
+     * @param accminbal the accminbal to set
+     */
+    public void setAccminbal(double accminbal) {
+        this.accminbal = accminbal;
+    }
+
+    /**
+     * @return the accmaxbal
+     */
+    public double getAccmaxbal() {
+        return accmaxbal;
+    }
+
+    /**
+     * @param accmaxbal the accmaxbal to set
+     */
+    public void setAccmaxbal(double accmaxbal) {
+        this.accmaxbal = accmaxbal;
+    }
+
+    /**
+     * @return the accdescription
+     */
+    public String getAccdescription() {
+        return accdescription;
+    }
+
+    /**
+     * @param accdescription the accdescription to set
+     */
+    public void setAccdescription(String accdescription) {
+        this.accdescription = accdescription;
+    }
+
+    /**
+     * @return the accdate
+     */
+    public String getAccdate() {
+        return accdate;
+    }
+
+    /**
+     * @param accdate the accdate to set
+     */
+    public void setAccdate(String accdate) {
+        this.accdate = accdate;
     }
 
 }

@@ -26,5 +26,5 @@ import com.banking.models.MessageModel;
  */
 public interface DashboardLogicI {
 
-    MessageModel processIndex0(CustomerModel cm);
+    MessageModel processIndexHome(CustomerModel cm);
 }

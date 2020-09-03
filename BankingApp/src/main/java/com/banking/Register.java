@@ -23,15 +23,17 @@ import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  *
@@ -50,15 +52,6 @@ public class Register extends HttpServlet {
         dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,37 +62,42 @@ public class Register extends HttpServlet {
         response.getWriter().write(objectMapper.writeValueAsString(map));
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CustomerModel cm = new CustomerModel();
-        cm.setCt_fname(request.getParameter("fname"));
-        cm.setCt_lname(request.getParameter("lname"));
-        cm.setCt_email(request.getParameter("email"));
-        cm.setCt_phone(request.getParameter("phone"));
-        cm.setCt_country(request.getParameter("country"));
-        cm.setCt_city(request.getParameter("city"));
-        cm.setCt_address(request.getParameter("address"));
-        cm.setCt_gender(request.getParameter("gender"));
-        cm.setCt_accounttype(request.getParameter("acctype"));
+        try {
+            CustomerModel cm = new CustomerModel();
+//        cm.setCt_fname(request.getParameter("fname"));
+//        cm.setCt_lname(request.getParameter("lname"));
+//        cm.setCt_email(request.getParameter("email"));
+//        cm.setCt_phone(request.getParameter("phone"));
+//        cm.setCt_country(request.getParameter("country"));
+//        cm.setCt_city(request.getParameter("city"));
+//        cm.setCt_address(request.getParameter("address"));
+//        cm.setCt_gender(request.getParameter("gender"));
+//        cm.setCt_accounttype(request.getParameter("acctype"));
 
-        ObjectMapper mapper = new ObjectMapper();
+            BeanUtils.populate(cm, request.getParameterMap());
+
+            ObjectMapper mapper = new ObjectMapper();
+            response.getWriter().write(
+                    CustomerLogic.getInstance(dbConnection).createCustomer(cm)
+                    ? mapper.writeValueAsString(
+                            new MessageModel(true, "Registration sucessfull")
+                    )
+                    : mapper.writeValueAsString(
+                            new MessageModel(false, "Failed, please try again")
+                    )
+            );
+            return;
+        } catch (IllegalAccessException | InvocationTargetException ex) {
+            Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+        }
         response.getWriter().write(
-                CustomerLogic.getInstance(dbConnection).createCustomer(cm)
-                ? mapper.writeValueAsString(
-                        new MessageModel(true, "Registration sucessfull")
-                )
-                : mapper.writeValueAsString(
-                        new MessageModel(false, "Failed, please try again")
-                )
+                new ObjectMapper()
+                        .writeValueAsString(
+                                new MessageModel(false, "Failed, please try again")
+                        )
         );
     }
 

@@ -52,17 +52,24 @@ public class Dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        customerModel = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+        if (customerModel == null) {
+            response.sendRedirect("auth");
+            return;
+        }
         PrintWriter out = response.getWriter();
-        if (request.getParameterMap().containsKey("q")) {
-            String q = request.getParameter("q");
+        String q = request.getParameter("q");
+        if (q != null) {
             switch (q) {
                 case "0":
-                    if (customerModel != null) {
-                        MessageModel messageModel = DashboardLogic.getInstance(dbConnection).processIndex0(customerModel);
-                        out.print(new ObjectMapper().writeValueAsString(messageModel));
-                        return;
-                    }
+                    MessageModel messageModel = DashboardLogic.getInstance(dbConnection).processIndexHome(customerModel);
+                    out.print(new ObjectMapper().writeValueAsString(messageModel));
+                    return;
                 default:
+                    out.print(new ObjectMapper().writeValueAsString(
+                            new MessageModel(false, "", request.getParameterMap())
+                    ));
+                    return;
             }
         }
         response.sendRedirect("dashboard.jsp");

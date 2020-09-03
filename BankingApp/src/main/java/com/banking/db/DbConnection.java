@@ -15,6 +15,14 @@ public class DbConnection implements DbConnectionI {
         this.connection = getConnection();
     }
 
+    /**
+     *
+     * @param connection an SQL connection object from datasource
+     */
+    public DbConnection(Connection connection) {
+        this.connection = connection;
+    }
+
     private DbConnection(String username, String password, String url) throws SQLException, ClassNotFoundException {
         this.username = username;
         this.password = password;
@@ -28,6 +36,13 @@ public class DbConnection implements DbConnectionI {
 
     public static DbConnection getInstance() throws SQLException, ClassNotFoundException {
         return new DbConnection();
+    }
+
+    /*
+       @param connection1: a datasource
+     */
+    public static DbConnection getInstance(Connection connection1) throws SQLException, ClassNotFoundException {
+        return new DbConnection(connection1);
     }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {

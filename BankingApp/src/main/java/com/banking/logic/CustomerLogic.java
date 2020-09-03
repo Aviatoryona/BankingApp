@@ -39,8 +39,11 @@ import java.util.logging.Logger;
  */
 public class CustomerLogic implements CustomerLogicI {
 
-    private final DbConnection dbConnection;
+    private DbConnection dbConnection;
     private final String tbName = "customers";
+
+    public CustomerLogic() {
+    }
 
     private CustomerLogic(DbConnection dbConnection) {
         this.dbConnection = dbConnection;
@@ -57,13 +60,18 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public boolean createCustomer(CustomerModel customerModel) {
+        return createCustomer(dbConnection, customerModel);
+    }
+
+    @Override
+    public boolean createCustomer(DbConnection dbConnection1, CustomerModel customerModel) {
         try {
             String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
                     + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
                     + " `ct_accesscode`) "
                     + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
+            PreparedStatement ps = dbConnection1.getPreparedStatement(sql);
             ps.setString(1, customerModel.getCt_fname());
             ps.setString(2, customerModel.getCt_lname());
             ps.setString(3, customerModel.getCt_email());
@@ -75,7 +83,7 @@ public class CustomerLogic implements CustomerLogicI {
             ps.setString(9, customerModel.getCt_accounttype());
             ps.setString(10, App.getAccountNumber());
             ps.setString(11, App.getAccessCode(""));
-            return dbConnection.execute(ps);
+            return dbConnection1.execute(ps);
         } catch (SQLException ex) {
             Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -18,12 +18,15 @@
 package com.banking.listeners;
 
 import com.banking.db.DbConnection;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.sql.DataSource;
 
 /**
  * Web application lifecycle listener.
@@ -34,9 +37,13 @@ public class DbInitListener implements ServletContextListener {
 
     DbConnection dbConnection;
 
+    @Resource(lookup = "java:/SystechBanking")
+    private DataSource ds;
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        try {
+        try ( Connection c = ds.getConnection()) { //get connection from a datasource object
+//            dbConnection = DbConnection.getInstance(c);
             dbConnection = DbConnection.getInstance();
             ServletContext se = sce.getServletContext();
             se.setAttribute("dbConnection", dbConnection);
