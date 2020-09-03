@@ -37,7 +37,7 @@ public class DbInitListener implements ServletContextListener {
 
     DbConnection dbConnection;
 
-    @Resource(lookup = "java:/SystechBanking")
+    @Resource(lookup = "java:/MySqlDS")
     private DataSource ds;
 
     @Override

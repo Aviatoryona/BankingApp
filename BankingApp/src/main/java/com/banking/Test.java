@@ -23,7 +23,7 @@ class Test extends HttpServlet {
 
     ServletContext ctx;
 
-    @Resource(lookup = "java:/SystechBanking")
+    @Resource(lookup = "java:/MySqlDS")
     private DataSource ds;
 
     DbConnection dbConnection;

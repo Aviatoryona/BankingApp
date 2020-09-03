@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h1 class="no-margins">KES <%= cm.getCt_accbalance()%></h1>
-                        <small>Balance <%=new SimpleDateFormat("MMM dd, yyyy h:m:s A").format(new Date())%></small>
+                        <small>Balance <%=new SimpleDateFormat("MMM dd, yyyy h:m:s").format(new Date())%></small>
                     </div>
                 </div>
             </div>

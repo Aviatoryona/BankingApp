@@ -4,6 +4,7 @@
     Author     : Aviator
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.banking.AppEnum"%>
@@ -29,8 +30,8 @@
             <div class="">
                 <div>
                     <h2 class="no-margins"><%= cm.getCt_fname() + " " + cm.getCt_lname()%></h2>
-                    <h4><small>Member since: </small><%=new SimpleDateFormat("MMM dd, YYYY").format(DateFormat.getDateInstance().parse(cm.getCt_date()))%></h4>
-                    <small><%= cm.getCt_gender()%></small>
+                    <h4><small>Member since: </small><%=cm.getCt_date()%></h4>
+                    <small><%= cm.getCt_accountnumber()%>[<%= cm.getCt_gender()%>]</small>
                 </div>
             </div>
         </div>
@@ -74,12 +75,6 @@
                         <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCt_address()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group row"><label class="col-sm-2 col-form-label">Help text</label>
-                        <div class="col-sm-10"><input type="text" class="form-control">
-                            <span class="form-text m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-                        </div>
-                    </div>
-                    <div class="hr-line-dashed"></div>
                 </form>
             </div>
         </div>
@@ -114,7 +109,7 @@
                         <label class="col-lg-2 col-form-label">Current Access Code</label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" value="<%= cm.getCt_accesscode()%>" readonly="">
-                            <span class="form-text m-b-none">Changes every time you log in to ensure your account security</span>
+                            <span class="form-text m-b-none text-warning">Changes every time you log in to ensure your account security</span>
                         </div>
                     </div>
                 </form>

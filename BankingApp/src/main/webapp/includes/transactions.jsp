@@ -21,12 +21,12 @@
 %>
 <!DOCTYPE html>
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <button class="btn btn-info btn-circle" type="button" onclick="getTemplate(0)">
             <i class="fa fa-arrow-left"></i>
         </button>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-8">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Transactions</h5>
@@ -80,5 +80,5 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3"></div>
+    <div class="col-lg-2"></div>
 </div>
