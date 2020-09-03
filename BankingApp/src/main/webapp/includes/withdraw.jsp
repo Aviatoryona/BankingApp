@@ -48,12 +48,13 @@
                 <div class="ibox-tools"></div>
             </div>
             <div class="ibox-content">
+                <div class="mismsg"></div>
                 <form role="form" onsubmit="return false">
                     <div class="form-group">
                         <label for="amntTxt" class="sr-only">Amount</label>
                         <input type="number"  id="amntTxt" max="300000" min="1000" maxlength="6" minlength="4"  class="form-control">
                     </div>
-                    <button class="btn btn-white" type="submit">Process</button>
+                    <button class="btn btn-white" type="submit" onclick="doWithdraw()">Process</button>
                 </form>
             </div>
         </div>

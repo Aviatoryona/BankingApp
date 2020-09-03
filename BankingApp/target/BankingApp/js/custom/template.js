@@ -17,8 +17,7 @@
  */
 
 /*
- *
- *
+ *DO NOT CHANGE ORDER OF INDEXES
  */
 var pages = {
     0: "includes/home_dashboard.jsp",

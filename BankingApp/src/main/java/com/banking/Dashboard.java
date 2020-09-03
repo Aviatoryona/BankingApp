@@ -25,8 +25,6 @@ import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -90,7 +88,7 @@ public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
+        String action = request.getParameter("q");
         if (action != null) {
             switch (action) {
                 case "w":
@@ -118,7 +116,7 @@ public class Dashboard extends HttpServlet {
 
     private void doWithdraw(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String amt = request.getParameter("amount");
+        String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
             response.getWriter().print(new ObjectMapper().writeValueAsString(
