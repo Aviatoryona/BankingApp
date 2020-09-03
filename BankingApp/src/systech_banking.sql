@@ -22,6 +22,10 @@ DROP TABLE IF EXISTS `accounttypes`;
 CREATE TABLE IF NOT EXISTS `accounttypes` (
   `accid` int(11) NOT NULL AUTO_INCREMENT,
   `acctype` varchar(255) NOT NULL,
+  `accminbal` double NOT NULL DEFAULT 0,
+  `accmaxbal` double NOT NULL DEFAULT 0,
+  `accdescription` text NOT NULL,
+  `accdate` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`accid`),
   UNIQUE KEY `acctype` (`acctype`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -29,12 +33,12 @@ CREATE TABLE IF NOT EXISTS `accounttypes` (
 -- Dumping data for table systech_banking.accounttypes: ~5 rows (approximately)
 DELETE FROM `accounttypes`;
 /*!40000 ALTER TABLE `accounttypes` DISABLE KEYS */;
-INSERT INTO `accounttypes` (`accid`, `acctype`) VALUES
-	(3, 'Children Saving Account'),
-	(1, 'Fixed Account'),
-	(5, 'Joint Account'),
-	(4, 'Personal Account'),
-	(2, 'Savings Account');
+INSERT INTO `accounttypes` (`accid`, `acctype`, `accminbal`, `accmaxbal`, `accdescription`, `accdate`) VALUES
+	(1, 'Fixed Account', 0, 0, '', '2020-09-02 16:26:44'),
+	(2, 'Savings Account', 0, 0, '', '2020-09-02 16:26:44'),
+	(3, 'Children Saving Account', 0, 0, '', '2020-09-02 16:26:44'),
+	(4, 'Personal Account', 0, 0, '', '2020-09-02 16:26:44'),
+	(5, 'Joint Account', 0, 0, '', '2020-09-02 16:26:44');
 /*!40000 ALTER TABLE `accounttypes` ENABLE KEYS */;
 
 -- Dumping structure for table systech_banking.countries
@@ -84,13 +88,14 @@ CREATE TABLE IF NOT EXISTS `customers` (
   PRIMARY KEY (`ct_id`),
   UNIQUE KEY `ct_email` (`ct_email`),
   UNIQUE KEY `ct_accountnumber` (`ct_accountnumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table systech_banking.customers: ~0 rows (approximately)
+-- Dumping data for table systech_banking.customers: ~2 rows (approximately)
 DELETE FROM `customers`;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
 INSERT INTO `customers` (`ct_id`, `ct_fname`, `ct_lname`, `ct_email`, `ct_phone`, `ct_nextkin`, `ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`, `ct_accbalance`, `ct_accesscode`, `ct_pic`, `ct_date`) VALUES
-	(1, 'Yonathaniel', 'Aviator', 'av@gmail.com', ' 254701953920', NULL, '80100, Nairobi', 'Nairobi', 'Kenya', 'M', 'Fixed Account', '15979594318459446', 0, 'EfAkei3R', NULL, '2020-08-21 00:37:11');
+	(1, 'Yonathaniel', 'Aviator', 'av@gmail.com', ' 254701953920', NULL, '80100, Nairobi', 'Nairobi', 'Kenya', 'M', 'Fixed Account', '15979594318459446', 0, 'i0lsVRqQ', NULL, '2020-08-21 00:37:11'),
+	(2, 'Robin Van', 'Persie', 'rvp@arsenal.com', '25579539207', NULL, '661, 8900', 'Nairobi', 'Kenya', 'M', 'Savings Account', '15991247233803622', 0, '3pBpDumr', NULL, '2020-09-03 12:18:43');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 
 -- Dumping structure for table systech_banking.transactions
