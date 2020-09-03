@@ -40,11 +40,10 @@ app.processTemplate = function () {
         callBack: function (data) {
 //            console.log(data);
             $('.container').html(data);
-
+            app.processIndex.call({
+                index: index0
+            });
         }
-    });
-    app.processIndex.call({
-        index: index0
     });
 };
 

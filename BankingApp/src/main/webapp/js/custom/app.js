@@ -58,7 +58,6 @@ app.loadData = function () {
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send(me.params);
     } else {
-        console.log(me);
         xhr.send();
     }
 };
