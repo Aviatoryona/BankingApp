@@ -45,7 +45,7 @@
         <div id="wrapper">
             <div id="page-wrapper" class="gray-bg">
                 <%@include file="includes/navbar.jsp" %>
-                <div class="wrapper wrapper-content">
+                <div class="wrapper wrapper-content animated fadeInRight">
                     <div class="container"></div>
                 </div>
                 <%@include file="includes/footer.jsp" %>
