@@ -72,6 +72,7 @@ public class Dashboard extends HttpServlet {
                     return;
             }
         }
+    
         response.sendRedirect("dashboard.jsp");
     }
 
