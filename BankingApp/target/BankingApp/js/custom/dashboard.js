@@ -61,17 +61,18 @@ function doWithdraw() {
         isJson: true,
         params: "q=w&amt=" + amntTxt,
         callBack: function (data) {
-            console.log(data);
+//            console.log(data);
+            alert(data.message);
             if (data.success) {
-                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
+//                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
                 setTimeout(function () {
                     getTemplate(0); //display balance after a successful transaction
                 }, 5000);
             } else {
-                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
-                setTimeout(function () {
-                    $('.mismsg').html(``);
-                }, 5000);
+//                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
+//                setTimeout(function () {
+//                    $('.mismsg').html(``);
+//                }, 5000);
             }
 
         }
@@ -92,19 +93,21 @@ function doDeposit() {
         dataUrl: "dashboard",
         method: 'POST',
         isJson: true,
-        params: "q=w&amt=" + amntTxt,
+        params: "q=d&amt=" + amntTxt,
         callBack: function (data) {
-            console.log(data);
+//            console.log(data);
+            alert(data.message);
             if (data.success) {
-                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
+//                $('.mismsg').html(`<small style="color:green;">${data.message}</small>`);
                 setTimeout(function () {
                     getTemplate(0); //display balance after a successful transaction
                 }, 5000);
             } else {
-                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
-                setTimeout(function () {
-                    $('.mismsg').html(``);
-                }, 5000);
+//                alert(data.message);
+//                $('.mismsg').html(`<small style="color:red;">${data.message}</small>`);
+//                setTimeout(function () {
+//                    $('.mismsg').html(``);
+//                }, 5000);
             }
 
         }

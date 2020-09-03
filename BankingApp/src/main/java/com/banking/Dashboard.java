@@ -131,7 +131,7 @@ public class Dashboard extends HttpServlet {
     }
 
     private void doDeposit(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String amt = request.getParameter("amount");
+        String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
             response.getWriter().print(new ObjectMapper().writeValueAsString(

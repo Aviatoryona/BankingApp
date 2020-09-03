@@ -363,7 +363,7 @@ public class CustomerLogic implements CustomerLogicI {
             ps.setDouble(1, newBal);
             ps.setString(2, cm.getCt_accountnumber());
             if (dbConnection.execute(ps)) {
-                return new MessageModel(false, "success", getCustomer(cm.getCt_email()));
+                return new MessageModel(true, "success", getCustomer(cm.getCt_email()));
             }
             return new MessageModel(false, "Unable to perform opertion");
         } catch (SQLException ex) {
