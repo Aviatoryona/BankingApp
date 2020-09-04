@@ -122,7 +122,22 @@ app.doRegister = function () {
         isJson: true,
         params: url,
         callBack: function (data) {
-            alert(data.message);
+            if (data.success) {
+                swal({
+                    title: "Registration Successful",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    window.location.href = "auth";
+                }, 5000);
+            } else {
+                swal({
+                    title: "Registration Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
         }
     });
 };
