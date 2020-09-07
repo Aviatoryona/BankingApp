@@ -66,7 +66,7 @@ public class TranasctionLogic implements TranasctionLogicI {
             ps.setDouble(3, model.getTr_amount());
             ps.setDouble(4, model.getTr_charge());
             if (dbConnection.execute(ps)) {
-                return new MessageModel(true, "Done",model);
+                return new MessageModel(true, "Done", model);
             }
         } catch (SQLException ex) {
             Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
