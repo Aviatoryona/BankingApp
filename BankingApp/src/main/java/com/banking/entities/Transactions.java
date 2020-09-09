@@ -159,10 +159,7 @@ public class Transactions implements Serializable {
             return false;
         }
         Transactions other = (Transactions) object;
-        if ((this.trId == null && other.trId != null) || (this.trId != null && !this.trId.equals(other.trId))) {
-            return false;
-        }
-        return true;
+        return !((this.trId == null && other.trId != null) || (this.trId != null && !this.trId.equals(other.trId)));
     }
 
     @Override

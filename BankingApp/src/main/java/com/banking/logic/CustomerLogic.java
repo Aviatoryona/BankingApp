@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -120,9 +121,12 @@ public class CustomerLogic implements CustomerLogicI {
         return 0;
     }
 
+    @Inject
+    TransactionTypeLogic transactionTypeLogic;
+
     @Override
     public List<Transactions> getDeposits(Customers cm) {
-        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.DEPOSIT.getName());
+        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
             return getAllTransactions(cm, transactionType);
         }
@@ -131,7 +135,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public List<Transactions> getWithdrawals(Customers cm) {
-        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.WITHDRAW.getName());
+        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
             return getAllTransactions(cm, transactionType);
         }
@@ -163,7 +167,7 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(Double.doubleToLongBits(amount));
-        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.DEPOSIT.getName());
+        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
             double newAmount = (cm1.getCtAccbalance() + Math.abs(amount)) - transactionType.getTpCharge();
             MessageModel messageModel = updateAccountBal(newAmount, cm);
@@ -193,7 +197,7 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(Double.doubleToLongBits(amount));
-        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.WITHDRAW.getName());
+        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
             if (cm1.getCtAccbalance() < (amount + transactions.getTrCharge())) {
                 return new MessageModel(false, "Insufficient balance");
@@ -224,7 +228,7 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(0);
-        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.BALANCE.getName());
+        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.BALANCE.getName());
         if (transactionType != null) {
             transactions.setTrCharge(transactionType.getTpCharge());
             transactions.setTrType(transactionType.getTpType());

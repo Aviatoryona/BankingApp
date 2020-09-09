@@ -53,8 +53,9 @@ public class TranasctionLogic implements TranasctionLogicI {
 
     @Override
     public List<Transactions> getTransactions(Customers cm) {
-        Query q = em.createQuery("SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY tr_id DESC LIMIT 1000;");
+        Query q = em.createQuery("SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY t.trId DESC");
         q.setParameter("trAccountnumber", cm.getCtAccountnumber());
+        q.setMaxResults(1000);
         return getTransactions(q);
     }
 
