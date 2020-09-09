@@ -15,9 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.banking.logic;
+package com.banking.interfaces;
 
-import com.banking.models.CustomerModel;
+import com.banking.entities.Customers;
 import com.banking.models.MessageModel;
 
 /**
@@ -26,5 +26,5 @@ import com.banking.models.MessageModel;
  */
 public interface DashboardLogicI {
 
-    MessageModel processIndexHome(CustomerModel cm);
+    MessageModel processIndexHome(Customers cm);
 }

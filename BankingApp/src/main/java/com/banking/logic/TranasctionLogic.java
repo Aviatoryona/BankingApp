@@ -17,17 +17,14 @@
  */
 package com.banking.logic;
 
-import com.banking.db.DbConnection;
-import com.banking.models.CustomerModel;
+import com.banking.entities.Customers;
+import com.banking.entities.Transactions;
+import com.banking.interfaces.TranasctionLogicI;
 import com.banking.models.MessageModel;
-import com.banking.models.TransactionModel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,85 +32,35 @@ import java.util.logging.Logger;
  */
 public class TranasctionLogic implements TranasctionLogicI {
 
-    private final DbConnection dbConnection;
-    private final String tbName = "transactions";
-
-    private TranasctionLogic(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
-    }
-
-    private static TranasctionLogic cl;
-
-    public static TranasctionLogic getInstance(DbConnection dbConnection) {
-        if (cl == null) {
-            cl = new TranasctionLogic(dbConnection);
-        }
-        return cl;
-    }
+    @PersistenceContext
+    EntityManager em;
 
     @Override
-    public MessageModel executeTransaction(TransactionModel model) {
+    public MessageModel executeTransaction(Transactions model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public MessageModel createTransaction(TransactionModel model) {
-        try {
-            String sql = "INSERT INTO " + tbName + " (tr_accountnumber,tr_type,tr_amount,tr_charge) VALUES(?,?,?,?)";
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setString(1, model.getTr_accountnumber());
-            ps.setString(2, model.getTr_type());
-            ps.setDouble(3, model.getTr_amount());
-            ps.setDouble(4, model.getTr_charge());
-            if (dbConnection.execute(ps)) {
-                return new MessageModel(true, "Done", model);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new MessageModel(false, "Failed, please try again");
+    public MessageModel createTransaction(Transactions model) {
+        em.merge(model);
+        return new MessageModel(true, "Successfull");
     }
 
     @Override
-    public List<TransactionModel> getTransactionModels(ResultSet rs) {
-        List<TransactionModel> list = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                TransactionModel model = new TransactionModel();
-                model.setTr_id(rs.getInt("tr_id"));
-                model.setTr_accountnumber(rs.getString("tr_accountnumber"));
-                model.setTr_type(rs.getString("tr_type"));
-                model.setTr_amount(rs.getDouble("tr_amount"));
-                model.setTr_charge(rs.getDouble("tr_charge"));
-                model.setTr_date(rs.getString("tr_date"));
-
-                list.add(model);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
+    public List<Transactions> getTransactions(Query q) {
+        return q.getResultList();
     }
 
     @Override
-    public List<TransactionModel> getTransactionModels(CustomerModel cm) {
-        return getTransactionModels("SELECT * FROM " + tbName + " WHERE tr_accountnumber='" + cm.getCt_accountnumber() + "' ORDER BY tr_id DESC LIMIT 1000;");
+    public List<Transactions> getTransactions(Customers cm) {
+        Query q = em.createQuery("SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY tr_id DESC LIMIT 1000;");
+        q.setParameter("trAccountnumber", cm.getCtAccountnumber());
+        return getTransactions(q);
     }
 
     @Override
-    public List<TransactionModel> getTransactionModels() {
-        return getTransactionModels("SELECT * FROM " + tbName + " ORDER BY tr_id DESC LIMIT 1000;");
+    public List<Transactions> getTransactions() {
+        return em.createQuery("FROM Transactions o").getResultList();
     }
 
-    @Override
-    public List<TransactionModel> getTransactionModels(String sql) {
-        try {
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ResultSet rs = dbConnection.executeQuery(ps);
-            return getTransactionModels(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(TranasctionLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 }

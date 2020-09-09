@@ -19,164 +19,54 @@ package com.banking.logic;
 
 import com.banking.App;
 import com.banking.AppEnum;
-import com.banking.db.DbConnection;
-import com.banking.models.CustomerModel;
+import com.banking.entities.Customers;
+import com.banking.entities.Transactions;
+import com.banking.entities.Transactiontypes;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.models.MessageModel;
-import com.banking.models.TransactionModel;
-import com.banking.models.TransactionType;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Aviator
  */
+@Stateless
+@Remote
 public class CustomerLogic implements CustomerLogicI {
 
-    private DbConnection dbConnection;
-    private final String tbName = "customers";
+    @PersistenceContext
+    EntityManager em;
 
-    public CustomerLogic() {
-    }
-
-    private CustomerLogic(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
-    }
-
-    private static CustomerLogic cl;
-
-    public static CustomerLogic getInstance(DbConnection dbConnection) {
-        if (cl == null) {
-            cl = new CustomerLogic(dbConnection);
-        }
-        return cl;
+    @Override
+    public boolean createCustomer(Customers customerModel) {
+        em.merge(customerModel);
+        return true;
     }
 
     @Override
-    public boolean createCustomer(CustomerModel customerModel) {
-        return createCustomer(dbConnection, customerModel);
-    }
-
-    @Override
-    public boolean createCustomer(DbConnection dbConnection1, CustomerModel customerModel) {
-        try {
-            String sql = "INSERT INTO customers(`ct_fname`, `ct_lname`, `ct_email`, `ct_phone`,"
-                    + "`ct_address`, `ct_city`, `ct_country`, `ct_gender`, `ct_accounttype`, `ct_accountnumber`,"
-                    + " `ct_accesscode`) "
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-
-            PreparedStatement ps = dbConnection1.getPreparedStatement(sql);
-            ps.setString(1, customerModel.getCt_fname());
-            ps.setString(2, customerModel.getCt_lname());
-            ps.setString(3, customerModel.getCt_email());
-            ps.setString(4, customerModel.getCt_phone());
-            ps.setString(5, customerModel.getCt_address());
-            ps.setString(6, customerModel.getCt_city());
-            ps.setString(7, customerModel.getCt_country());
-            ps.setString(8, customerModel.getCt_gender());
-            ps.setString(9, customerModel.getCt_accounttype());
-            ps.setString(10, App.getAccountNumber());
-            ps.setString(11, App.getAccessCode(""));
-            return dbConnection1.execute(ps);
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    @Override
-    public CustomerModel getCustomer(String email) {
-        try {
-            String sql = "SELECT * FROM customers WHERE ct_email=?";
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setString(1, email);
-            ResultSet rs = dbConnection.executeQuery(ps);
-            if (rs.next()) {
-                CustomerModel cm = new CustomerModel();
-                cm.setCt_id(rs.getInt("ct_id"));
-                cm.setCt_fname(rs.getString("ct_fname"));
-                cm.setCt_lname(rs.getString("ct_lname"));
-                cm.setCt_email(rs.getString("ct_email"));
-                cm.setCt_phone(rs.getString("ct_phone"));
-                cm.setCt_nextkin(rs.getString("ct_nextkin"));
-                cm.setCt_country(rs.getString("ct_country"));
-                cm.setCt_city(rs.getString("ct_city"));
-                cm.setCt_address(rs.getString("ct_address"));
-                cm.setCt_gender(rs.getString("ct_gender"));
-                cm.setCt_accounttype(rs.getString("ct_accounttype"));
-                cm.setCt_accountnumber(rs.getString("ct_accountnumber"));
-                cm.setCt_accbalance(rs.getDouble("ct_accbalance"));
-                cm.setCt_accesscode(rs.getString("ct_accesscode"));
-                cm.setCt_pic(rs.getString("ct_pic"));
-                cm.setCt_date(rs.getString("ct_date"));
-
-                return cm;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return null;
-    }
-
-    @Override
-    public CustomerModel getCustomer(ResultSet rs) {
-        try {
-            CustomerModel cm = new CustomerModel();
-            cm.setCt_id(rs.getInt("ct_id"));
-            cm.setCt_fname(rs.getString("ct_fname"));
-            cm.setCt_lname(rs.getString("ct_lname"));
-            cm.setCt_email(rs.getString("ct_email"));
-            cm.setCt_phone(rs.getString("ct_phone"));
-            cm.setCt_nextkin(rs.getString("ct_nextkin"));
-            cm.setCt_country(rs.getString("ct_country"));
-            cm.setCt_city(rs.getString("ct_city"));
-            cm.setCt_address(rs.getString("ct_address"));
-            cm.setCt_gender(rs.getString("ct_gender"));
-            cm.setCt_accounttype(rs.getString("ct_accounttype"));
-            cm.setCt_accountnumber(rs.getString("ct_accountnumber"));
-            cm.setCt_accbalance(rs.getDouble("ct_accbalance"));
-            cm.setCt_accesscode(rs.getString("ct_accesscode"));
-            cm.setCt_pic(rs.getString("ct_pic"));
-            cm.setCt_date(rs.getString("ct_date"));
-
-            return cm;
-        } catch (SQLException e) {
-            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return null;
+    public Customers getCustomer(String email) {
+//        String sql = "SELECT * FROM customers WHERE ct_email=?";
+//        return em.find(Customers.class, email);
+        return (Customers) em.createNamedQuery("Customers.findByCtEmail")
+                .setParameter("ctEmail", email)
+                .getSingleResult();
     }
 
     @Override
     public MessageModel checkEmail(String email) {
-        try {
-            String accessCode = App.getAccessCode("");
-
-            String sql = "SELECT * FROM ".concat(tbName) + " WHERE ct_email=?";
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setString(1, email);
-            ResultSet rs = dbConnection.executeQuery(ps);
-            if (rs.next()) {
-                CustomerModel cm = getCustomer(rs);
-                sql = "UPDATE ".concat(tbName) + " SET ct_accesscode=? WHERE ct_email=?";
-                ps = dbConnection.getPreparedStatement(sql);
-                ps.setString(1, accessCode);
-                ps.setString(2, email);
-                if (dbConnection.execute(ps)) {
-                    //send code to email here
-                    if (cm != null) {
-                        cm.setCt_accesscode(accessCode);
-                    }
-                }
-                return new MessageModel(true, rs.getString("ct_fname"), cm);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        String accessCode = App.getAccessCode("");
+        Customers customers = getCustomer(email);
+        if (customers != null) {
+            customers.setCtAccesscode(accessCode);
+            em.merge(customers);
+            return new MessageModel(true, customers.getCtFname(), customers);
         }
 
         return new MessageModel(false, "Account not registered");
@@ -184,113 +74,103 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel checkPassword(String email, String pwd) {
-        try {
-            String sql = "SELECT * FROM ".concat(tbName) + " WHERE ct_email=? && ct_accesscode=?";
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setString(1, email);
-            ps.setString(2, pwd);
-            ResultSet rs = dbConnection.executeQuery(ps);
-            if (rs.next()) {
-                CustomerModel cm = getCustomer(rs);
-                return new MessageModel(true, rs.getString("ct_fname"), cm);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        Customers cm = (Customers) em.createQuery("SELECT c FROM Customers c WHERE c.ctEmail = :ctEmail AND c.ctAccesscode = :ctAccesscode")
+                .setParameter("ctEmail", email)
+                .setParameter("ctAccesscode", pwd)
+                .getSingleResult();
+        if (cm != null) {
+            return new MessageModel(true, cm.getCtFname(), cm);
         }
 
         return new MessageModel(false, "Failed");
     }
 
     @Override
-    public double getTotalDeposits(CustomerModel cm) {
-        List<TransactionModel> models = getDeposits(cm);
+    public double getTotalDeposits(Customers cm) {
+        List<Transactions> models = getDeposits(cm);
         if (models != null) {
             double sum = 0;
-            sum = models.stream().map(model -> model.getTr_amount()).reduce(sum, (accumulator, _item) -> accumulator + _item);
-            return sum;
-        }
-        return 0;
-    }
-
-    @Override
-    public double getTotalWithdrawals(CustomerModel cm) {
-        List<TransactionModel> models = getWithdrawals(cm);
-        if (models != null) {
-            double sum = 0;
-            sum = models.stream().map(model -> model.getTr_amount()).reduce(sum, (accumulator, _item) -> accumulator + _item);
-            return sum;
-        }
-        return 0;
-    }
-
-    @Override
-    public double getBalance(CustomerModel cm) {
-        CustomerModel cm1 = getCustomer(cm.getCt_email());
-        if (cm1 != null) {
-            return cm1.getCt_accbalance();
-        }
-        return 0;
-    }
-
-    @Override
-    public List<TransactionModel> getDeposits(CustomerModel cm) {
-        TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.DEPOSIT.getName());
-        if (transactionType != null) {
-            return getAllTransactions(cm, transactionType);
-        }
-        return null;
-    }
-
-    @Override
-    public List<TransactionModel> getWithdrawals(CustomerModel cm) {
-        TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.WITHDRAW.getName());
-        if (transactionType != null) {
-            return getAllTransactions(cm, transactionType);
-        }
-        return null;
-    }
-
-    @Override
-    public List<TransactionModel> getAllTransactions(CustomerModel cm, TransactionType transactionType) {
-        try {
-            String sql = transactionType != null
-                    ? "SELECT * FROM transactions WHERE (tr_accountnumber=?) AND (tr_type=?) ORDER BY tr_id DESC LIMIT 300"
-                    : "SELECT * FROM transactions WHERE (tr_accountnumber=?) ORDER BY tr_id DESC LIMIT 300 ";
-
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setString(1, cm.getCt_accountnumber());
-            if (transactionType != null) {
-                ps.setString(2, transactionType.getTp_type());
+            for (Transactions model : models) {
+                sum += model.getTrAmount();
             }
+            return sum;
+        }
+        return 0;
+    }
 
-            ResultSet rs = dbConnection.executeQuery(ps);
-            return TranasctionLogic.getInstance(dbConnection).getTransactionModels(rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, ex);
+    @Override
+    public double getTotalWithdrawals(Customers cm) {
+        List<Transactions> models = getWithdrawals(cm);
+        if (models != null) {
+            double sum = 0;
+            for (Transactions model : models) {
+                sum += model.getTrAmount();
+            }
+            return sum;
+        }
+        return 0;
+    }
+
+    @Override
+    public double getBalance(Customers cm) {
+        Customers cm1 = getCustomer(cm.getCtEmail());
+        if (cm1 != null) {
+            return cm1.getCtAccbalance();
+        }
+        return 0;
+    }
+
+    @Override
+    public List<Transactions> getDeposits(Customers cm) {
+        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.DEPOSIT.getName());
+        if (transactionType != null) {
+            return getAllTransactions(cm, transactionType);
         }
         return null;
     }
 
     @Override
-    public MessageModel deposit(CustomerModel cm, double amount) {
+    public List<Transactions> getWithdrawals(Customers cm) {
+        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.WITHDRAW.getName());
+        if (transactionType != null) {
+            return getAllTransactions(cm, transactionType);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Transactions> getAllTransactions(Customers cm, Transactiontypes transactionType) {
+        String sql = transactionType != null
+                ? "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber AND t.trType= :trType ORDER BY t.trId DESC LIMIT 300"
+                : "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY t.trId DESC LIMIT 300 ";
+        Query q = em.createQuery(sql);
+        q.setParameter("trAccountnumber", cm.getCtAccountnumber());
+        if (transactionType != null) {
+            q.setParameter("trType", cm.getCtAccounttype());
+        }
+        return new TranasctionLogic().getTransactions(q);
+    }
+
+    @Override
+    public MessageModel deposit(Customers cm, double amount) {
         if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
-        CustomerModel cm1 = getCustomer(cm.getCt_email());
+        Customers cm1 = getCustomer(cm.getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
-        TransactionModel transactionModel = new TransactionModel();
-        transactionModel.setTr_accountnumber(cm.getCt_accountnumber());
-        transactionModel.setTr_amount(amount);
-        TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.DEPOSIT.getName());
+        Transactions transactions = new Transactions();
+        transactions.setTrAccountnumber(cm.getCtAccountnumber());
+        transactions.setTrAmount(Double.doubleToLongBits(amount));
+        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
-            double newAmount = (cm1.getCt_accbalance() + Math.abs(amount)) - transactionType.getTp_charge();
+            double newAmount = (cm1.getCtAccbalance() + Math.abs(amount)) - transactionType.getTpCharge();
             MessageModel messageModel = updateAccountBal(newAmount, cm);
             if (messageModel.isSuccess()) {
-                transactionModel.setTr_charge(transactionType.getTp_charge());
-                transactionModel.setTr_type(transactionType.getTp_type());
-                MessageModel messageModel1 = TranasctionLogic.getInstance(dbConnection).createTransaction(transactionModel);
+                transactions.setTrCharge(transactionType.getTpCharge());
+                transactions.setTrType(transactionType.getTpType());
+                MessageModel messageModel1 = new TranasctionLogic().createTransaction(transactions);
                 Map<String, Object> map = new HashMap<>();
                 map.put("account", messageModel.getObject());
                 map.put("transaction", messageModel1.getObject());
@@ -302,29 +182,29 @@ public class CustomerLogic implements CustomerLogicI {
     }
 
     @Override
-    public MessageModel withdraw(CustomerModel cm, double amount) {
+    public MessageModel withdraw(Customers cm, double amount) {
         if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
-        CustomerModel cm1 = getCustomer(cm.getCt_email());
+        Customers cm1 = getCustomer(cm.getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
-        TransactionModel transactionModel = new TransactionModel();
-        transactionModel.setTr_accountnumber(cm.getCt_accountnumber());
-        transactionModel.setTr_amount(amount);
-        TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.WITHDRAW.getName());
+        Transactions transactions = new Transactions();
+        transactions.setTrAccountnumber(cm.getCtAccountnumber());
+        transactions.setTrAmount(Double.doubleToLongBits(amount));
+        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
-            if (cm1.getCt_accbalance() < (amount + transactionModel.getTr_charge())) {
+            if (cm1.getCtAccbalance() < (amount + transactions.getTrCharge())) {
                 return new MessageModel(false, "Insufficient balance");
             }
 
-            double newAmount = cm1.getCt_accbalance() - (Math.abs(amount) + transactionType.getTp_charge());
+            double newAmount = cm1.getCtAccbalance() - (Math.abs(amount) + transactionType.getTpCharge());
             MessageModel messageModel = updateAccountBal(newAmount, cm);
             if (messageModel.isSuccess()) {
-                transactionModel.setTr_charge(transactionType.getTp_charge());
-                transactionModel.setTr_type(transactionType.getTp_type());
-                MessageModel messageModel1 = TranasctionLogic.getInstance(dbConnection).createTransaction(transactionModel);
+                transactions.setTrCharge(transactionType.getTpCharge());
+                transactions.setTrType(transactionType.getTpType());
+                MessageModel messageModel1 = new TranasctionLogic().createTransaction(transactions);
                 Map<String, Object> map = new HashMap<>();
                 map.put("account", messageModel.getObject());
                 map.put("transaction", messageModel1.getObject());
@@ -336,19 +216,19 @@ public class CustomerLogic implements CustomerLogicI {
     }
 
     @Override
-    public MessageModel checkBalance(CustomerModel cm) {
-        CustomerModel cm1 = getCustomer(cm.getCt_email());
+    public MessageModel checkBalance(Customers cm) {
+        Customers cm1 = getCustomer(cm.getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
-        TransactionModel transactionModel = new TransactionModel();
-        transactionModel.setTr_accountnumber(cm.getCt_accountnumber());
-        transactionModel.setTr_amount(0);
-        TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.BALANCE.getName());
+        Transactions transactions = new Transactions();
+        transactions.setTrAccountnumber(cm.getCtAccountnumber());
+        transactions.setTrAmount(0);
+        Transactiontypes transactionType = new TransactionTypeLogic().getTransactionType(AppEnum.BALANCE.getName());
         if (transactionType != null) {
-            transactionModel.setTr_charge(transactionType.getTp_charge());
-            transactionModel.setTr_type(transactionType.getTp_type());
-            MessageModel messageModel = TranasctionLogic.getInstance(dbConnection).createTransaction(transactionModel);
+            transactions.setTrCharge(transactionType.getTpCharge());
+            transactions.setTrType(transactionType.getTpType());
+            MessageModel messageModel = new TranasctionLogic().createTransaction(transactions);
             messageModel.setObject(cm1);
             return messageModel;
         }
@@ -356,19 +236,11 @@ public class CustomerLogic implements CustomerLogicI {
     }
 
     @Override
-    public MessageModel updateAccountBal(double newBal, CustomerModel cm) {
-        try {
-            String sql = "UPDATE ".concat(tbName) + " SET ct_accbalance=? WHERE ct_accountnumber=?";
-            PreparedStatement ps = dbConnection.getPreparedStatement(sql);
-            ps.setDouble(1, newBal);
-            ps.setString(2, cm.getCt_accountnumber());
-            if (dbConnection.execute(ps)) {
-                return new MessageModel(true, "success", getCustomer(cm.getCt_email()));
-            }
-            return new MessageModel(false, "Unable to perform opertion");
-        } catch (SQLException ex) {
-            Logger.getLogger(CustomerLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new MessageModel(false, "Failed,please try again");
+    public MessageModel updateAccountBal(double newBal, Customers cm) {
+        //"UPDATE ".concat(tbName) + " SET ct_accbalance=? WHERE ct_accountnumber=?";
+        cm.setCtAccbalance(Double.doubleToLongBits(newBal));
+        em.merge(cm);
+        return new MessageModel(true, "success", getCustomer(cm.getCtEmail()));
     }
+
 }

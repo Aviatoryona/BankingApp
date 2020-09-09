@@ -17,19 +17,15 @@
  */
 package com.banking;
 
-import com.banking.db.DbConnection;
-import com.banking.models.AccountTypes;
-import com.banking.models.CountryModel;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.banking.entities.Accounttypes;
+import com.banking.entities.Countries;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -37,19 +33,8 @@ import java.util.logging.Logger;
  */
 public class App {
 
-    private final DbConnection connection;
-    private static App app;
-
-    private App(DbConnection dbConnection) {
-        this.connection = dbConnection;
-    }
-
-    public static App getInstance(DbConnection dbConnection) {
-        if (app == null) {
-            app = new App(dbConnection);
-        }
-        return app;
-    }
+    @PersistenceContext
+    EntityManager em;
 
     /*
     Register init fields
@@ -63,37 +48,13 @@ public class App {
     }
 
     //get countries
-    private List<CountryModel> getCountries() {
-        try {
-            List<CountryModel> countryModels = new ArrayList<>();
-            ResultSet rs = connection.executeQuery("SELECT * FROM countries");
-            while (rs.next()) {
-                countryModels.add(
-                        new CountryModel(rs.getInt("ctry_id"), rs.getString("ctry_name"))
-                );
-            }
-            return countryModels;
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    private List<Countries> getCountries() {
+        return em.createNamedQuery("Countries.findAll").getResultList();
     }
 
     //get account types
-    private List<AccountTypes> getAccountTypes() {
-        try {
-            List<AccountTypes> accountTypes = new ArrayList<>();
-            ResultSet rs = connection.executeQuery("SELECT * FROM accounttypes");
-            while (rs.next()) {
-                accountTypes.add(
-                        new AccountTypes(rs.getInt("accid"), rs.getString("acctype"))
-                );
-            }
-            return accountTypes;
-        } catch (SQLException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    private List<Accounttypes> getAccountTypes() {
+        return em.createNamedQuery("Accounttypes.findAll").getResultList();
     }
 
     //Generate account number

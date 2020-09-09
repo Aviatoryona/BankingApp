@@ -15,47 +15,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.banking.models;
+package com.banking.interfaces;
+
+import com.banking.entities.Customers;
+import com.banking.entities.Transactions;
+import com.banking.models.MessageModel;
+import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
  * @author Aviator
  */
-public class CountryModel {
+public interface TranasctionLogicI {
 
-    private int ctry_id;
-    private String ctry_name;
-
-    public CountryModel(int ctry_id, String ctry_name) {
-        this.ctry_id = ctry_id;
-        this.ctry_name = ctry_name;
-    }
-
-    /**
-     * @return the ctry_id
+    /*
+    Executes and returns transaction result
      */
-    public int getCtry_id() {
-        return ctry_id;
-    }
+    MessageModel executeTransaction(Transactions model);
 
-    /**
-     * @param ctry_id the ctry_id to set
+    /*
+    Inserts a new record to db
      */
-    public void setCtry_id(int ctry_id) {
-        this.ctry_id = ctry_id;
-    }
+    MessageModel createTransaction(Transactions model);
 
-    /**
-     * @return the ctry_name
-     */
-    public String getCtry_name() {
-        return ctry_name;
-    }
+    List<Transactions> getTransactions(Query q);
 
-    /**
-     * @param ctry_name the ctry_name to set
-     */
-    public void setCtry_name(String ctry_name) {
-        this.ctry_name = ctry_name;
-    }
+    List<Transactions> getTransactions();
+
+    List<Transactions> getTransactions(Customers cm);
 }

@@ -17,13 +17,10 @@
  */
 package com.banking.logic;
 
-import com.banking.db.DbConnection;
-import com.banking.models.TransactionType;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.banking.entities.Transactiontypes;
+import com.banking.interfaces.TransactionTypeLogicI;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -31,39 +28,12 @@ import java.util.logging.Logger;
  */
 public class TransactionTypeLogic implements TransactionTypeLogicI {
 
-    private final DbConnection dbConnection;
-    private final String tbName = "transactiontypes";
-
-    private TransactionTypeLogic(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
-    }
-
-    private static TransactionTypeLogic cl;
-
-    public static TransactionTypeLogic getInstance(DbConnection dbConnection) {
-        if (cl == null) {
-            cl = new TransactionTypeLogic(dbConnection);
-        }
-        return cl;
-    }
+    @PersistenceContext
+    EntityManager em;
 
     @Override
-    public TransactionType getTransactionType(String type) {
-        try {
-            PreparedStatement ps = dbConnection.getPreparedStatement("SELECT * FROM " + tbName + " WHERE tp_type=?");
-            ps.setString(1, type);
-            ResultSet rs = dbConnection.executeQuery(ps);
-            if (rs.next()) {
-                TransactionType transactionType = new TransactionType();
-                transactionType.setTp_id(rs.getInt("tp_id"));
-                transactionType.setTp_type(rs.getString("tp_type"));
-                transactionType.setTp_charge(rs.getDouble("tp_charge"));
-                return transactionType;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TransactionTypeLogic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public Transactiontypes getTransactionType(String type) {
+        return em.find(Transactiontypes.class, type);
     }
 
 }

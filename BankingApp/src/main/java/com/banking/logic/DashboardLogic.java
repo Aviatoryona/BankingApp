@@ -19,16 +19,16 @@
 package com.banking.logic;
 
 import com.banking.AppEnum;
-import com.banking.db.DbConnection;
-import com.banking.models.CustomerModel;
+import com.banking.entities.Customers;
+import com.banking.interfaces.DashboardLogicI;
 import com.banking.models.MessageModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -36,43 +36,25 @@ import java.util.logging.Logger;
  */
 public class DashboardLogic implements DashboardLogicI {
 
-    private final DbConnection dbConnection;
-
-    private DashboardLogic(DbConnection dbConnection) {
-        this.dbConnection = dbConnection;
-    }
-
-    private static DashboardLogic cl;
-
-    public static DashboardLogic getInstance(DbConnection dbConnection) {
-        if (cl == null) {
-            cl = new DashboardLogic(dbConnection);
-        }
-        return cl;
-    }
+    CustomerLogic cl = lookupCustomerLogicBean();
 
     @Override
-    public MessageModel processIndexHome(CustomerModel cm) {
+    public MessageModel processIndexHome(Customers cm) {
         Map<String, Object> map = new HashMap<>();
-        map.put(AppEnum.DEPOSIT.getName(), CustomerLogic.getInstance(dbConnection).getTotalDeposits(cm));
-        map.put(AppEnum.WITHDRAW.getName(), CustomerLogic.getInstance(dbConnection).getTotalWithdrawals(cm));
-        map.put(AppEnum.TRANSACTIONS.getName(), CustomerLogic.getInstance(dbConnection).getAllTransactions(cm, null));
+        map.put(AppEnum.DEPOSIT.getName(), cl.getTotalDeposits(cm));
+        map.put(AppEnum.WITHDRAW.getName(), cl.getTotalWithdrawals(cm));
+        map.put(AppEnum.TRANSACTIONS.getName(), cl.getAllTransactions(cm, null));
         return new MessageModel(true, "", map);
     }
 
-    /*
-    Test class
-     */
-    public static void main(String[] args) {
+    private CustomerLogic lookupCustomerLogicBean() {
         try {
-            DbConnection dbConnection1 = DbConnection.getInstance();
-            CustomerModel cm = CustomerLogic.getInstance(dbConnection1).getCustomer("av@gmail.com");
-            MessageModel messageModel = DashboardLogic.getInstance(dbConnection1).processIndexHome(cm);
-            System.out.println(
-                    new ObjectMapper().writeValueAsString(messageModel)
-            );
-        } catch (SQLException | ClassNotFoundException | JsonProcessingException ex) {
-            Logger.getLogger(DashboardLogic.class.getName()).log(Level.SEVERE, null, ex);
+            Context c = new InitialContext();
+            return (CustomerLogic) c.lookup("java:global/dev.yonathaniel_BankingApp_war_1.0-SNAPSHOT/CustomerLogic!com.banking.logic.CustomerLogic");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
         }
     }
+
 }

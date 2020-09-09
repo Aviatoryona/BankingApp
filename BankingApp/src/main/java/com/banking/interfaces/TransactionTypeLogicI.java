@@ -15,28 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.banking.listeners;
+package com.banking.interfaces;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
+import com.banking.entities.Transactiontypes;
 
 /**
  *
  * @author Aviator
  */
-@WebListener(value = "TestListener")
-public class TestListener implements ServletContextListener {
+public interface TransactionTypeLogicI {
 
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-    }
-
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        ServletContext context = sce.getServletContext();
-        context.setAttribute("Name", "Yonathaniel K");
-    }
-
+    Transactiontypes getTransactionType(String type);
 }

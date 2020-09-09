@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-    <!-- Define Persistence Unit -->
-    <persistence-unit name="banking-app">
-        <jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
-        <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpaormhibernate_test"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <!-- Database connection settings -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.integration.envers.enabled" value="false"/>
-            <property name="hibernate.archive.autodetection" value="class, hbm"/>
-            <property name="hibernate.connection.max_allowed_packet" value="1073741824"/>
-            <property name="hibernate.connection.release_mode" value="after_statement"/>
-            <!--<property name="hibernate.connection.handling_mode" value="after_statement"/>-->
-            <!-- Disable second-level cache. -->
-            <property name="cache.PROVIDER_CLASS" value="org.hibernate.cache.NoCacheProvider"/>
-            <property name="cache.use_query_cache" value="false"/>
-            <property name="cache.use_minimal_puts" value="false"/>
-            <!-- Print SQL to stdout. -->
-            <property name="show_sql" value="false"/>
-            <property name="format_sql" value="false"/>
-            <!-- update schema on SessionFactory build -->
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <!--<property name="hibernate.hbm2ddl.auto" value="" />-->
-            <!-- flush mysql to clear error connections -->
-            <property name="hibernate.flushMode" value="FLUSH_AUTO"/>
-            <!--<property name="hibernate.globally_quoted_identifiers" value="true"/>-->
-        </properties>
-    </persistence-unit>
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="banking-app">
+    <jta-data-source>java:jboss/datasources/MysqlDS</jta-data-source>
+    <class>com.banking.entities.Accounttypes</class>
+    <class>com.banking.entities.Countries</class>
+    <class>com.banking.entities.Users</class>
+    <class>com.banking.entities.Transactions</class>
+    <class>com.banking.entities.Customers</class>
+    <class>com.banking.entities.Transactiontypes</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jpaormhibernate_test"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <!-- Database connection settings -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.integration.envers.enabled" value="false"/>
+      <property name="hibernate.archive.autodetection" value="class, hbm"/>
+      <property name="hibernate.connection.max_allowed_packet" value="1073741824"/>
+      <property name="hibernate.connection.release_mode" value="after_statement"/>
+      <!--<property name="hibernate.connection.handling_mode" value="after_statement"/>-->
+      <!-- Disable second-level cache. -->
+      <property name="cache.PROVIDER_CLASS" value="org.hibernate.cache.NoCacheProvider"/>
+      <property name="cache.use_query_cache" value="false"/>
+      <property name="cache.use_minimal_puts" value="false"/>
+      <!-- Print SQL to stdout. -->
+      <property name="show_sql" value="false"/>
+      <property name="format_sql" value="false"/>
+      <!-- update schema on SessionFactory build -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <!--<property name="hibernate.hbm2ddl.auto" value="" />-->
+      <!-- flush mysql to clear error connections -->
+      <property name="hibernate.flushMode" value="FLUSH_AUTO"/>
+      <!--<property name="hibernate.globally_quoted_identifiers" value="true"/>-->
+    </properties>
+  </persistence-unit>
 </persistence>
