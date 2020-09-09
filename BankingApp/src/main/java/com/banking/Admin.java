@@ -15,35 +15,30 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package com.banking.interfaces;
+package com.banking;
 
-import com.banking.entities.Customers;
-import com.banking.entities.Transactions;
-import com.banking.models.MessageModel;
-import java.util.List;
-import javax.persistence.Query;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author Aviator
  */
-public interface TranasctionLogicI {
+@WebServlet(name = "Admin", urlPatterns = {"/admin"})
+public class Admin extends HttpServlet {
 
-    /*
-    Executes and returns transaction result
-     */
-    MessageModel executeTransaction(Transactions model);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
 
-    /*
-    Inserts a new record to db
-     */
-    MessageModel createTransaction(Transactions model);
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
 
-    List<Transactions> getTransactions(Query q);
-
-    List<Transactions> getTransactions();
-
-    List<Transactions> getTransactions(int limit);
-
-    List<Transactions> getTransactions(Customers cm);
 }

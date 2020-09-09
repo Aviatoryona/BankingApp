@@ -64,4 +64,11 @@ public class TranasctionLogic implements TranasctionLogicI {
         return em.createQuery("FROM Transactions o").getResultList();
     }
 
+    @Override
+    public List<Transactions> getTransactions(int limit) {
+        Query q = em.createQuery("FROM Transactions o");
+        q.setMaxResults(limit);
+        return q.getResultList();
+    }
+
 }

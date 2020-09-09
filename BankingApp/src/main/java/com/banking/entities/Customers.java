@@ -58,7 +58,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Customers.findByCtAccbalance", query = "SELECT c FROM Customers c WHERE c.ctAccbalance = :ctAccbalance"),
     @NamedQuery(name = "Customers.findByCtAccesscode", query = "SELECT c FROM Customers c WHERE c.ctAccesscode = :ctAccesscode"),
     @NamedQuery(name = "Customers.findByCtPic", query = "SELECT c FROM Customers c WHERE c.ctPic = :ctPic"),
-    @NamedQuery(name = "Customers.findByCtDate", query = "SELECT c FROM Customers c WHERE c.ctDate = :ctDate")})
+    @NamedQuery(name = "Customers.findByCtDate", query = "SELECT c FROM Customers c WHERE c.ctDate = :ctDate"),
+    @NamedQuery(name = "Customers.findAllOrderById", query = "SELECT c FROM Customers c ORDER BY c.ctId DESC")
+})
 public class Customers implements Serializable {
 
     private static final long serialVersionUID = 1L;
