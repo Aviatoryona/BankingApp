@@ -17,9 +17,8 @@
  */
 package com.banking;
 
-import com.banking.db.DbConnection;
+import com.banking.entities.Customers;
 import com.banking.logic.CustomerLogic;
-import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -27,7 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,21 +41,16 @@ import org.apache.commons.beanutils.BeanUtils;
 @WebServlet(name = "Register", urlPatterns = {"/register"})
 public class Register extends HttpServlet {
 
-    ServletContext ctx;
-    DbConnection dbConnection;
+    @Inject
+    CustomerLogic customerLogic;
 
-    @Override
-    public void init() throws ServletException {
-        super.init(); //To change body of generated methods, choose Tools | Templates.
-        ctx = getServletContext();
-        dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
-    }
+    @Inject
+    Customers cm;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        App app = App.getInstance(dbConnection);
-        Map<String, Object> map = app.registerInit();
+        Map<String, Object> map = new App().registerInit();
 
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(map));
@@ -66,22 +60,12 @@ public class Register extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            CustomerModel cm = new CustomerModel();
-//        cm.setCt_fname(request.getParameter("fname"));
-//        cm.setCt_lname(request.getParameter("lname"));
-//        cm.setCt_email(request.getParameter("email"));
-//        cm.setCt_phone(request.getParameter("phone"));
-//        cm.setCt_country(request.getParameter("country"));
-//        cm.setCt_city(request.getParameter("city"));
-//        cm.setCt_address(request.getParameter("address"));
-//        cm.setCt_gender(request.getParameter("gender"));
-//        cm.setCt_accounttype(request.getParameter("acctype"));
 
             BeanUtils.populate(cm, request.getParameterMap());
 
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(
-                    CustomerLogic.getInstance(dbConnection).createCustomer(cm)
+                    customerLogic.createCustomer(cm)
                     ? mapper.writeValueAsString(
                             new MessageModel(true, "Registration sucessfull")
                     )

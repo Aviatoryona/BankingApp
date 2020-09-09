@@ -17,16 +17,15 @@
  */
 package com.banking;
 
-import com.banking.db.DbConnection;
+import com.banking.entities.Customers;
 import com.banking.logic.CustomerLogic;
 import com.banking.logic.DashboardLogic;
-import com.banking.models.CustomerModel;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import javax.servlet.ServletContext;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,21 +39,18 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Dashboard", urlPatterns = {"/dashboard"})
 public class Dashboard extends HttpServlet {
 
-    ServletContext ctx;
-    DbConnection dbConnection;
-    CustomerModel customerModel;
+    Customers customerModel;
 
-    @Override
-    public void init() throws ServletException {
-        super.init(); //To change body of generated methods, choose Tools | Templates.
-        ctx = getServletContext();
-        dbConnection = (DbConnection) ctx.getAttribute("dbConnection");
-    }
+    @Inject
+    DashboardLogic dashboardLogic;
+
+    @Inject
+    CustomerLogic cl;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        customerModel = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+        customerModel = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
         if (customerModel == null) {
             response.sendRedirect("auth");
             return;
@@ -64,7 +60,7 @@ public class Dashboard extends HttpServlet {
         if (q != null) {
             switch (q) {
                 case "0":
-                    MessageModel messageModel = DashboardLogic.getInstance(dbConnection).processIndexHome(customerModel);
+                    MessageModel messageModel = dashboardLogic.processIndexHome(customerModel);
                     out.print(new ObjectMapper().writeValueAsString(messageModel));
                     return;
                 default:
@@ -105,26 +101,16 @@ public class Dashboard extends HttpServlet {
         ));
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     private void doWithdraw(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/json;charset=UTF-8");
 
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = CustomerLogic.getInstance(dbConnection).withdraw(customerModel, amount);
+            MessageModel mm = cl.withdraw(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
-                CustomerModel cm = (CustomerModel) map.get("account");
+                Customers cm = (Customers) map.get("account");
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
@@ -144,10 +130,10 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = CustomerLogic.getInstance(dbConnection).deposit(customerModel, amount);
+            MessageModel mm = cl.deposit(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
-                CustomerModel cm = (CustomerModel) map.get("account");
+                Customers cm = (Customers) map.get("account");
                 request.getSession().setAttribute(AppEnum.LOGGED_IN_USER.getName(), cm);
             }
             response.getWriter().print(new ObjectMapper().writeValueAsString(
