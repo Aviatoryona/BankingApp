@@ -41,12 +41,6 @@ public class Dashboard extends HttpServlet {
 
     Customers customerModel;
 
-    @Inject
-    DashboardLogic dashboardLogic;
-
-    @Inject
-    CustomerLogic cl;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,7 +54,7 @@ public class Dashboard extends HttpServlet {
         if (q != null) {
             switch (q) {
                 case "0":
-                    MessageModel messageModel = dashboardLogic.processIndexHome(customerModel);
+                    MessageModel messageModel = new DashboardLogic().processIndexHome(customerModel);
                     out.print(new ObjectMapper().writeValueAsString(messageModel));
                     return;
                 default:
@@ -107,7 +101,7 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = cl.withdraw(customerModel, amount);
+            MessageModel mm = new CustomerLogic().withdraw(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
                 Customers cm = (Customers) map.get("account");
@@ -130,7 +124,7 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = cl.deposit(customerModel, amount);
+            MessageModel mm = new CustomerLogic().deposit(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
                 Customers cm = (Customers) map.get("account");

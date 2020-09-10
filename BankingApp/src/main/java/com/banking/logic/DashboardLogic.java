@@ -24,7 +24,6 @@ import com.banking.interfaces.DashboardLogicI;
 import com.banking.models.MessageModel;
 import java.util.HashMap;
 import java.util.Map;
-import javax.inject.Inject;
 
 /**
  *
@@ -32,11 +31,14 @@ import javax.inject.Inject;
  */
 public class DashboardLogic implements DashboardLogicI {
 
-    @Inject
+//    @Inject
     CustomerLogic cl;
 
     @Override
     public MessageModel processIndexHome(Customers cm) {
+        if (cl == null) {
+            cl = new CustomerLogic();
+        }
         Map<String, Object> map = new HashMap<>();
         map.put(AppEnum.DEPOSIT.getName(), cl.getTotalDeposits(cm));
         map.put(AppEnum.WITHDRAW.getName(), cl.getTotalWithdrawals(cm));
@@ -44,13 +46,4 @@ public class DashboardLogic implements DashboardLogicI {
         return new MessageModel(true, "", map);
     }
 
-//    private CustomerLogic lookupCustomerLogicBean() {
-//        try {
-//            Context c = new InitialContext();
-//            return (CustomerLogic) c.lookup("java:global/dev.yonathaniel_BankingApp_war_1.0-SNAPSHOT/CustomerLogic!com.banking.logic.CustomerLogic");
-//        } catch (NamingException ne) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-//            throw new RuntimeException(ne);
-//        }
-//    }
 }

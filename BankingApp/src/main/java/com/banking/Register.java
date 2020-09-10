@@ -42,9 +42,6 @@ import org.apache.commons.beanutils.BeanUtils;
 public class Register extends HttpServlet {
 
     @Inject
-    CustomerLogic cl;
-
-    @Inject
     Customers cm;
 
     @Override
@@ -65,7 +62,7 @@ public class Register extends HttpServlet {
 
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(
-                    cl.createCustomer(cm)
+                    new CustomerLogic().createCustomer(cm)
                     ? mapper.writeValueAsString(
                             new MessageModel(true, "Registration sucessfull")
                     )

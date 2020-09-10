@@ -38,9 +38,6 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet(name = "Admin", urlPatterns = {"/admin"})
 public class Admin extends HttpServlet {
 
-    @Inject
-    AdminLogic adminLogic;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,6 +69,6 @@ public class Admin extends HttpServlet {
     }
 
     private void GetAllCustomers(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        printResult(response, adminLogic.getRegisteredCustomers(-1));
+        printResult(response, new AdminLogic().getRegisteredCustomers(-1));
     }
 }

@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -43,21 +42,6 @@ public class AdminLogic implements AdminLogicI {
 
     @PersistenceContext
     private EntityManager em;
-
-    @Inject
-    private CustomerLogic customerLogic;
-
-    @Inject
-    private TranasctionLogic tranasctionLogic;
-
-    @Inject
-    private TransactionTypeLogic transactionTypeLogic;
-
-    @Inject
-    private UsersLogic usersLogic;
-
-    @Inject
-    AccountTypeLogic accountTypeLogic;
 
     @Override
     public int totalTransactions(Date start, Date end) {
@@ -86,17 +70,17 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public Users getUser(String username, String pwd) {
-        return usersLogic.getUser(username, pwd);
+        return new UsersLogic().getUser(username, pwd);
     }
 
     @Override
     public Users getUser(int id) {
-        return usersLogic.getUser(id);
+        return new UsersLogic().getUser(id);
     }
 
     @Override
     public Customers getCustomer(String email) {
-        return customerLogic.getCustomer(email);
+        return new CustomerLogic().getCustomer(email);
     }
 
     @Override
@@ -131,13 +115,13 @@ public class AdminLogic implements AdminLogicI {
     @Override
     public List<Transactions> getTransactions(int limit) {
         return limit == -1
-                ? tranasctionLogic.getTransactions()
-                : tranasctionLogic.getTransactions(limit);
+                ? new TranasctionLogic().getTransactions()
+                : new TranasctionLogic().getTransactions(limit);
     }
 
     @Override
     public List<Transactions> getTransactions(Customers cm) {
-        return tranasctionLogic.getTransactions(cm);
+        return new TranasctionLogic().getTransactions(cm);
     }
 
     @Override
@@ -161,32 +145,32 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public List<Users> getUsers() {
-        return usersLogic.getUsers(-1);
+        return new UsersLogic().getUsers(-1);
     }
 
     @Override
     public List<Transactiontypes> getTransactiontypes() {
-        return transactionTypeLogic.getTransactiontypeses();
+        return new TransactionTypeLogic().getTransactiontypeses();
     }
 
     @Override
     public List<Accounttypes> getAccounttypes() {
-        return accountTypeLogic.getAccounttypeses();
+        return new AccountTypeLogic().getAccounttypeses();
     }
 
     @Override
     public MessageModel addAccountType(Accounttypes accounttypes) {
-        return accountTypeLogic.addAccountType(accounttypes);
+        return new AccountTypeLogic().addAccountType(accounttypes);
     }
 
     @Override
     public MessageModel addTransactionType(Transactiontypes t) {
-        return transactionTypeLogic.addTransactiontypes(t);
+        return new TransactionTypeLogic().addTransactiontypes(t);
     }
 
     @Override
     public MessageModel addUser(Users user) {
-        return usersLogic.addUser(user);
+        return new UsersLogic().addUser(user);
     }
 
     @Override
@@ -196,7 +180,7 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public MessageModel updateCustomer(Customers c) {
-        return new MessageModel(customerLogic.createCustomer(c), "Done", c);
+        return new MessageModel(new CustomerLogic().createCustomer(c), "Done", c);
     }
 
     @Override
@@ -206,7 +190,7 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public MessageModel deleteUser(Users u) {
-        return usersLogic.removeUser(u);
+        return new UsersLogic().removeUser(u);
     }
 
     @Override
@@ -217,12 +201,12 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public MessageModel deleteTransactionType(Transactiontypes t) {
-        return transactionTypeLogic.removeTransactiontypes(t);
+        return new TransactionTypeLogic().removeTransactiontypes(t);
     }
 
     @Override
     public MessageModel deleteAccountType(Accounttypes a) {
-        return accountTypeLogic.removeAccountType(a);
+        return new AccountTypeLogic().removeAccountType(a);
     }
 
 }
