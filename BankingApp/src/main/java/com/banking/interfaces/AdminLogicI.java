@@ -50,7 +50,7 @@ public interface AdminLogicI {
 
     List<Customers> getRegisteredCustomers(int limit);
 
-    List<Customers> getRegisteredCustomers(int limit, Date date);
+    List<Customers> getRegisteredCustomers(int limit, Date start, Date end);
 
     List<Transactions> getTransactions(int limit);
 

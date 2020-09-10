@@ -17,10 +17,12 @@
  */
 package com.banking.logic;
 
-import com.banking.entities.Transactiontypes;
-import com.banking.interfaces.TransactionTypeLogicI;
+import com.banking.entities.Accounttypes;
+import com.banking.interfaces.AccounttypesI;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -28,31 +30,28 @@ import javax.persistence.PersistenceContext;
  *
  * @author Aviator
  */
-public class TransactionTypeLogic implements TransactionTypeLogicI {
+@Stateless
+@Remote
+public class AccountTypeLogic implements AccounttypesI {
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
-    public Transactiontypes getTransactionType(String type) {
-        return em.find(Transactiontypes.class, type);
+    public MessageModel addAccountType(Accounttypes accounttypes) {
+        em.merge(accounttypes);
+        return new MessageModel(true, "Successfully added", accounttypes);
     }
 
     @Override
-    public List<Transactiontypes> getTransactiontypeses() {
-        return em.createNamedQuery("Transactiontypes.findAll").getResultList();
+    public MessageModel removeAccountType(Accounttypes accounttypes) {
+        em.remove(em.find(Accounttypes.class, accounttypes));
+        return new MessageModel(true, "Deleted", accounttypes);
     }
 
     @Override
-    public MessageModel addTransactiontypes(Transactiontypes transactiontypes) {
-        em.merge(transactiontypes);
-        return new MessageModel(true, "Done", transactiontypes);
-    }
-
-    @Override
-    public MessageModel removeTransactiontypes(Transactiontypes transactiontypes) {
-        em.remove(em.find(Transactiontypes.class, transactiontypes));
-        return new MessageModel(true, "Done", transactiontypes);
+    public List<Accounttypes> getAccounttypeses() {
+        return em.createNamedQuery("Accounttypes.findAll").getResultList();
     }
 
 }

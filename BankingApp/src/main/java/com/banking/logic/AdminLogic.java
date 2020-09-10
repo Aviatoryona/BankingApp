@@ -42,16 +42,22 @@ import javax.persistence.Query;
 public class AdminLogic implements AdminLogicI {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Inject
-    CustomerLogic customerLogic;
+    private CustomerLogic customerLogic;
 
     @Inject
-    TranasctionLogic tranasctionLogic;
+    private TranasctionLogic tranasctionLogic;
 
     @Inject
-    TransactionTypeLogic transactionTypeLogic;
+    private TransactionTypeLogic transactionTypeLogic;
+
+    @Inject
+    private UsersLogic usersLogic;
+
+    @Inject
+    AccountTypeLogic accountTypeLogic;
 
     @Override
     public int totalTransactions(Date start, Date end) {
@@ -75,17 +81,17 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public int totalCustomers(Date start, Date end) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getRegisteredCustomers(-1).size();
     }
 
     @Override
     public Users getUser(String username, String pwd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usersLogic.getUser(username, pwd);
     }
 
     @Override
     public Users getUser(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usersLogic.getUser(id);
     }
 
     @Override
@@ -103,8 +109,23 @@ public class AdminLogic implements AdminLogicI {
     }
 
     @Override
-    public List<Customers> getRegisteredCustomers(int limit, Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Customers> getRegisteredCustomers(int limit, Date start, Date end) {
+        if (start == null) {
+            return getRegisteredCustomers(limit);
+        }
+        String sql = end == null
+                ? "SELECT c FROM Customers c WHERE c.ctDate >= :ctDate"
+                : "SELECT c FROM Customers c WHERE c.ctDate >= ?1 AND c.ctDate <= ?2";
+
+        Query q = em.createQuery(sql);
+        if (end == null) {
+            q.setParameter("ctDate", start);
+        } else {
+            q.setParameter(1, start);
+            q.setParameter(2, end);
+        }
+        q.setMaxResults(limit);
+        return q.getResultList();
     }
 
     @Override
@@ -140,32 +161,32 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public List<Users> getUsers() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usersLogic.getUsers(-1);
     }
 
     @Override
     public List<Transactiontypes> getTransactiontypes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return transactionTypeLogic.getTransactiontypeses();
     }
 
     @Override
     public List<Accounttypes> getAccounttypes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accountTypeLogic.getAccounttypeses();
     }
 
     @Override
     public MessageModel addAccountType(Accounttypes accounttypes) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accountTypeLogic.addAccountType(accounttypes);
     }
 
     @Override
     public MessageModel addTransactionType(Transactiontypes t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return transactionTypeLogic.addTransactiontypes(t);
     }
 
     @Override
     public MessageModel addUser(Users user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usersLogic.addUser(user);
     }
 
     @Override
@@ -175,32 +196,33 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public MessageModel updateCustomer(Customers c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new MessageModel(customerLogic.createCustomer(c), "Done", c);
     }
 
     @Override
     public MessageModel updateUser(Users u) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return addUser(u);
     }
 
     @Override
     public MessageModel deleteUser(Users u) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return usersLogic.removeUser(u);
     }
 
     @Override
     public MessageModel deleteCustomer(Customers c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.remove(em.find(Customers.class, c));
+        return new MessageModel(true, "Done", c);
     }
 
     @Override
     public MessageModel deleteTransactionType(Transactiontypes t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return transactionTypeLogic.removeTransactiontypes(t);
     }
 
     @Override
     public MessageModel deleteAccountType(Accounttypes a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return accountTypeLogic.removeAccountType(a);
     }
 
 }

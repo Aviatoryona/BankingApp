@@ -17,21 +17,25 @@
  */
 package com.banking.interfaces;
 
-import com.banking.entities.Transactiontypes;
+import com.banking.entities.Users;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Aviator
  */
-public interface TransactionTypeLogicI {
+@Remote
+public interface UsersLogicI {
 
-    MessageModel addTransactiontypes(Transactiontypes transactiontypes);
+    Users getUser(int id);
 
-    MessageModel removeTransactiontypes(Transactiontypes transactiontypes);
+    Users getUser(String username, String pwd);
 
-    Transactiontypes getTransactionType(String type);
+    MessageModel addUser(Users users);
 
-    List<Transactiontypes> getTransactiontypeses();
+    MessageModel removeUser(Users users);
+
+    List<Users> getUsers(int limit);
 }

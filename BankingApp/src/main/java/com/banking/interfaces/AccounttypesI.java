@@ -17,21 +17,22 @@
  */
 package com.banking.interfaces;
 
-import com.banking.entities.Transactiontypes;
+import com.banking.entities.Accounttypes;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Aviator
  */
-public interface TransactionTypeLogicI {
+@Remote
+public interface AccounttypesI {
 
-    MessageModel addTransactiontypes(Transactiontypes transactiontypes);
+    MessageModel addAccountType(Accounttypes accounttypes);
 
-    MessageModel removeTransactiontypes(Transactiontypes transactiontypes);
+    MessageModel removeAccountType(Accounttypes accounttypes);
 
-    Transactiontypes getTransactionType(String type);
+    List<Accounttypes> getAccounttypeses();
 
-    List<Transactiontypes> getTransactiontypeses();
 }
