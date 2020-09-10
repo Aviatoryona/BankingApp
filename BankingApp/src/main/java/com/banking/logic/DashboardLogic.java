@@ -24,7 +24,12 @@ import com.banking.interfaces.DashboardLogicI;
 import com.banking.models.MessageModel;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *

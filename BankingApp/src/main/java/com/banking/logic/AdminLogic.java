@@ -44,8 +44,9 @@ public class AdminLogic implements AdminLogicI {
     @PersistenceContext
     private EntityManager em;
 
-//    @Inject
-//    private CustomerLogic customerLogic;
+    @Inject
+    private CustomerLogic customerLogic;
+
     @Inject
     private TranasctionLogic tranasctionLogic;
 

@@ -4,18 +4,15 @@
     Author     : Aviator
 --%>
 
-<%@page import="com.banking.db.DbConnection"%>
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="com.banking.logic.TransactionTypeLogic"%>
-<%@page import="com.banking.models.TransactionType"%>
-<%@page import="com.banking.models.AccountTypes"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.models.CustomerModel"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    DbConnection dbConnection = (DbConnection) getServletContext().getAttribute("dbConnection");
-    CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+
+    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 //    TransactionType transactionType = TransactionTypeLogic.getInstance(dbConnection).getTransactionType(AppEnum.WITHDRAW.getName());
 
 %>
@@ -34,7 +31,7 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins">KES <%= cm.getCt_accbalance()%></h1>
+                        <h1 class="no-margins">KES <%= cm.getCtAccbalance()%></h1>
                         <small>Balance <%=new SimpleDateFormat("MMM dd, yyyy h:m:s").format(new Date())%></small>
                     </div>
                 </div>

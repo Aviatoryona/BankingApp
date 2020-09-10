@@ -6,7 +6,6 @@
 
 <%@page import="com.banking.AppEnum"%>
 <%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
-<%@page import="com.banking.models.CustomerModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     if (cm != null) {
@@ -14,7 +13,7 @@
 
 <div class="row border-bottom white-bg">
     <nav class="navbar navbar-expand-lg navbar-static-top" role="navigation">
-        <a  href="javascript:void(0)" onclick="getTemplate(0)" class="navbar-brand"><%=cm.getCt_fname().toUpperCase()%></a>
+        <a  href="javascript:void(0)" onclick="getTemplate(0)" class="navbar-brand"><%=cm.getCtFname().toUpperCase()%></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-reorder"></i>
         </button>

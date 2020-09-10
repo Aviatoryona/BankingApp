@@ -4,20 +4,18 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.entities.Transactions"%>
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.models.CustomerModel"%>
-<%@page import="com.banking.db.DbConnection"%>
 <%@page import="com.banking.logic.TranasctionLogic"%>
 <%@page import="java.util.List"%>
-<%@page import="com.banking.models.TransactionModel"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    DbConnection dbConnection = (DbConnection) getServletContext().getAttribute("dbConnection");
-    CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
-    List<TransactionModel> models = TranasctionLogic.getInstance(dbConnection).getTransactionModels(cm);
+    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+    List<Transactions> models = new TranasctionLogic().getTransactions(cm);
 %>
 <!DOCTYPE html>
 <div class="row">
@@ -59,14 +57,14 @@
                         <tbody>
                             <%
                                 if (models != null) {
-                                    for (TransactionModel model : models) {
+                                    for (Transactions model : models) {
                             %>
                             <tr>
-                                <td><%= model.getTr_id()%></td>
-                                <td><%= model.getTr_type()%></td>
-                                <td><%= model.getTr_amount()%></td>
-                                <td><%= model.getTr_charge()%></td>
-                                <td><%=model.getTr_date()%></td>
+                                <td><%= model.getTrId()%></td>
+                                <td><%= model.getTrType()%></td>
+                                <td><%= model.getTrAmount()%></td>
+                                <td><%= model.getTrCharge()%></td>
+                                <td><%=model.getTrDate()%></td>
                                 <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                             </tr>
                             <%

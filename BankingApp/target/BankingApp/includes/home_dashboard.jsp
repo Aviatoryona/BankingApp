@@ -4,25 +4,23 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.entities.Transactions"%>
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="com.banking.models.TransactionModel"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.models.CustomerModel"%>
 <%@page import="com.banking.logic.DashboardLogic"%>
 <%@page import="com.banking.models.MessageModel"%>
-<%@page import="com.banking.db.DbConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    DbConnection dbConnection = (DbConnection) getServletContext().getAttribute("dbConnection");
-    CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
-    MessageModel messageModel = DashboardLogic.getInstance(dbConnection).processIndexHome(cm);
+    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+    MessageModel messageModel = new DashboardLogic().processIndexHome(cm);
     Map<String, Object> map = (Map<String, Object>) messageModel.getObject();
 
-    List<TransactionModel> models = (List<TransactionModel>) map.get(AppEnum.TRANSACTIONS.getName());
+    List<Transactions> models = (List<Transactions>) map.get(AppEnum.TRANSACTIONS.getName());
 %>
 <div class="row">
     <div class="col-md-3">
@@ -55,7 +53,7 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins"><%= cm.getCt_accbalance()%></h1>
+                        <h1 class="no-margins"><%= cm.getCtAccbalance()%></h1>
                         <small>Acc. Balance(Kes)</small>
                     </div>
                 </div>
@@ -119,14 +117,14 @@
                         <tbody>
                             <%
                                 if (models != null) {
-                                    for (TransactionModel model : models) {
+                                    for (Transactions model : models) {
                             %>
                             <tr>
-                                <td><%= model.getTr_id()%></td>
-                                <td><%= model.getTr_type()%></td>
-                                <td><%= model.getTr_amount()%></td>
-                                <td><%= model.getTr_charge()%></td>
-                                <td><%=model.getTr_date()%></td>
+                                <td><%= model.getTrId()%></td>
+                                <td><%= model.getTrType()%></td>
+                                <td><%= model.getTrAmount()%></td>
+                                <td><%= model.getTrCharge()%></td>
+                                <td><%=model.getTrDate()%></td>
                                 <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                             </tr>
                             <%

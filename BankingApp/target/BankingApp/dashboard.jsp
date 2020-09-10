@@ -4,11 +4,12 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Enumeration"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%!CustomerModel cm = null;%>
+<%!Customers cm = null;%>
 
 <%Enumeration<String> vals = session.getAttributeNames();
 
@@ -25,7 +26,7 @@
         String nextElement = vals.nextElement();
 //        response.getWriter().println(nextElement);
         if (nextElement.equalsIgnoreCase(AppEnum.LOGGED_IN_USER.getName())) {
-            cm = (CustomerModel) session.getAttribute(AppEnum.LOGGED_IN_USER.getName());
+            cm = (Customers) session.getAttribute(AppEnum.LOGGED_IN_USER.getName());
         }
     }
     if (cm == null) {

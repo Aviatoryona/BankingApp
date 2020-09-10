@@ -4,13 +4,13 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.models.CustomerModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 %>
 <!DOCTYPE html>
 <div class="row">
@@ -27,7 +27,7 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins">KES <%= cm.getCt_accbalance()%></h1>
+                        <h1 class="no-margins">KES <%= cm.getCtAccbalance()%></h1>
                         <small>Balance <%=new SimpleDateFormat("MMM dd, yyyy h:m:s").format(new Date())%></small>
                     </div>
                 </div>

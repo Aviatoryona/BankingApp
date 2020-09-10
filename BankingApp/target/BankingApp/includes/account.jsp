@@ -4,17 +4,17 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.entities.Customers"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.models.CustomerModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <%
-    CustomerModel cm = (CustomerModel) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
+    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 %>
 <div class="row m-b-lg m-t-lg">
     <div class="col-md-3">
@@ -29,9 +29,9 @@
         <div class="profile-info">
             <div class="">
                 <div>
-                    <h2 class="no-margins"><%= cm.getCt_fname() + " " + cm.getCt_lname()%></h2>
-                    <h4><small>Member since: </small><%=cm.getCt_date()%></h4>
-                    <small><%= cm.getCt_accountnumber()%>[<%= cm.getCt_gender()%>]</small>
+                    <h2 class="no-margins"><%= cm.getCtFname() + " " + cm.getCtLname()%></h2>
+                    <h4><small>Member since: </small><%=cm.getCtDate()%></h4>
+                    <small><%= cm.getCtAccountnumber()%>[<%= cm.getCtGender()%>]</small>
                 </div>
             </div>
         </div>
@@ -51,28 +51,28 @@
                 <form onsubmit="return false">
                     <div class="form-group  row">
                         <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCt_email()%>" readonly=""></div>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCtEmail()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group  row">
                         <label class="col-sm-2 col-form-label">Phone</label>
-                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCt_phone()%>" readonly=""></div>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCtPhone()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group  row">
                         <div class="col-sm-6">
                             <label class="col-sm-2 col-form-label">Country</label>
-                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getCt_country()%>" readonly="">
+                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getCtCountry()%>" readonly="">
                         </div>
                         <div class="col-sm-6">
                             <label class="col-sm-2 col-form-label">City</label>
-                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getCt_city()%>" readonly="">
+                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getCtCity()%>" readonly="">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group  row">
                         <label class="col-sm-2 col-form-label">Address</label>
-                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCt_address()%>" readonly=""></div>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCtAddress()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
                 </form>
@@ -95,20 +95,20 @@
                     <div class="form-group row has-success">
                         <label class="col-lg-2 col-form-label">Account Type</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" value="<%= cm.getCt_accounttype()%>" readonly="">
+                            <input type="text" class="form-control" value="<%= cm.getCtAccounttype()%>" readonly="">
                             <span class="form-text m-b-none"></span>
                         </div>
                     </div>
                     <div class="form-group row has-error">
                         <label class="col-lg-2 col-form-label">Account Number</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" value="<%= cm.getCt_accountnumber()%>" readonly="">
+                            <input type="text" class="form-control" value="<%= cm.getCtAccountnumber()%>" readonly="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-2 col-form-label">Current Access Code</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" value="<%= cm.getCt_accesscode()%>" readonly="">
+                            <input type="text" class="form-control" value="<%= cm.getCtAccesscode()%>" readonly="">
                             <span class="form-text m-b-none text-warning">Changes every time you log in to ensure your account security</span>
                         </div>
                     </div>
