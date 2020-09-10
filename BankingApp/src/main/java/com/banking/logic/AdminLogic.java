@@ -44,8 +44,9 @@ public class AdminLogic implements AdminLogicI {
     @PersistenceContext
     private EntityManager em;
 
-//    @Inject
-//    private CustomerLogic customerLogic;
+    @Inject
+    private CustomerLogic customerLogic;
+
     @Inject
     private TranasctionLogic tranasctionLogic;
 
@@ -95,7 +96,7 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public Customers getCustomer(String email) {
-        return new CustomerLogic().getCustomer(email);
+        return customerLogic.getCustomer(email);
     }
 
     @Override
@@ -195,7 +196,7 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public MessageModel updateCustomer(Customers c) {
-        return new MessageModel(new CustomerLogic().createCustomer(c), "Done", c);
+        return new MessageModel(customerLogic.createCustomer(c), "Done", c);
     }
 
     @Override
