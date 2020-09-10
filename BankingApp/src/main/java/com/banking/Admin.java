@@ -37,10 +37,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 @WebServlet(name = "Admin", urlPatterns = {"/admin"})
 public class Admin extends HttpServlet {
-    
+
     @Inject
     AdminLogic adminLogic;
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,15 +50,17 @@ public class Admin extends HttpServlet {
                 case "100":  //get all customers
                     GetAllCustomers(request, response);
                     break;
+                case "101":
+                    break;
             }
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-    
+
     void printResult(HttpServletResponse response, Object object) throws IOException {
         try {
             response.getWriter().write(
