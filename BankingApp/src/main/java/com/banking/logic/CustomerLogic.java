@@ -91,9 +91,7 @@ public class CustomerLogic implements CustomerLogicI {
         List<Transactions> models = getDeposits(cm);
         if (models != null) {
             double sum = 0;
-            for (Transactions model : models) {
-                sum += model.getTrAmount();
-            }
+            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
             return sum;
         }
         return 0;
@@ -104,9 +102,7 @@ public class CustomerLogic implements CustomerLogicI {
         List<Transactions> models = getWithdrawals(cm);
         if (models != null) {
             double sum = 0;
-            for (Transactions model : models) {
-                sum += model.getTrAmount();
-            }
+            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
             return sum;
         }
         return 0;
