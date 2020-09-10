@@ -24,11 +24,7 @@ import com.banking.interfaces.DashboardLogicI;
 import com.banking.models.MessageModel;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import javax.inject.Inject;
 
 /**
  *
@@ -36,7 +32,8 @@ import javax.naming.NamingException;
  */
 public class DashboardLogic implements DashboardLogicI {
 
-    CustomerLogic cl = lookupCustomerLogicBean();
+    @Inject
+    CustomerLogic cl;
 
     @Override
     public MessageModel processIndexHome(Customers cm) {
@@ -47,14 +44,13 @@ public class DashboardLogic implements DashboardLogicI {
         return new MessageModel(true, "", map);
     }
 
-    private CustomerLogic lookupCustomerLogicBean() {
-        try {
-            Context c = new InitialContext();
-            return (CustomerLogic) c.lookup("java:global/dev.yonathaniel_BankingApp_war_1.0-SNAPSHOT/CustomerLogic!com.banking.logic.CustomerLogic");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
-
+//    private CustomerLogic lookupCustomerLogicBean() {
+//        try {
+//            Context c = new InitialContext();
+//            return (CustomerLogic) c.lookup("java:global/dev.yonathaniel_BankingApp_war_1.0-SNAPSHOT/CustomerLogic!com.banking.logic.CustomerLogic");
+//        } catch (NamingException ne) {
+//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+//            throw new RuntimeException(ne);
+//        }
+//    }
 }

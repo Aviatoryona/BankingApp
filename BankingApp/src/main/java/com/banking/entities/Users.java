@@ -105,6 +105,7 @@ public class Users implements Serializable {
     @Size(max = 255)
     @Column(name = "usr_image")
     private String usrImage;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "usr_date")
