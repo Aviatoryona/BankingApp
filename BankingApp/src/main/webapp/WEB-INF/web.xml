@@ -15,4 +15,14 @@
         <ejb-ref-type>Session</ejb-ref-type>
         <ejb-link>#CustomerLogic</ejb-link>
     </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>customerLogic1</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>#CustomerLogic</ejb-link>
+    </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>customerLogic2</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>#CustomerLogic</ejb-link>
+    </ejb-local-ref>
 </web-app>
