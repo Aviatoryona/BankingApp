@@ -73,12 +73,14 @@ public class Accounttypes implements Serializable {
     @NotNull
     @Column(name = "accmaxbal")
     private double accmaxbal;
+
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
     @Column(name = "accdescription")
     private String accdescription;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "accdate")
