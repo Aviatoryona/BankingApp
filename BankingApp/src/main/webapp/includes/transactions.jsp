@@ -7,16 +7,11 @@
 <%@page import="com.banking.entities.Transactions"%>
 <%@page import="com.banking.entities.Customers"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.logic.TranasctionLogic"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
-    List<Transactions> models = new TranasctionLogic().getTransactions(cm);
-%>
 <!DOCTYPE html>
 <div class="row">
     <div class="col-lg-2">
@@ -42,7 +37,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tr_table">
                         <thead>
                             <tr>
 
@@ -55,23 +50,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                if (models != null) {
-                                    for (Transactions model : models) {
-                            %>
-                            <tr>
-                                <td><%= model.getTrId()%></td>
-                                <td><%= model.getTrType()%></td>
-                                <td><%= model.getTrAmount()%></td>
-                                <td><%= model.getTrCharge()%></td>
-                                <td><%=model.getTrDate()%></td>
+                            <tr v-for="transaction in transactions">
+                                <td>{{transaction.trId}}</td>
+                                <td>{{transaction.trType}}</td>
+                                <td>{{transaction.trAmount}}</td>
+                                <td>{{transaction.trCharge}}</td>
+                                <td>{{transaction.trDate}}</td>
                                 <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                             </tr>
-                            <%
-                                    }
-                                }
-                            %>
-
                         </tbody>
                     </table>
                 </div>

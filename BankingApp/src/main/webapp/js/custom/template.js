@@ -41,19 +41,22 @@ app.processTemplate = function () {
         isJson: false,
         params: null,
         callBack: function (data) {
-//            console.log(data);
             $('.container').html(data);
+
+            /*
+             * call this function to load and bind data to loaded template
+             */
+            app.processIndex.call({index: index0});
+
         }
     });
 };
 
 /*
  *
- *
  */
 function getTemplate(tmp_index) {
     app.processTemplate.call({index: tmp_index});
-    app.processIndex.call({index: tmp_index});
 }
 
 /*

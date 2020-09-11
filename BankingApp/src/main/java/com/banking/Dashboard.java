@@ -18,12 +18,15 @@
 package com.banking;
 
 import com.banking.entities.Customers;
+import com.banking.entities.Transactions;
 import com.banking.interfaces.DashboardLogicI;
+import com.banking.interfaces.TranasctionLogicI;
 import com.banking.logic.CustomerLogic;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -44,6 +47,9 @@ public class Dashboard extends HttpServlet {
     @EJB
     private DashboardLogicI dashboardLogicI;
 
+    @EJB
+    TranasctionLogicI tranasctionLogicI;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -60,6 +66,12 @@ public class Dashboard extends HttpServlet {
                     MessageModel messageModel = dashboardLogicI.processIndexHome(customerModel);
                     out.print(new ObjectMapper().writeValueAsString(messageModel));
                     return;
+
+                case "3":
+                    List<Transactions> transactionses = tranasctionLogicI.getTransactions(customerModel);
+                    out.print(new ObjectMapper().writeValueAsString(transactionses));
+                    return;
+
                 default:
                     out.print(new ObjectMapper().writeValueAsString(
                             new MessageModel(false, "", request.getParameterMap())

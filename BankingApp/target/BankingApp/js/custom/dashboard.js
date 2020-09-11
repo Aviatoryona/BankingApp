@@ -34,6 +34,9 @@ app.processIndex = function () {
             case 0:
                 process_home_dashboard(data);
                 break;
+            case 3:
+                process_get_all_transactions(data);
+                break;
         }
     });
 };
@@ -43,16 +46,32 @@ app.processIndex = function () {
  * @returns {undefined}
  */
 function process_home_dashboard(res) {
-    document.querySelector("#el_deposit").innerHtml = `${res.object.deposit}`;
-    document.querySelector("#el_withdrawal").innerHtml = `${res.object.deposit}`;
-    var app = new Vue({
-        el: '#tr_table',
+    new Vue({
+        el: '#home',
         data: {
+            el_deposit: res.object.deposit,
+            el_withdrawal: res.object.deposit,
             transactions: []
         },
         created: function () {
             let cobject = this; // here stored currect instance
             cobject.transactions = res.object.transactions;
+        }
+    });
+}
+
+/*
+ *
+ * @returns {undefined}
+ */
+function process_get_all_transactions(res) {
+    new Vue({
+        el: '#tr_table',
+        data: {
+            transactions: []
+        },
+        created: function () {
+            this.transactions = res;
         }
     });
 }
