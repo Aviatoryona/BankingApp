@@ -18,13 +18,14 @@
 package com.banking;
 
 import com.banking.entities.Customers;
+import com.banking.interfaces.DashboardLogicI;
 import com.banking.logic.CustomerLogic;
-import com.banking.logic.DashboardLogic;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,9 @@ public class Dashboard extends HttpServlet {
 
     Customers customerModel;
 
+    @EJB
+    private DashboardLogicI dashboardLogicI;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,7 +57,8 @@ public class Dashboard extends HttpServlet {
         if (q != null) {
             switch (q) {
                 case "0":
-                    MessageModel messageModel = new DashboardLogic().processIndexHome(customerModel);
+                    MessageModel messageModel = dashboardLogicI.processIndexHome(customerModel);
+//                    MessageModel messageModel = new MessageModel(true, q);//cl.checkBalance(customerModel);
                     out.print(new ObjectMapper().writeValueAsString(messageModel));
                     return;
                 default:

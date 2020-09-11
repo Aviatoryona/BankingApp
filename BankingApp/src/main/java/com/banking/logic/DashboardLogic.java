@@ -37,6 +37,7 @@ import javax.ejb.Stateless;
 @Remote(DashboardLogicI.class)
 public class DashboardLogic implements DashboardLogicI {
 
+//    @EJB(name = "ejb:/ejb-server-basic/CustomerLogic!com.banking.interfaces.CustomerLogicI")
     @EJB
     private CustomerLogicI cl;
 

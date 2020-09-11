@@ -17,6 +17,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jakartaee>8.0</jakartaee>
+        <version.server.bom>20.0.1.Final</version.server.bom>
     </properties>
 
     <dependencies>
@@ -118,6 +119,14 @@
             <artifactId>hibernate-validator</artifactId>
             <version>6.1.5.Final</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.wildfly.bom/wildfly-jakartaee8-with-tools-builder -->
+        <dependency>
+            <groupId>org.wildfly.bom</groupId>
+            <artifactId>wildfly-jakartaee8-with-tools-builder</artifactId>
+            <version>20.0.1.Final</version>
+            <type>pom</type>
         </dependency>
 
     </dependencies>
