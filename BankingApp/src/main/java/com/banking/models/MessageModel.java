@@ -17,11 +17,13 @@
  */
 package com.banking.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Aviator
  */
-public class MessageModel {
+public class MessageModel implements Serializable {
 
     private String message;
     private Object object;

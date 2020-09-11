@@ -6,11 +6,11 @@
 package com.banking;
 
 import com.banking.entities.Customers;
-import com.banking.logic.CustomerLogic;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +25,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Auth", urlPatterns = {"/auth"})
 public class Auth extends HttpServlet {
 
-    @Inject
-    CustomerLogic cl;
+    @EJB
+    CustomerLogicI cl;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

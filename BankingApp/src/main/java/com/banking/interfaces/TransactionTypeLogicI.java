@@ -20,11 +20,13 @@ package com.banking.interfaces;
 import com.banking.entities.Transactiontypes;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Aviator
  */
+@Remote
 public interface TransactionTypeLogicI {
 
     MessageModel addTransactiontypes(Transactiontypes transactiontypes);

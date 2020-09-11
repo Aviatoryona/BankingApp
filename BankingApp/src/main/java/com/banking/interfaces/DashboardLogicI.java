@@ -19,11 +19,13 @@ package com.banking.interfaces;
 
 import com.banking.entities.Customers;
 import com.banking.models.MessageModel;
+import javax.ejb.Remote;
 
 /**
  *
  * @author Aviator
  */
+@Remote
 public interface DashboardLogicI {
 
     MessageModel processIndexHome(Customers cm);

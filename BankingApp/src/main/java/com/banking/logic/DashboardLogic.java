@@ -20,25 +20,29 @@ package com.banking.logic;
 
 import com.banking.AppEnum;
 import com.banking.entities.Customers;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.DashboardLogicI;
 import com.banking.models.MessageModel;
 import java.util.HashMap;
 import java.util.Map;
+import javax.ejb.EJB;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Aviator
  */
+@Stateless
+@Remote
 public class DashboardLogic implements DashboardLogicI {
 
-//    @Inject
-    CustomerLogic cl;
+    @EJB
+    CustomerLogicI cl;
 
     @Override
     public MessageModel processIndexHome(Customers cm) {
-        if (cl == null) {
-            cl = new CustomerLogic();
-        }
+
         Map<String, Object> map = new HashMap<>();
         map.put(AppEnum.DEPOSIT.getName(), cl.getTotalDeposits(cm));
         map.put(AppEnum.WITHDRAW.getName(), cl.getTotalWithdrawals(cm));

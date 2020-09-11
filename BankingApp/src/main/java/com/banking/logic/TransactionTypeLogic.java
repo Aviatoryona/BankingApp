@@ -21,6 +21,8 @@ import com.banking.entities.Transactiontypes;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -28,6 +30,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author Aviator
  */
+@Stateless
+@Remote
 public class TransactionTypeLogic implements TransactionTypeLogicI {
 
     @PersistenceContext

@@ -4,6 +4,8 @@
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.interfaces.DashboardLogicI"%>
+<%@page import="javax.ejb.EJB"%>
 <%@page import="com.banking.entities.Transactions"%>
 <%@page import="com.banking.entities.Customers"%>
 <%@page import="java.text.DateFormat"%>
@@ -16,10 +18,10 @@
 <%@page import="com.banking.models.MessageModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+
     Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
     MessageModel messageModel = new DashboardLogic().processIndexHome(cm);
     Map<String, Object> map = (Map<String, Object>) messageModel.getObject();
-
     List<Transactions> models = (List<Transactions>) map.get(AppEnum.TRANSACTIONS.getName());
 %>
 <div class="row">

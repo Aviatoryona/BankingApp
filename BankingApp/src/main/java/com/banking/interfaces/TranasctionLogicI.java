@@ -21,12 +21,14 @@ import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.Remote;
 import javax.persistence.Query;
 
 /**
  *
  * @author Aviator
  */
+@Remote
 public interface TranasctionLogicI {
 
     /*

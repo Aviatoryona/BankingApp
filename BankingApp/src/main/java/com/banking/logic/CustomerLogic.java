@@ -23,13 +23,15 @@ import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.entities.Transactiontypes;
 import com.banking.interfaces.CustomerLogicI;
+import com.banking.interfaces.TranasctionLogicI;
+import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -43,7 +45,13 @@ import javax.persistence.Query;
 public class CustomerLogic implements CustomerLogicI {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
+
+    @EJB
+    private TransactionTypeLogicI transactionTypeLogicI;
+
+    @EJB
+    private TranasctionLogicI tranasctionLogicI;
 
     @Override
     public boolean createCustomer(Customers customerModel) {
@@ -117,12 +125,9 @@ public class CustomerLogic implements CustomerLogicI {
         return 0;
     }
 
-    @Inject
-    TransactionTypeLogic transactionTypeLogic;
-
     @Override
     public List<Transactions> getDeposits(Customers cm) {
-        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.DEPOSIT.getName());
+        Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
             return getAllTransactions(cm, transactionType);
         }
@@ -131,7 +136,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public List<Transactions> getWithdrawals(Customers cm) {
-        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.WITHDRAW.getName());
+        Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
             return getAllTransactions(cm, transactionType);
         }
@@ -163,14 +168,14 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(Double.doubleToLongBits(amount));
-        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.DEPOSIT.getName());
+        Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
             double newAmount = (cm1.getCtAccbalance() + Math.abs(amount)) - transactionType.getTpCharge();
             MessageModel messageModel = updateAccountBal(newAmount, cm);
             if (messageModel.isSuccess()) {
                 transactions.setTrCharge(transactionType.getTpCharge());
                 transactions.setTrType(transactionType.getTpType());
-                MessageModel messageModel1 = new TranasctionLogic().createTransaction(transactions);
+                MessageModel messageModel1 = tranasctionLogicI.createTransaction(transactions);
                 Map<String, Object> map = new HashMap<>();
                 map.put("account", messageModel.getObject());
                 map.put("transaction", messageModel1.getObject());
@@ -193,7 +198,7 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(Double.doubleToLongBits(amount));
-        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.WITHDRAW.getName());
+        Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
             if (cm1.getCtAccbalance() < (amount + transactions.getTrCharge())) {
                 return new MessageModel(false, "Insufficient balance");
@@ -204,7 +209,7 @@ public class CustomerLogic implements CustomerLogicI {
             if (messageModel.isSuccess()) {
                 transactions.setTrCharge(transactionType.getTpCharge());
                 transactions.setTrType(transactionType.getTpType());
-                MessageModel messageModel1 = new TranasctionLogic().createTransaction(transactions);
+                MessageModel messageModel1 = tranasctionLogicI.createTransaction(transactions);
                 Map<String, Object> map = new HashMap<>();
                 map.put("account", messageModel.getObject());
                 map.put("transaction", messageModel1.getObject());
@@ -224,11 +229,11 @@ public class CustomerLogic implements CustomerLogicI {
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
         transactions.setTrAmount(0);
-        Transactiontypes transactionType = transactionTypeLogic.getTransactionType(AppEnum.BALANCE.getName());
+        Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.BALANCE.getName());
         if (transactionType != null) {
             transactions.setTrCharge(transactionType.getTpCharge());
             transactions.setTrType(transactionType.getTpType());
-            MessageModel messageModel = new TranasctionLogic().createTransaction(transactions);
+            MessageModel messageModel = tranasctionLogicI.createTransaction(transactions);
             messageModel.setObject(cm1);
             return messageModel;
         }
