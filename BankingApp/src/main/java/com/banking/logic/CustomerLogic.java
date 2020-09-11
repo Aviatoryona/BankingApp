@@ -146,13 +146,14 @@ public class CustomerLogic implements CustomerLogicI {
     @Override
     public List<Transactions> getAllTransactions(Customers cm, Transactiontypes transactionType) {
         String sql = transactionType != null
-                ? "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber AND t.trType= :trType ORDER BY t.trId DESC LIMIT 300"
-                : "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY t.trId DESC LIMIT 300 ";
+                ? "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber AND t.trType= :trType ORDER BY t.trId DESC"
+                : "SELECT t FROM Transactions t WHERE t.trAccountnumber = :trAccountnumber ORDER BY t.trId DESC";
         Query q = em.createQuery(sql);
         q.setParameter("trAccountnumber", cm.getCtAccountnumber());
         if (transactionType != null) {
             q.setParameter("trType", cm.getCtAccounttype());
         }
+        q.setMaxResults(300);
         return new TranasctionLogic().getTransactions(q);
     }
 

@@ -58,7 +58,6 @@ public class Dashboard extends HttpServlet {
             switch (q) {
                 case "0":
                     MessageModel messageModel = dashboardLogicI.processIndexHome(customerModel);
-//                    MessageModel messageModel = new MessageModel(true, q);//cl.checkBalance(customerModel);
                     out.print(new ObjectMapper().writeValueAsString(messageModel));
                     return;
                 default:

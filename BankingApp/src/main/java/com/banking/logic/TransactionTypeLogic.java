@@ -39,7 +39,10 @@ public class TransactionTypeLogic implements TransactionTypeLogicI {
 
     @Override
     public Transactiontypes getTransactionType(String type) {
-        return em.find(Transactiontypes.class, type);
+//        return em.find(Transactiontypes.class, type);
+        return (Transactiontypes) em.createNamedQuery("Transactiontypes.findByTpType")
+                .setParameter("tpType", type)
+                .getSingleResult();
     }
 
     @Override

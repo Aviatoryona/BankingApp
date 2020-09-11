@@ -18,7 +18,6 @@
 <%@page import="com.banking.models.MessageModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-
     Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
     MessageModel messageModel = new DashboardLogic().processIndexHome(cm);
     Map<String, Object> map = (Map<String, Object>) messageModel.getObject();
