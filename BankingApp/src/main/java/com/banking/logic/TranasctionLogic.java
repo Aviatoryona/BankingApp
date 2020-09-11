@@ -33,7 +33,7 @@ import javax.persistence.Query;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(TranasctionLogicI.class)
 public class TranasctionLogic implements TranasctionLogicI {
 
     @PersistenceContext

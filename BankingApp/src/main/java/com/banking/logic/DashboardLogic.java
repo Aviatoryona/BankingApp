@@ -34,11 +34,11 @@ import javax.ejb.Stateless;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(DashboardLogicI.class)
 public class DashboardLogic implements DashboardLogicI {
 
     @EJB
-    CustomerLogicI cl;
+    private CustomerLogicI cl;
 
     @Override
     public MessageModel processIndexHome(Customers cm) {

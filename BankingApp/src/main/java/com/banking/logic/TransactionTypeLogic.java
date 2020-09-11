@@ -31,7 +31,7 @@ import javax.persistence.PersistenceContext;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(TransactionTypeLogicI.class)
 public class TransactionTypeLogic implements TransactionTypeLogicI {
 
     @PersistenceContext

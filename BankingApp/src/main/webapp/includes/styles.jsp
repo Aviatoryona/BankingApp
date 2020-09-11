@@ -15,6 +15,10 @@
 
 <!-- Sweet Alert -->
 <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
-    
+
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
+
+<!-- vue js -->
+<script src="js/vue-dev.js"></script>

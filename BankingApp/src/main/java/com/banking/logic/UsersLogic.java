@@ -33,7 +33,7 @@ import javax.persistence.Query;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(UsersLogicI.class)
 public class UsersLogic implements UsersLogicI {
 
     @PersistenceContext

@@ -41,7 +41,7 @@ import javax.persistence.Query;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(CustomerLogicI.class)
 public class CustomerLogic implements CustomerLogicI {
 
     @PersistenceContext

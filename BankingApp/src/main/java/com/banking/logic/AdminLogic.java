@@ -37,7 +37,7 @@ import javax.persistence.Query;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(AdminLogicI.class)
 public class AdminLogic implements AdminLogicI {
 
     @PersistenceContext

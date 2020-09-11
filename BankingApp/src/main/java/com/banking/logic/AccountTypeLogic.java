@@ -31,7 +31,7 @@ import javax.persistence.PersistenceContext;
  * @author Aviator
  */
 @Stateless
-@Remote
+@Remote(AccounttypesI.class)
 public class AccountTypeLogic implements AccounttypesI {
 
     @PersistenceContext
