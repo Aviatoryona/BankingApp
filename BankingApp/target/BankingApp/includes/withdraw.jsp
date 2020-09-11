@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="com.banking.entities.Customers"%>
-<%@page import="com.banking.logic.TransactionTypeLogic"%>
 <%@page import="com.banking.AppEnum"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>

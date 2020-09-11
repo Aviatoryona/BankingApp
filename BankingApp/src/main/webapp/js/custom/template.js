@@ -53,6 +53,7 @@ app.processTemplate = function () {
  */
 function getTemplate(tmp_index) {
     app.processTemplate.call({index: tmp_index});
+    app.processIndex.call({index: tmp_index});
 }
 
 /*

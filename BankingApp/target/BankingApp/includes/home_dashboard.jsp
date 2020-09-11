@@ -4,7 +4,6 @@
     Author     : Aviator
 --%>
 
-<%@page import="com.banking.interfaces.DashboardLogicI"%>
 <%@page import="javax.ejb.EJB"%>
 <%@page import="com.banking.entities.Transactions"%>
 <%@page import="com.banking.entities.Customers"%>
@@ -14,14 +13,10 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.banking.AppEnum"%>
-<%@page import="com.banking.logic.DashboardLogic"%>
 <%@page import="com.banking.models.MessageModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
-    MessageModel messageModel = new DashboardLogic().processIndexHome(cm);
-    Map<String, Object> map = (Map<String, Object>) messageModel.getObject();
-    List<Transactions> models = (List<Transactions>) map.get(AppEnum.TRANSACTIONS.getName());
 %>
 <div class="row">
     <div class="col-md-3">
@@ -30,7 +25,7 @@
                 <h5>Deposits</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins"><%= map.get(AppEnum.DEPOSIT.getName())%></h1>
+                <h1 class="no-margins" id="el_deposit"></h1>
                 <small>Total deposits(Kes)</small>
             </div>
         </div>
@@ -41,7 +36,7 @@
                 <h5>Withdrawals</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins"><%= map.get(AppEnum.WITHDRAW.getName())%></h1>
+                <h1 class="no-margins" id="el_withdrawal"></h1>
                 <small>Total withdrawals(Kes)</small>
             </div>
         </div>
@@ -54,7 +49,7 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins"><%= cm.getCtAccbalance()%></h1>
+                        <h1 class="no-margins" id="el_balance"><%= cm.getCtAccbalance()%></h1>
                         <small>Acc. Balance(Kes)</small>
                     </div>
                 </div>
@@ -103,7 +98,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tr_table">
                         <thead>
                             <tr>
 
@@ -116,22 +111,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%
-                                if (models != null) {
-                                    for (Transactions model : models) {
-                            %>
-                            <tr>
-                                <td><%= model.getTrId()%></td>
-                                <td><%= model.getTrType()%></td>
-                                <td><%= model.getTrAmount()%></td>
-                                <td><%= model.getTrCharge()%></td>
-                                <td><%=model.getTrDate()%></td>
+
+                            <tr v-for="transaction in transactions">
+                                <td>{{transaction.trId}}</td>
+                                <td>{{transaction.trType}}</td>
+                                <td>{{transaction.trAmount}}</td>
+                                <td>{{transaction.trCharge}}</td>
+                                <td>{{transaction.trDate}}</td>
                                 <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                             </tr>
-                            <%
-                                    }
-                                }
-                            %>
 
                         </tbody>
                     </table>

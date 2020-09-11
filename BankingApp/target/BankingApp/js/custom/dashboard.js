@@ -25,26 +25,37 @@ $(document).ready(function () {
 /*
  * Used to populate template data at a specified index using GET request
  */
+var BASE_URL = "http://localhost:8080/BankingApp/";
+
 app.processIndex = function () {
     var index = this.index;
-    app.loadData.call({
-        dataUrl: "dashboard?q=" + index,
-        method: 'GET',
-        isJson: true,
-        params: null,
-        callBack: function (data) {
-
-            /*
-             * Provide a callback function to call after data loaded
-             */
-            alert(data.message);
-//            if (data.success) {
-            console.log(data);
-//            }
+    $.getJSON("dashboard?q=" + index, function (data) {
+        switch (index) {
+            case 0:
+                process_home_dashboard(data);
+                break;
         }
     });
 };
 
+/*
+ *
+ * @returns {undefined}
+ */
+function process_home_dashboard(res) {
+    document.querySelector("#el_deposit").innerHtml = `${res.object.deposit}`;
+    document.querySelector("#el_withdrawal").innerHtml = `${res.object.deposit}`;
+    var app = new Vue({
+        el: '#tr_table',
+        data: {
+            transactions: []
+        },
+        created: function () {
+            let cobject = this; // here stored currect instance
+            cobject.transactions = res.object.transactions;
+        }
+    });
+}
 /*
  *
  */
