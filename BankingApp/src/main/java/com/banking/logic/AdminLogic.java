@@ -244,4 +244,8 @@ public class AdminLogic implements AdminLogicI {
         objects.put("transactions", transactionses);
         return new MessageModel(true, "", objects);
     }
+
+    /*
+
+     */
 }
