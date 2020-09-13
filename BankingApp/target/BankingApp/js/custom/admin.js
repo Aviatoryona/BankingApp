@@ -23,7 +23,8 @@ var adminPages = {
     0: 'admin/home-welcome.jsp',
     1: 'admin/transactions.jsp',
     2: 'admin/clients.jsp',
-    3: 'admin/users.jsp'
+    3: 'admin/users.jsp',
+    4: 'admin/manage.jsp'
 };
 
 function showValidate(input) {
@@ -89,28 +90,30 @@ admin.processIndex0 = function () {  //home
     var page = adminPages[index];
     loadTemplate(page);
 
-    /*
-     * call this function to load and bind data to loaded template
-     */
-    $.getJSON(`admin?action=${index}`, function (res) {
-        console.log(res);
-        new Vue({
-            el: '#adm_home',
-            data: {
-                incomeToday: res.object.profit_today,
-                incomeTotal: res.object.total_profit,
-                total_clients: res.object.num_customers,
-                total_transactions: res.object.num_transactions,
-                customers: [],
-                transactions: []
-            },
-            created: function () {
-                const me = this;
-                me.customers = res.object.customers;
-                me.transactions = res.object.transactions;
-            }
+    setTimeout(function () {
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`admin?action=${index}`, function (res) {
+            console.log(res);
+            new Vue({
+                el: '#adm_home',
+                data: {
+                    incomeToday: res.object.profit_today,
+                    incomeTotal: res.object.total_profit,
+                    total_clients: res.object.num_customers,
+                    total_transactions: res.object.num_transactions,
+                    customers: [],
+                    transactions: []
+                },
+                created: function () {
+                    const me = this;
+                    me.customers = res.object.customers;
+                    me.transactions = res.object.transactions;
+                }
+            });
         });
-    });
+    }, 1000);
 
 };
 
@@ -122,22 +125,24 @@ admin.processIndex1 = function () { //transactions
     var page = adminPages[index];
     loadTemplate(page);
 
-    /*
-     * call this function to load and bind data to loaded template
-     */
-    $.getJSON(`admin?action=${index}`, function (res) {
-        console.log(res);
-        new Vue({
-            el: '#adm_home',
-            data: {
-                transactions: []
-            },
-            created: function () {
-                const me = this;
-                me.transactions = res.object.transactions;
-            }
+    setTimeout(function () {
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`admin?action=${index}`, function (res) {
+            console.log(res);
+            new Vue({
+                el: '#adm_home',
+                data: {
+                    transactions: []
+                },
+                created: function () {
+                    const me = this;
+                    me.transactions = res;
+                }
+            });
         });
-    });
+    }, 1000);
 
 };
 
@@ -149,22 +154,25 @@ admin.processIndex2 = function () { //clients
     var page = adminPages[index];
     loadTemplate(page);
 
-    /*
-     * call this function to load and bind data to loaded template
-     */
-    $.getJSON(`admin?action=${index}`, function (res) {
-        console.log(res);
-        new Vue({
-            el: '#adm_home',
-            data: {
-                customers: []
-            },
-            created: function () {
-                const me = this;
-                me.customers = res;
-            }
+    setTimeout(function () {
+
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`admin?action=${index}`, function (res) {
+            console.log(res);
+            new Vue({
+                el: '#adm_home',
+                data: {
+                    customers: []
+                },
+                created: function () {
+                    const me = this;
+                    me.customers = res;
+                }
+            });
         });
-    });
+    }, 1000);
 
 };
 
@@ -176,21 +184,51 @@ admin.processIndex3 = function () { //users
     var page = adminPages[index];
     loadTemplate(page);
 
-    /*
-     * call this function to load and bind data to loaded template
-     */
-    $.getJSON(`admin?action=${index}`, function (res) {
-        console.log(res);
-        new Vue({
-            el: '#adm_home',
-            data: {
-                users: []
-            },
-            created: function () {
-                const me = this;
-                me.users = res;
-            }
+    setTimeout(function () {
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`admin?action=${index}`, function (res) {
+            console.log(res);
+            new Vue({
+                el: '#adm_home',
+                data: {
+                    users: []
+                },
+                created: function () {
+                    const me = this;
+                    me.users = res;
+                }
+            });
         });
-    });
+    }, 1000);
+
+};
+
+/*
+ *
+ */
+admin.processIndex4 = function () { //Manage
+    var index = 4;
+    var page = adminPages[index];
+    loadTemplate(page);
+
+    setTimeout(function () {
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`admin?action=${index}`, function (res) {
+            console.log(res);
+            new Vue({
+                el: '#adm_home',
+                data: {
+                    users: []
+                },
+                created: function () {
+                    const me = this;
+                }
+            });
+        });
+    }, 1000);
 
 };

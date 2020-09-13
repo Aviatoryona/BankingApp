@@ -26,19 +26,19 @@
         </li>
 
         <li class="active">
-            <a href="javascript:void(0)"><i class="fa fa-dashboard"></i> <span class="nav-label">Home</span></a>
+            <a href="javascript:void(0)" onclick="admin.processIndex0()"><i class="fa fa-dashboard"></i> <span class="nav-label">Home</span></a>
         </li>
         <li>
-            <a href="javascript:void(0)"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
+            <a href="javascript:void(0)" onclick="admin.processIndex2()"><i class="fa fa-users"></i> <span class="nav-label">Clients</span></a>
         </li>
         <li>
-            <a href="javascript:void(0)"><i class="fa fa-bar-chart"></i> <span class="nav-label">Transactions</span></a>
+            <a href="javascript:void(0)" onclick="admin.processIndex1()"><i class="fa fa-bar-chart"></i> <span class="nav-label">Transactions</span></a>
         </li>
         <li>
-            <a href="javascript:void(0)"><i class="fa fa-user-circle"></i> <span class="nav-label">Users</span></a>
+            <a href="javascript:void(0)" onclick="admin.processIndex3()"><i class="fa fa-user-circle"></i> <span class="nav-label">Users</span></a>
         </li>
         <li>
-            <a href="javascript:void(0)"><i class="fa fa-cogs"></i> <span class="nav-label">Manage</span></a>
+            <a href="javascript:void(0)" onclick="admin.processIndex4()"><i class="fa fa-cogs"></i> <span class="nav-label">Manage</span></a>
         </li>
         <li class="special_link">
             <a href="admin?action=-1"><i class="fa fa-sign-out"></i> <span class="nav-label">Log Out</span></a>

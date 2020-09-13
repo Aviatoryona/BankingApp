@@ -53,9 +53,9 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr v-for="customer in customers">
-                                    <td>{{customer.ctFname}} {{customer.ctLname}}</td>
-                                    <td><a href="#">{{customer.ctEmail}}</a></td>
-                                    <td>{{customer.ctPhone}}</td>
+                                    <td>{{customer.clientUserSd.ctFname}} {{customer.clientUserSd.ctLname}}</td>
+                                    <td><a href="#">{{customer.clientUserSd.ctEmail}}</a></td>
+                                    <td>{{customer.clientUserSd.ctPhone}}</td>
                                     <td>{{customer.ctAddress}}</td>
                                 </tr>
                             </tbody>
