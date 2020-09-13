@@ -29,8 +29,8 @@
         <div class="profile-info">
             <div class="">
                 <div>
-                    <h2 class="no-margins"><%= cm.getCtFname() + " " + cm.getCtLname()%></h2>
-                    <h4><small>Member since: </small><%=cm.getCtDate()%></h4>
+                    <h2 class="no-margins"><%= cm.getClientUserSd().getCtFname() + " " + cm.getClientUserSd().getCtLname()%></h2>
+                    <h4><small>Member since: </small><%=cm.getClientUserSd().getCtDate()%></h4>
                     <small><%= cm.getCtAccountnumber()%>[<%= cm.getCtGender()%>]</small>
                 </div>
             </div>
@@ -51,12 +51,12 @@
                 <form onsubmit="return false">
                     <div class="form-group  row">
                         <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCtEmail()%>" readonly=""></div>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getClientUserSd().getCtEmail()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group  row">
                         <label class="col-sm-2 col-form-label">Phone</label>
-                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getCtPhone()%>" readonly=""></div>
+                        <div class="col-sm-10"><input type="text" class="form-control" value="<%= cm.getClientUserSd().getCtPhone()%>" readonly=""></div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group  row">

@@ -49,7 +49,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Customers.findByCtAccountnumber", query = "SELECT c FROM Customers c WHERE c.ctAccountnumber = :ctAccountnumber"),
     @NamedQuery(name = "Customers.findByCtAccbalance", query = "SELECT c FROM Customers c WHERE c.ctAccbalance = :ctAccbalance"),
     @NamedQuery(name = "Customers.findByCtAccesscode", query = "SELECT c FROM Customers c WHERE c.ctAccesscode = :ctAccesscode"),
-
     @NamedQuery(name = "Customers.findAllOrderById", query = "SELECT c FROM Customers c ORDER BY c.ctId DESC")
 })
 public class Customers implements Serializable {

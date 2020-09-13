@@ -30,12 +30,12 @@
             <div class="row m-t-xs">
                 <div class="col-6">
                     <h5 class="m-b-xs">Income today</h5>
-                    <h1 class="no-margins">160,000</h1>
+                    <h1 class="no-margins">{{incomeToday}}</h1>
                     <div class="font-bold text-navy">10% <i class="fa fa-bolt"></i></div>
                 </div>
                 <div class="col-6">
                     <h5 class="m-b-xs">Total Income</h5>
-                    <h1 class="no-margins">42,120</h1>
+                    <h1 class="no-margins">{{incomeTotal}}</h1>
                     <div class="font-bold text-navy">58% <i class="fa fa-bolt"></i></div>
                 </div>
             </div>

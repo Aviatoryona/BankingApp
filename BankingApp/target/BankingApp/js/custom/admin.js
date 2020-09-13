@@ -84,7 +84,7 @@ function loadTemplate(page) {
 /*
  *
  */
-admin.processIndex0 = function () {
+admin.processIndex0 = function () {  //home
     var index = 0;
     var page = adminPages[index];
     loadTemplate(page);
@@ -97,6 +97,8 @@ admin.processIndex0 = function () {
         new Vue({
             el: '#adm_home',
             data: {
+                incomeToday: res.object.profit_today,
+                incomeTotal: res.object.total_profit,
                 total_clients: res.object.num_customers,
                 total_transactions: res.object.num_transactions,
                 customers: [],
@@ -115,7 +117,7 @@ admin.processIndex0 = function () {
 /*
  *
  */
-admin.processIndex1 = function () {
+admin.processIndex1 = function () { //transactions
     var index = 1;
     var page = adminPages[index];
     loadTemplate(page);
@@ -142,7 +144,7 @@ admin.processIndex1 = function () {
 /*
  *
  */
-admin.processIndex2 = function () {
+admin.processIndex2 = function () { //clients
     var index = 2;
     var page = adminPages[index];
     loadTemplate(page);
@@ -159,7 +161,7 @@ admin.processIndex2 = function () {
             },
             created: function () {
                 const me = this;
-                me.customers = res.object.transactions;
+                me.customers = res;
             }
         });
     });
@@ -169,7 +171,7 @@ admin.processIndex2 = function () {
 /*
  *
  */
-admin.processIndex3 = function () {
+admin.processIndex3 = function () { //users
     var index = 3;
     var page = adminPages[index];
     loadTemplate(page);
@@ -182,11 +184,11 @@ admin.processIndex3 = function () {
         new Vue({
             el: '#adm_home',
             data: {
-                customers: []
+                users: []
             },
             created: function () {
                 const me = this;
-                me.customers = res.object.transactions;
+                me.users = res;
             }
         });
     });

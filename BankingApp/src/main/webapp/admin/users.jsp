@@ -28,10 +28,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="gradeX" v-for="customer in customers">
+                                <tr class="gradeX" v-for="customer in users">
                                     <td>{{customer.ctFname}} {{customer.ctLname}}</td>
                                     <td><a href="#">{{customer.ctEmail}}</a></td>
-                                    <td>{{customer.ctPhone}}</td>
+                                    <td>{{customer.clientUserSd.ctPhone}}</td>
                                     <td>{{customer.ctGender}}</td>
                                     <td>{{customer.ctAddress}}</td>
                                     <td>{{customer.ctCity}}</td>

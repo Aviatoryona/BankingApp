@@ -29,9 +29,9 @@
                             </thead>
                             <tbody>
                                 <tr class="gradeX" v-for="customer in customers">
-                                    <td>{{customer.ctFname}} {{customer.ctLname}}</td>
-                                    <td><a href="#">{{customer.ctEmail}}</a></td>
-                                    <td>{{customer.ctPhone}}</td>
+                                    <td>{{customer.clientUserSd.ctFname}} {{customer.clientUserSd.ctLname}}</td>
+                                    <td><a href="#">{{customer.clientUserSd.ctEmail}}</a></td>
+                                    <td>{{customer.clientUserSd.ctPhone}}</td>
                                     <td>{{customer.ctGender}}</td>
                                     <td>{{customer.ctAddress}}</td>
                                     <td>{{customer.ctCity}}</td>

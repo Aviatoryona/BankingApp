@@ -1,29 +1,31 @@
 {
     "message": "",
     "object": {
+        "num_customers": 4,
+        "num_transactions": 16,
+        "total_profit": 4647222234237108224,
+        "profit_today": 4647222234237108224,
         "customers": [{
                 "ctId": 4,
-                "ctFname": "jon",
-                "ctLname": "Cena",
-                "ctEmail": "c@c.com",
-                "ctPhone": "243678909056",
                 "ctNextkin": null,
                 "ctAddress": "100, 80100",
                 "ctCity": "Nairobi",
                 "ctCountry": "Kenya",
-                "ctGender": null,
+                "ctGender": "M",
                 "ctAccounttype": "Personal Account",
                 "ctAccountnumber": "2345678900",
                 "ctAccbalance": 0,
                 "ctAccesscode": "",
-                "ctPic": null,
-                "ctDate": 1599762535000
+                "clientUserSd": {
+                    "ctFname": "jon",
+                    "ctLname": "Cena",
+                    "ctEmail": "c@c.com",
+                    "ctPhone": "243678909056",
+                    "ctPic": null,
+                    "ctDate": 1599762535000
+                }
             }, {
                 "ctId": 3,
-                "ctFname": "Jon",
-                "ctLname": "Cena",
-                "ctEmail": "cena@cena.com",
-                "ctPhone": "253770587810",
                 "ctNextkin": null,
                 "ctAddress": "1788, 90000",
                 "ctCity": "Adis Ababa",
@@ -33,14 +35,16 @@
                 "ctAccountnumber": "15991987861926112",
                 "ctAccbalance": 40930,
                 "ctAccesscode": "A9WmcVPo",
-                "ctPic": null,
-                "ctDate": 1599209586000
+                "clientUserSd": {
+                    "ctFname": "Jon",
+                    "ctLname": "Cena",
+                    "ctEmail": "cena@cena.com",
+                    "ctPhone": "253770587810",
+                    "ctPic": null,
+                    "ctDate": 1599209586000
+                }
             }, {
                 "ctId": 2,
-                "ctFname": "Robin Van",
-                "ctLname": "Persie",
-                "ctEmail": "rvp@arsenal.com",
-                "ctPhone": "25579539207",
                 "ctNextkin": null,
                 "ctAddress": "661, 8900",
                 "ctCity": "Nairobi",
@@ -50,14 +54,16 @@
                 "ctAccountnumber": "15991247233803622",
                 "ctAccbalance": 0,
                 "ctAccesscode": "3pBpDumr",
-                "ctPic": null,
-                "ctDate": 1599135523000
+                "clientUserSd": {
+                    "ctFname": "Robin Van",
+                    "ctLname": "Persie",
+                    "ctEmail": "rvp@arsenal.com",
+                    "ctPhone": "25579539207",
+                    "ctPic": null,
+                    "ctDate": 1599135523000
+                }
             }, {
                 "ctId": 1,
-                "ctFname": "Yonathaniel",
-                "ctLname": "Aviator",
-                "ctEmail": "av@gmail.com",
-                "ctPhone": " 254701953920",
                 "ctNextkin": null,
                 "ctAddress": "80100, Nairobi",
                 "ctCity": "Nairobi",
@@ -67,8 +73,14 @@
                 "ctAccountnumber": "15979594318459446",
                 "ctAccbalance": 14900,
                 "ctAccesscode": "$ObCwVp9",
-                "ctPic": null,
-                "ctDate": 1597970231000
+                "clientUserSd": {
+                    "ctFname": "Yonathaniel",
+                    "ctLname": "Aviator",
+                    "ctEmail": "av@gmail.com",
+                    "ctPhone": " 254701953920",
+                    "ctPic": null,
+                    "ctDate": 1597970231000
+                }
             }],
         "transactions": [{
                 "trId": 1,
@@ -140,48 +152,6 @@
                 "trAmount": 1000,
                 "trCharge": 10.0,
                 "trDate": 1599159267000
-            }, {
-                "trId": 11,
-                "trAccountnumber": "15979594318459446",
-                "trType": "Withdraw",
-                "trAmount": 1500,
-                "trCharge": 50.5,
-                "trDate": 1599159453000
-            }, {
-                "trId": 12,
-                "trAccountnumber": "15979594318459446",
-                "trType": "Withdraw",
-                "trAmount": 9790,
-                "trCharge": 50.5,
-                "trDate": 1599159535000
-            }, {
-                "trId": 13,
-                "trAccountnumber": "15979594318459446",
-                "trType": "Withdraw",
-                "trAmount": 25000,
-                "trCharge": 50.5,
-                "trDate": 1599159836000
-            }, {
-                "trId": 14,
-                "trAccountnumber": "15991987861926112",
-                "trType": "Deposit",
-                "trAmount": 40000,
-                "trCharge": 10.0,
-                "trDate": 1599209617000
-            }, {
-                "trId": 15,
-                "trAccountnumber": "15991987861926112",
-                "trType": "Withdraw",
-                "trAmount": 8000,
-                "trCharge": 50.5,
-                "trDate": 1599209672000
-            }, {
-                "trId": 16,
-                "trAccountnumber": "15991987861926112",
-                "trType": "Deposit",
-                "trAmount": 9000,
-                "trCharge": 10.0,
-                "trDate": 1599209773000
             }]
     },
     "success": true
