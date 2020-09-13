@@ -67,11 +67,6 @@
         <script>
             $(document).ready(function () {
 
-                /*
-                 *
-                 */
-                admin.processIndex0.call();
-
                 var sparklineCharts = function () {
                     $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
                         type: 'line',
@@ -98,6 +93,11 @@
                 });
 
                 sparklineCharts();
+
+                /*
+                 *
+                 */
+                admin.processIndex0.call();
 
             });
         </script>

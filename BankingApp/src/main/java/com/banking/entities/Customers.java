@@ -18,9 +18,9 @@
 package com.banking.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,10 +28,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -44,10 +40,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Customers.findAll", query = "SELECT c FROM Customers c"),
     @NamedQuery(name = "Customers.findByCtId", query = "SELECT c FROM Customers c WHERE c.ctId = :ctId"),
-    @NamedQuery(name = "Customers.findByCtFname", query = "SELECT c FROM Customers c WHERE c.ctFname = :ctFname"),
-    @NamedQuery(name = "Customers.findByCtLname", query = "SELECT c FROM Customers c WHERE c.ctLname = :ctLname"),
-    @NamedQuery(name = "Customers.findByCtEmail", query = "SELECT c FROM Customers c WHERE c.ctEmail = :ctEmail"),
-    @NamedQuery(name = "Customers.findByCtPhone", query = "SELECT c FROM Customers c WHERE c.ctPhone = :ctPhone"),
     @NamedQuery(name = "Customers.findByCtNextkin", query = "SELECT c FROM Customers c WHERE c.ctNextkin = :ctNextkin"),
     @NamedQuery(name = "Customers.findByCtAddress", query = "SELECT c FROM Customers c WHERE c.ctAddress = :ctAddress"),
     @NamedQuery(name = "Customers.findByCtCity", query = "SELECT c FROM Customers c WHERE c.ctCity = :ctCity"),
@@ -57,8 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Customers.findByCtAccountnumber", query = "SELECT c FROM Customers c WHERE c.ctAccountnumber = :ctAccountnumber"),
     @NamedQuery(name = "Customers.findByCtAccbalance", query = "SELECT c FROM Customers c WHERE c.ctAccbalance = :ctAccbalance"),
     @NamedQuery(name = "Customers.findByCtAccesscode", query = "SELECT c FROM Customers c WHERE c.ctAccesscode = :ctAccesscode"),
-    @NamedQuery(name = "Customers.findByCtPic", query = "SELECT c FROM Customers c WHERE c.ctPic = :ctPic"),
-    @NamedQuery(name = "Customers.findByCtDate", query = "SELECT c FROM Customers c WHERE c.ctDate = :ctDate"),
+
     @NamedQuery(name = "Customers.findAllOrderById", query = "SELECT c FROM Customers c ORDER BY c.ctId DESC")
 })
 public class Customers implements Serializable {
@@ -69,72 +60,36 @@ public class Customers implements Serializable {
     @Basic(optional = false)
     @Column(name = "ct_id")
     private Integer ctId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ct_fname")
-    private String ctFname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ct_lname")
-    private String ctLname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ct_email")
-    private String ctEmail;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ct_phone")
-    private String ctPhone;
-    @Size(max = 255)
+
     @Column(name = "ct_nextkin")
     private String ctNextkin;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "ct_address")
     private String ctAddress;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "ct_city")
     private String ctCity;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "ct_country")
     private String ctCountry;
-    @Size(max = 255)
+
     @Column(name = "ct_gender")
     private String ctGender;
-    @Size(max = 255)
+
     @Column(name = "ct_accounttype")
     private String ctAccounttype;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "ct_accountnumber")
     private String ctAccountnumber;
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "ct_accbalance")
     private long ctAccbalance;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "ct_accesscode")
     private String ctAccesscode;
-    @Size(max = 255)
-    @Column(name = "ct_pic")
-    private String ctPic;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ct_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date ctDate;
+
+    @Embedded
+    private ClientUserSd clientUserSd;
 
     public Customers() {
     }
@@ -143,169 +98,172 @@ public class Customers implements Serializable {
         this.ctId = ctId;
     }
 
-    public Customers(Integer ctId, String ctFname, String ctLname, String ctEmail, String ctPhone, String ctAddress, String ctCity, String ctCountry, String ctAccountnumber, long ctAccbalance, String ctAccesscode, Date ctDate) {
+    public Customers(Integer ctId, String ctNextkin, String ctAddress, String ctCity, String ctCountry, String ctGender, String ctAccounttype, String ctAccountnumber, long ctAccbalance, String ctAccesscode, ClientUserSd clientUserSd) {
         this.ctId = ctId;
-        this.ctFname = ctFname;
-        this.ctLname = ctLname;
-        this.ctEmail = ctEmail;
-        this.ctPhone = ctPhone;
+        this.ctNextkin = ctNextkin;
         this.ctAddress = ctAddress;
         this.ctCity = ctCity;
         this.ctCountry = ctCountry;
+        this.ctGender = ctGender;
+        this.ctAccounttype = ctAccounttype;
         this.ctAccountnumber = ctAccountnumber;
         this.ctAccbalance = ctAccbalance;
         this.ctAccesscode = ctAccesscode;
-        this.ctDate = ctDate;
+        this.clientUserSd = clientUserSd;
     }
 
+    /**
+     * @return the ctId
+     */
     public Integer getCtId() {
         return ctId;
     }
 
+    /**
+     * @param ctId the ctId to set
+     */
     public void setCtId(Integer ctId) {
         this.ctId = ctId;
     }
 
-    public String getCtFname() {
-        return ctFname;
-    }
-
-    public void setCtFname(String ctFname) {
-        this.ctFname = ctFname;
-    }
-
-    public String getCtLname() {
-        return ctLname;
-    }
-
-    public void setCtLname(String ctLname) {
-        this.ctLname = ctLname;
-    }
-
-    public String getCtEmail() {
-        return ctEmail;
-    }
-
-    public void setCtEmail(String ctEmail) {
-        this.ctEmail = ctEmail;
-    }
-
-    public String getCtPhone() {
-        return ctPhone;
-    }
-
-    public void setCtPhone(String ctPhone) {
-        this.ctPhone = ctPhone;
-    }
-
+    /**
+     * @return the ctNextkin
+     */
     public String getCtNextkin() {
         return ctNextkin;
     }
 
+    /**
+     * @param ctNextkin the ctNextkin to set
+     */
     public void setCtNextkin(String ctNextkin) {
         this.ctNextkin = ctNextkin;
     }
 
+    /**
+     * @return the ctAddress
+     */
     public String getCtAddress() {
         return ctAddress;
     }
 
+    /**
+     * @param ctAddress the ctAddress to set
+     */
     public void setCtAddress(String ctAddress) {
         this.ctAddress = ctAddress;
     }
 
+    /**
+     * @return the ctCity
+     */
     public String getCtCity() {
         return ctCity;
     }
 
+    /**
+     * @param ctCity the ctCity to set
+     */
     public void setCtCity(String ctCity) {
         this.ctCity = ctCity;
     }
 
+    /**
+     * @return the ctCountry
+     */
     public String getCtCountry() {
         return ctCountry;
     }
 
+    /**
+     * @param ctCountry the ctCountry to set
+     */
     public void setCtCountry(String ctCountry) {
         this.ctCountry = ctCountry;
     }
 
+    /**
+     * @return the ctGender
+     */
     public String getCtGender() {
         return ctGender;
     }
 
+    /**
+     * @param ctGender the ctGender to set
+     */
     public void setCtGender(String ctGender) {
         this.ctGender = ctGender;
     }
 
+    /**
+     * @return the ctAccounttype
+     */
     public String getCtAccounttype() {
         return ctAccounttype;
     }
 
+    /**
+     * @param ctAccounttype the ctAccounttype to set
+     */
     public void setCtAccounttype(String ctAccounttype) {
         this.ctAccounttype = ctAccounttype;
     }
 
+    /**
+     * @return the ctAccountnumber
+     */
     public String getCtAccountnumber() {
         return ctAccountnumber;
     }
 
+    /**
+     * @param ctAccountnumber the ctAccountnumber to set
+     */
     public void setCtAccountnumber(String ctAccountnumber) {
         this.ctAccountnumber = ctAccountnumber;
     }
 
+    /**
+     * @return the ctAccbalance
+     */
     public long getCtAccbalance() {
         return ctAccbalance;
     }
 
+    /**
+     * @param ctAccbalance the ctAccbalance to set
+     */
     public void setCtAccbalance(long ctAccbalance) {
         this.ctAccbalance = ctAccbalance;
     }
 
+    /**
+     * @return the ctAccesscode
+     */
     public String getCtAccesscode() {
         return ctAccesscode;
     }
 
+    /**
+     * @param ctAccesscode the ctAccesscode to set
+     */
     public void setCtAccesscode(String ctAccesscode) {
         this.ctAccesscode = ctAccesscode;
     }
 
-    public String getCtPic() {
-        return ctPic;
+    /**
+     * @return the clientUserSd
+     */
+    public ClientUserSd getClientUserSd() {
+        return clientUserSd;
     }
 
-    public void setCtPic(String ctPic) {
-        this.ctPic = ctPic;
-    }
-
-    public Date getCtDate() {
-        return ctDate;
-    }
-
-    public void setCtDate(Date ctDate) {
-        this.ctDate = ctDate;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (ctId != null ? ctId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Customers)) {
-            return false;
-        }
-        Customers other = (Customers) object;
-        return !((this.ctId == null && other.ctId != null) || (this.ctId != null && !this.ctId.equals(other.ctId)));
-    }
-
-    @Override
-    public String toString() {
-        return "com.banking.entities.Customers[ ctId=" + ctId + " ]";
+    /**
+     * @param clientUserSd the clientUserSd to set
+     */
+    public void setClientUserSd(ClientUserSd clientUserSd) {
+        this.clientUserSd = clientUserSd;
     }
 
 }

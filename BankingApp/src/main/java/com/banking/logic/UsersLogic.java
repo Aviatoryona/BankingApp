@@ -70,7 +70,7 @@ public class UsersLogic implements UsersLogicI {
     @Override
     public Users getUser(String username, String pwd) {
         try {
-            Query q = em.createQuery("SELECT u FROM Users u WHERE u.usrUsername = :usrUsername OR u.usrEmail=:usrUsername AND u.usrPwd = :usrPwd");
+            Query q = em.createQuery("SELECT u FROM Users u WHERE u.clientUserSd.ctEmail = :usrUsername OR u.usrUsername = :usrUsername AND u.usrPwd = :usrPwd");
             q.setParameter("usrUsername", username);
             q.setParameter("usrPwd", pwd);
             return (Users) q.getSingleResult();

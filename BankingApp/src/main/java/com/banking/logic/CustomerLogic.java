@@ -75,7 +75,7 @@ public class CustomerLogic implements CustomerLogicI {
         if (customers != null) {
             customers.setCtAccesscode(accessCode);
             em.merge(customers);
-            return new MessageModel(true, customers.getCtFname(), customers);
+            return new MessageModel(true, customers.getClientUserSd().getCtFname(), customers);
         }
 
         return new MessageModel(false, "Account not registered");
@@ -83,12 +83,12 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel checkPassword(String email, String pwd) {
-        Customers cm = (Customers) em.createQuery("SELECT c FROM Customers c WHERE c.ctEmail = :ctEmail AND c.ctAccesscode = :ctAccesscode")
+        Customers cm = (Customers) em.createQuery("SELECT c FROM Customers c WHERE c.clientUserSd.ctEmail = :ctEmail AND c.ctAccesscode = :ctAccesscode")
                 .setParameter("ctEmail", email)
                 .setParameter("ctAccesscode", pwd)
                 .getSingleResult();
         if (cm != null) {
-            return new MessageModel(true, cm.getCtFname(), cm);
+            return new MessageModel(true, cm.getClientUserSd().getCtFname(), cm);
         }
 
         return new MessageModel(false, "Failed");
@@ -121,7 +121,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public double getBalance(Customers cm) {
-        Customers cm1 = getCustomer(cm.getCtEmail());
+        Customers cm1 = getCustomer(cm.getClientUserSd().getCtEmail());
         if (cm1 != null) {
             return cm1.getCtAccbalance();
         }
@@ -165,7 +165,7 @@ public class CustomerLogic implements CustomerLogicI {
         if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
-        Customers cm1 = getCustomer(cm.getCtEmail());
+        Customers cm1 = getCustomer(cm.getClientUserSd().getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
@@ -195,7 +195,7 @@ public class CustomerLogic implements CustomerLogicI {
         if (Math.abs(amount) > 300000 || Math.abs(amount) < 1000) {
             return new MessageModel(false, "Invalid amount");
         }
-        Customers cm1 = getCustomer(cm.getCtEmail());
+        Customers cm1 = getCustomer(cm.getClientUserSd().getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
@@ -226,7 +226,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel checkBalance(Customers cm) {
-        Customers cm1 = getCustomer(cm.getCtEmail());
+        Customers cm1 = getCustomer(cm.getClientUserSd().getCtEmail());
         if (cm1 == null) {
             return new MessageModel(false, "Account verification failed");
         }
@@ -249,7 +249,7 @@ public class CustomerLogic implements CustomerLogicI {
         //"UPDATE ".concat(tbName) + " SET ct_accbalance=? WHERE ct_accountnumber=?";
         cm.setCtAccbalance(Double.doubleToLongBits(newBal));
         em.merge(cm);
-        return new MessageModel(true, "success", getCustomer(cm.getCtEmail()));
+        return new MessageModel(true, "success", getCustomer(cm.getClientUserSd().getCtEmail()));
     }
 
 }

@@ -71,8 +71,12 @@ public class Admin extends HttpServlet {
                     printResult(response, adminLogicI.processIndex0());
                     break;
 
-                case "100":  //get all customers
-                    printResult(response, adminLogicI.getRegisteredCustomers(-1));
+                case "1":  //get all transactions
+                    printResult(response, adminLogicI.getTransactions(1000));
+                    break;
+
+                case "2":  //get all customers
+                    printResult(response, adminLogicI.getRegisteredCustomers(1000));
                     break;
 
             }

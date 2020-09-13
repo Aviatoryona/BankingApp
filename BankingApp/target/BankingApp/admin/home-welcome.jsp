@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-sm-4">
             <h1 class="m-b-xs">
-                26,900
+                {{total_clients}}
             </h1>
             <small>
                 Clients
@@ -19,7 +19,7 @@
         </div>
         <div class="col-sm-4">
             <h1 class="m-b-xs">
-                98,100
+                {{total_transactions}}
             </h1>
             <small>
                 Transactions
@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-top: 50px">
         <div class="col-lg-6">
             <div class="ibox">
                 <div class="ibox-title">
@@ -53,11 +53,10 @@
                         <table class="table table-striped">
                             <tbody>
                                 <tr v-for="customer in customers">
-                                    <td>{{customer.ct_fname}} {{customer.ct_lname}}</td>
-                                    <td><a href="#"><i class="fa fa-check text-navy"></i>{{customer.ct_email}}</a></td>
-                                    <td>{{customer.ct_phone}}</td>
-                                    <td>{{customer.ct_address}}</td>
-                                    <td>{{customer.ct_date}}</td>
+                                    <td>{{customer.ctFname}} {{customer.ctLname}}</td>
+                                    <td><a href="#">{{customer.ctEmail}}</a></td>
+                                    <td>{{customer.ctPhone}}</td>
+                                    <td>{{customer.ctAddress}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,7 +76,6 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-
                                     <th>#</th>
                                     <th>Transaction Type</th>
                                     <th>Amount </th>
@@ -87,7 +85,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tbody>
                                 <tr v-for="transaction in transactions">
                                     <td>{{transaction.trId}}</td>
                                     <td>{{transaction.trType}}</td>
@@ -96,7 +93,6 @@
                                     <td>{{transaction.trDate}}</td>
                                     <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                                 </tr>
-                            </tbody>
                             </tbody>
                         </table>
                     </div>

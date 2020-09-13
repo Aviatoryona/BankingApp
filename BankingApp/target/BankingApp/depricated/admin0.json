@@ -1,6 +1,7 @@
 {
     "message": "",
-    "object": [[{
+    "object": {
+        "customers": [{
                 "ctId": 4,
                 "ctFname": "jon",
                 "ctLname": "Cena",
@@ -68,7 +69,8 @@
                 "ctAccesscode": "$ObCwVp9",
                 "ctPic": null,
                 "ctDate": 1597970231000
-            }], [{
+            }],
+        "transactions": [{
                 "trId": 1,
                 "trAccountnumber": "15979594318459446",
                 "trType": "Deposit",
@@ -180,6 +182,7 @@
                 "trAmount": 9000,
                 "trCharge": 10.0,
                 "trDate": 1599209773000
-            }]],
+            }]
+    },
     "success": true
 }

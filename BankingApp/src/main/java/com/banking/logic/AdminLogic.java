@@ -29,9 +29,11 @@ import com.banking.interfaces.TranasctionLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -150,13 +152,15 @@ public class AdminLogic implements AdminLogicI {
                         : "SELECT t FROM Transactions t WHERE t.trDate >= ?1 AND t.trDate <= ?2";
 
         Query q = em.createQuery(sql);
-        if (end == null) {
+        if (start != null && end == null) {
             q.setParameter("trDate", start);
-        } else {
+        } else if (start != null && end != null) {
             q.setParameter(1, start);
             q.setParameter(2, end);
         }
-        q.setMaxResults(limit);
+        if (limit != -1) {
+            q.setMaxResults(limit);
+        }
         return q.getResultList();
     }
 
@@ -237,9 +241,14 @@ public class AdminLogic implements AdminLogicI {
      */
     @Override
     public MessageModel processIndex0() {
-        List<Customers> customerses = getRegisteredCustomers(25);
-        List<Transactions> transactionses = getTransactions(25);
+        Calendar cal = Calendar.getInstance(Locale.getDefault());
+        List<Customers> customerses = getRegisteredCustomers(10);
+        List<Transactions> transactionses = getTransactions(10);
         Map<String, Object> objects = new HashMap<>();
+        objects.put("num_customers", totalCustomers());
+        objects.put("num_transactions", totalTransactions(null, null));
+        objects.put("profit_today", totalProfit(cal.getTime(), null));
+        objects.put("total_profit", totalProfit(null, null));
         objects.put("customers", customerses);
         objects.put("transactions", transactionses);
         return new MessageModel(true, "", objects);

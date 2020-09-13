@@ -88,4 +88,5 @@ public interface AdminLogicI {
 
      */
     MessageModel processIndex0();
+
 }
