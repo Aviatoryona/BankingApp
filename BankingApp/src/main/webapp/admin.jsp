@@ -11,18 +11,25 @@
 
 <%!Users cm = null;%>
 
-<%Enumeration<String> vals = session.getAttributeNames();
+<%
+
+    Enumeration<String> vals = session.getAttributeNames();
     while (vals.hasMoreElements()) {
         String nextElement = vals.nextElement();
         if (nextElement.equalsIgnoreCase(AppEnum.LOGGED_IN_ADMIN.getName())) {
             cm = (Users) session.getAttribute(AppEnum.LOGGED_IN_ADMIN.getName());
         }
     }
+
     if (cm == null) {
         response.sendRedirect("admin-login.html");
         return;
     }
+
+
 %>
+
+
 <!DOCTYPE html>
 <html>
 

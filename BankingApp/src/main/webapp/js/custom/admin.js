@@ -20,7 +20,8 @@ var admin = {};
 
 //do not change USED DVLPMT FOR REFERENCE
 var adminPages = {
-    0: 'admin/home-welcome.jsp'
+    0: 'admin/home-welcome.jsp',
+    1: 'admin/'
 };
 
 function showValidate(input) {
@@ -82,6 +83,7 @@ admin.processIndex0 = function () {
             $('#mi_content').html(data);
         }
     });
+
     /*
      * call this function to load and bind data to loaded template
      */
@@ -99,7 +101,7 @@ admin.processIndex0 = function () {
                     transactions: []
                 },
                 created: function () {
-
+                    const me = this;
                 }
             });
         }
