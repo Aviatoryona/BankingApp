@@ -30,7 +30,9 @@ import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -230,4 +232,16 @@ public class AdminLogic implements AdminLogicI {
         return accounttypesI.removeAccountType(a);
     }
 
+    /*
+    *index 0
+     */
+    @Override
+    public MessageModel processIndex0() {
+        List<Customers> customerses = getRegisteredCustomers(25);
+        List<Transactions> transactionses = getTransactions(25);
+        Map<String, Object> objects = new HashMap<>();
+        objects.put("customers", customerses);
+        objects.put("transactions", transactionses);
+        return new MessageModel(true, "", objects);
+    }
 }

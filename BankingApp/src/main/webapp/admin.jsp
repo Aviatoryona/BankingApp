@@ -1,10 +1,28 @@
-<%-- 
+<%--
     Document   : admin
     Created on : Sep 8, 2020, 5:11:42 PM
     Author     : Aviator
 --%>
 
+<%@page import="com.banking.AppEnum"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="com.banking.entities.Users"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%!Users cm = null;%>
+
+<%Enumeration<String> vals = session.getAttributeNames();
+    while (vals.hasMoreElements()) {
+        String nextElement = vals.nextElement();
+        if (nextElement.equalsIgnoreCase(AppEnum.LOGGED_IN_ADMIN.getName())) {
+            cm = (Users) session.getAttribute(AppEnum.LOGGED_IN_ADMIN.getName());
+        }
+    }
+    if (cm == null) {
+        response.sendRedirect("admin-login.html");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html>
 
@@ -25,9 +43,7 @@
                     </nav>
                 </div>
 
-                <div class="wrapper wrapper-content animated fadeIn">
-                    <%@include file="admin/home-welcome.jsp"%>
-                </div>
+                <div class="wrapper wrapper-content animated fadeIn" id="mi_content"></div>
 
                 <%@include file="includes/footer.jsp" %>
             </div>
@@ -37,8 +53,17 @@
         </div>
 
         <%@include file="includes/scripts.jsp" %>
+
+        <!--===============================================================================================-->
+        <script src="js/custom/app.js" type="text/javascript"></script>
+        <script src="js/custom/admin.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
+
+                /*
+                 *
+                 */
+                admin.processIndex0.call();
 
                 var sparklineCharts = function () {
                     $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
@@ -56,14 +81,6 @@
                         lineColor: '#1ab394',
                         fillColor: "transparent"
                     });
-
-                    $("#sparkline3").sparkline([34, 22, 24, 41, 10, 18, 16, 8], {
-                        type: 'line',
-                        width: '100%',
-                        height: '50',
-                        lineColor: '#1C84C6',
-                        fillColor: "transparent"
-                    });
                 };
 
                 var sparkResize;
@@ -74,52 +91,6 @@
                 });
 
                 sparklineCharts();
-
-
-
-
-                var data1 = [
-                    [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 20], [11, 10], [12, 13], [13, 4], [14, 7], [15, 8], [16, 12]
-                ];
-                var data2 = [
-                    [0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5], [10, 4], [11, 1], [12, 5], [13, 2], [14, 5], [15, 2], [16, 0]
-                ];
-                $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
-                    data1, data2
-                ],
-                        {
-                            series: {
-                                lines: {
-                                    show: false,
-                                    fill: true
-                                },
-                                splines: {
-                                    show: true,
-                                    tension: 0.4,
-                                    lineWidth: 1,
-                                    fill: 0.4
-                                },
-                                points: {
-                                    radius: 0,
-                                    show: true
-                                },
-                                shadowSize: 2
-                            },
-                            grid: {
-                                hoverable: true,
-                                clickable: true,
-
-                                borderWidth: 2,
-                                color: 'transparent'
-                            },
-                            colors: ["#1ab394", "#1C84C6"],
-                            xaxis: {
-                            },
-                            yaxis: {
-                            },
-                            tooltip: false
-                        }
-                );
 
             });
         </script>

@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : top-nav
     Created on : Sep 8, 2020, 5:24:26 PM
     Author     : Aviator
@@ -7,15 +7,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="navbar-header">
     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-    <form role="search" class="navbar-form-custom" action="http://webapplayers.com/inspinia_admin-v2.9.3/search_results.html">
+    <form role="search" class="navbar-form-custom" action="javascript:void(0)">
         <div class="form-group">
-            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+            <input type="text" placeholder="Search..." class="form-control" name="top-search" id="top-search">
         </div>
     </form>
 </div>
 <ul class="nav navbar-top-links navbar-right">
     <li>
-        <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
+        <span class="m-r-sm text-muted welcome-message">Welcome <%=cm.getUsrUsername()%></span>
     </li>
     <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -115,7 +115,7 @@
 
 
     <li>
-        <a href="login.html">
+        <a href="admin?action=-1">
             <i class="fa fa-sign-out"></i> Log out
         </a>
     </li>

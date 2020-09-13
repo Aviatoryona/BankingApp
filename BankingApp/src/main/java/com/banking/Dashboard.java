@@ -19,9 +19,9 @@ package com.banking;
 
 import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.DashboardLogicI;
 import com.banking.interfaces.TranasctionLogicI;
-import com.banking.logic.CustomerLogic;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -110,13 +110,16 @@ public class Dashboard extends HttpServlet {
         ));
     }
 
+    @EJB
+    CustomerLogicI customerLogicI;
+
     private void doWithdraw(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/json;charset=UTF-8");
 
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = new CustomerLogic().withdraw(customerModel, amount);
+            MessageModel mm = customerLogicI.withdraw(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
                 Customers cm = (Customers) map.get("account");
@@ -139,7 +142,7 @@ public class Dashboard extends HttpServlet {
         String amt = request.getParameter("amt");
         if (amt != null) {
             double amount = Double.parseDouble(amt);
-            MessageModel mm = new CustomerLogic().deposit(customerModel, amount);
+            MessageModel mm = customerLogicI.deposit(customerModel, amount);
             if (mm.isSuccess()) {
                 Map<String, Object> map = (Map<String, Object>) mm.getObject();
                 Customers cm = (Customers) map.get("account");

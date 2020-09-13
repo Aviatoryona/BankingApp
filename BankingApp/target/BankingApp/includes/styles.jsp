@@ -13,6 +13,9 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
+
+<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
 <!-- Sweet Alert -->
 <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 

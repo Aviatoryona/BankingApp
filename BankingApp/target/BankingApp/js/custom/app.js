@@ -62,6 +62,33 @@ app.loadData = function () {
     }
 };
 
+/*
+ *
+ * @returns {undefined}
+ */
+app.fetchData = async function () {
+    var me = this;
+    const myHeaders = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    var body = me.params != null ? me.params : '';
+    const myRequest = new Request(me.dataUrl, {
+        method: me.method,
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default',
+        body: body
+    });
+
+    var res = await fetch(myRequest);
+    return me.isJson ? res.json() : res.text();
+};
+
+/*
+ *
+ * @returns {undefined}
+ */
+
 app.loadTemplate = function () {
     var me = this;
     $.ajax({

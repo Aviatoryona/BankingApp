@@ -99,7 +99,10 @@ public class CustomerLogic implements CustomerLogicI {
         List<Transactions> models = getDeposits(cm);
         if (models != null) {
             double sum = 0;
-            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
+
+            for (Transactions model : models) {
+                sum += model.getTrAmount();
+            }
             return sum;
         }
         return 0;
@@ -154,7 +157,7 @@ public class CustomerLogic implements CustomerLogicI {
             q.setParameter("trType", cm.getCtAccounttype());
         }
         q.setMaxResults(300);
-        return new TranasctionLogic().getTransactions(q);
+        return tranasctionLogicI.getTransactions(q);
     }
 
     @Override

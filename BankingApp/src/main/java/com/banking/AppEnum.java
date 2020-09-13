@@ -26,7 +26,8 @@ public enum AppEnum {
     DEPOSIT("deposit"),
     BALANCE("balance"),
     TRANSACTIONS("transactions"),
-    LOGGED_IN_USER("user");
+    LOGGED_IN_USER("user"),
+    LOGGED_IN_ADMIN("admin");
 
     private final String name;
 

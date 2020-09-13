@@ -83,4 +83,9 @@ public interface AdminLogicI {
     MessageModel deleteTransactionType(Transactiontypes t);
 
     MessageModel deleteAccountType(Accounttypes a);
+
+    /*
+
+     */
+    MessageModel processIndex0();
 }
