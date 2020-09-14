@@ -19,12 +19,14 @@ package com.banking;
 
 import com.banking.entities.Accounttypes;
 import com.banking.entities.Users;
+import com.banking.interfaces.AccounttypesI;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.AppI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -37,6 +39,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -54,6 +57,9 @@ public class Admin extends HttpServlet {
 
     @EJB
     AppI appI;
+
+    @EJB
+    AccounttypesI accounttypesI;
 
     @EJB
     private AdminLogicI adminLogicI;
@@ -117,7 +123,15 @@ public class Admin extends HttpServlet {
                     doLogin(request, response);
                     break;
                 case "addacctype":
+                    try {
+                    BeanUtils.populate(accounttypes, request.getParameterMap());
+                    printResult(response, accounttypesI.addAccountType(accounttypes));
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    printResult(response, new MessageModel(false, "Please try again"));
+                }
+                break;
 
+                case "":
                     break;
             }
         }

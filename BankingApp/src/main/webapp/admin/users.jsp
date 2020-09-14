@@ -53,30 +53,33 @@
                 <div class="ibox-content">
                     <p>Add user to assign roles</p>
                     <form role="form" onsubmit="return false">
+                        <div class="form-group hide">
+                            <input type="text" name="q" value="adduser" class="form-control">
+                        </div>
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="ctFname" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="ctLname" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email"  class="form-control" required>
+                            <input type="email" name="ctEmail"  class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="tel" class="form-control" required>
+                            <input type="tel" name="ctPhone" class="form-control" required>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" name="usrUsername" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" required>
+                            <input type="password" name="usrPwd" class="form-control" required>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
