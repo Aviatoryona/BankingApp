@@ -5,4 +5,87 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<h1>Manage</h1>
+<div class="p-w-md m-t-sm" id="adm_home">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Countries</h5>
+                    <div class="ibox-tools"></div>
+                </div>
+                <div class="ibox-content">
+                    <form>
+                        <select class="form-control" multiple="">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                        <div class="hr-line-dashed"></div>
+                        <p><i class="fa fa-plus-circle"></i> Countries</p>
+                        <div class="form-group row">
+                            <div class="col-lg-8">
+                                <input type="text" placeholder="Country" class="form-control" required/>
+                            </div>
+                            <div class="col-lg-4">
+                                <button class="btn btn-sm btn-white" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Account Types</h5>
+                    <div class="ibox-tools"></div>
+                </div>
+                <div class="ibox-content">
+                    <form onsubmit="return false">
+                        <select class="form-control" multiple="">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group row">
+                            <div class="col-lg-10">
+                                <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-plus-circle"></i> Account Type</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Transaction Types</h5>
+                    <div class="ibox-tools"></div>
+                </div>
+                <div class="ibox-content">
+                    <form onsubmit="return false">
+                        <select class="form-control" multiple="">
+                            <option>option 1</option>
+                            <option>option 2</option>
+                            <option>option 3</option>
+                            <option>option 4</option>
+                        </select>
+                        <div class="hr-line-dashed"></div>
+                        <p><i class="fa fa-refresh"></i>Select to update transaction charges</p>
+                        <div class="form-group row">
+                            <div class="col-lg-8">
+                                <input type="number" placeholder="Transaction Charge" class="form-control" required/>
+                            </div>
+                            <div class="col-lg-4">
+                                <button class="btn btn-sm btn-white" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

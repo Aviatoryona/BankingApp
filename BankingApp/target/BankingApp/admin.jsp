@@ -58,6 +58,7 @@
                 <%@include file="admin/sidebar-nav.jsp" %>
             </div>
         </div>
+        <%@include file="admin/add-account-type-modal.jsp" %>
 
         <%@include file="includes/scripts.jsp" %>
 
@@ -98,7 +99,11 @@
                  *
                  */
                 admin.processIndex0.call();
-
+                $('.dataTables-example').DataTable({
+                    pageLength: 25,
+                    responsive: true,
+                    dom: '<"html5buttons"B>lTfgitp'
+                });
             });
         </script>
     </body>

@@ -24,7 +24,8 @@ var adminPages = {
     1: 'admin/transactions.jsp',
     2: 'admin/clients.jsp',
     3: 'admin/users.jsp',
-    4: 'admin/manage.jsp'
+    4: 'admin/manage.jsp',
+    5: 'admin/profile.jsp'
 };
 
 function showValidate(input) {
@@ -231,4 +232,13 @@ admin.processIndex4 = function () { //Manage
         });
     }, 1000);
 
+};
+
+/*
+ *
+ */
+admin.processIndex5 = function () { //Manage
+    var index = 5;
+    var page = adminPages[index];
+    loadTemplate(page);
 };
