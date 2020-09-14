@@ -36,7 +36,9 @@
                                 <textarea class="form-control" rows="4"></textarea>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit"><strong>Save</strong></button>
+                                <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit">
+                                    <strong>Save</strong>
+                                </button>
                             </div>
                         </form>
                     </div>

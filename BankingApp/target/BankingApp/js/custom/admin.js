@@ -247,3 +247,7 @@ admin.processIndex5 = function () { //Profile
     var page = adminPages[index];
     loadTemplate(page);
 };
+
+/*
+ * 
+ */
