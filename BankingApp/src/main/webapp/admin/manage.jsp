@@ -16,10 +16,9 @@
                 <div class="ibox-content">
                     <form>
                         <select class="form-control" multiple="">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
+                            <option v-for="country in countries">
+                                {{country.ctryName}}
+                            </option>
                         </select>
                         <div class="hr-line-dashed"></div>
                         <p><i class="fa fa-plus-circle"></i> Countries</p>
@@ -44,14 +43,17 @@
                 <div class="ibox-content">
                     <form onsubmit="return false">
                         <select class="form-control" multiple="">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
+                            <option v-for="acctype in acctypes">
+                                {{acctype.ctryName}}
+                            </option>
                         </select>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group row">
-                            <div class="col-lg-10">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-3">
+                                <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-refresh"></i>Update</a>
+                            </div>
+                            <div class="col-lg-3">
                                 <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-plus-circle"></i> Account Type</a>
                             </div>
                         </div>
@@ -68,10 +70,9 @@
                 <div class="ibox-content">
                     <form onsubmit="return false">
                         <select class="form-control" multiple="">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                            <option>option 3</option>
-                            <option>option 4</option>
+                            <option v-for="trtyp in trtyps">
+                                {{trtyp.tpType}} ({{trtyp.tpCharge}})
+                            </option>
                         </select>
                         <div class="hr-line-dashed"></div>
                         <p><i class="fa fa-refresh"></i>Select to update transaction charges</p>

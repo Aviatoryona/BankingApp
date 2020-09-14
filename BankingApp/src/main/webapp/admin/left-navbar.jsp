@@ -15,7 +15,7 @@
                     <span class="text-muted text-xs block">Admin <b class="caret"></b></span>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                    <li><a class="dropdown-item" href="javascript:void(0)">Profile</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" onclick="admin.processIndex5()">Profile</a></li>
                     <li><a class="dropdown-item" href="javascript:void(0)">Activity</a></li>
                     <li><a class="dropdown-item" href="javascript:void(0)">Mailbox</a></li>
                     <li class="dropdown-divider"></li>

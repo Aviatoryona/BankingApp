@@ -237,7 +237,7 @@ admin.processIndex4 = function () { //Manage
 /*
  *
  */
-admin.processIndex5 = function () { //Manage
+admin.processIndex5 = function () { //Profile
     var index = 5;
     var page = adminPages[index];
     loadTemplate(page);
