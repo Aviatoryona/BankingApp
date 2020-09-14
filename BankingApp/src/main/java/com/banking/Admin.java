@@ -22,6 +22,7 @@ import com.banking.entities.Users;
 import com.banking.interfaces.AccounttypesI;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.AppI;
+import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -63,6 +64,9 @@ public class Admin extends HttpServlet {
 
     @EJB
     private AdminLogicI adminLogicI;
+
+    @EJB
+    UsersLogicI usersLogicI;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -131,8 +135,24 @@ public class Admin extends HttpServlet {
                 }
                 break;
 
+                case "adduser":
+                       try {
+                    BeanUtils.populate(users, request.getParameterMap());
+                    printResult(response, usersLogicI.addUser(users));
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    printResult(response, new MessageModel(false, "Please try again"));
+                }
+                break;
+
                 case "":
-                    break;
+                       try {
+                    BeanUtils.populate(users, request.getParameterMap());
+                    printResult(response, usersLogicI.addUser(users));
+                } catch (IllegalAccessException | InvocationTargetException ex) {
+                    printResult(response, new MessageModel(false, "Please try again"));
+                }
+                break;
+
             }
         }
     }
