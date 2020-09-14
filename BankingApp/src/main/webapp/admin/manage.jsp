@@ -44,16 +44,15 @@
                     <form onsubmit="return false">
                         <select class="form-control" multiple="">
                             <option v-for="acctype in acctypes">
-                                {{acctype.ctryName}}
+                                {{acctype.acctype}}
                             </option>
                         </select>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group row">
-                            <div class="col-lg-6"></div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-refresh"></i>Update</a>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-plus-circle"></i> Account Type</a>
                             </div>
                         </div>
@@ -75,7 +74,7 @@
                             </option>
                         </select>
                         <div class="hr-line-dashed"></div>
-                        <p><i class="fa fa-refresh"></i>Select to update transaction charges</p>
+                        <p><i class="fa fa-refresh"></i> Select to update transaction charges</p>
                         <div class="form-group row">
                             <div class="col-lg-8">
                                 <input type="number" placeholder="Transaction Charge" class="form-control" required/>

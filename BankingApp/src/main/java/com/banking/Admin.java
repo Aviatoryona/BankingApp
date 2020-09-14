@@ -92,7 +92,7 @@ public class Admin extends HttpServlet {
                 case "4":  //manage
                     Map<String, Object> map = new HashMap<>(appI.registerInit());
                     map.put("trtyps", adminLogicI.getTransactiontypes());
-                    printResult(response, adminLogicI.getUsers());
+                    printResult(response, map);
                     break;
 
             }
