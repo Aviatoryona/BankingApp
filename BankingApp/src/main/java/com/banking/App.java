@@ -19,11 +19,14 @@ package com.banking;
 
 import com.banking.entities.Accounttypes;
 import com.banking.entities.Countries;
+import com.banking.interfaces.AppI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -31,7 +34,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author Aviator
  */
-public class App {
+@Stateless
+@Remote
+public class App implements AppI {
 
     @PersistenceContext
     EntityManager em;
@@ -40,7 +45,8 @@ public class App {
     Register init fields
     Loads data to Populate  registration input values like countries and account type
      */
-    Map<String, Object> registerInit() {
+    @Override
+    public Map<String, Object> registerInit() {
         Map<String, Object> map = new HashMap<>();
         map.put("acctypes", getAccountTypes());
         map.put("countries", getCountries());
@@ -48,12 +54,14 @@ public class App {
     }
 
     //get countries
-    private List<Countries> getCountries() {
+    @Override
+    public List<Countries> getCountries() {
         return em.createNamedQuery("Countries.findAll").getResultList();
     }
 
     //get account types
-    private List<Accounttypes> getAccountTypes() {
+    @Override
+    public List<Accounttypes> getAccountTypes() {
         return em.createNamedQuery("Accounttypes.findAll").getResultList();
     }
 

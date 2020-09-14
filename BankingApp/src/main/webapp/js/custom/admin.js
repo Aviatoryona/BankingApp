@@ -223,10 +223,15 @@ admin.processIndex4 = function () { //Manage
             new Vue({
                 el: '#adm_home',
                 data: {
-                    users: []
+                    countries: [],
+                    acctypes: [],
+                    trtyps: []
                 },
                 created: function () {
                     const me = this;
+                    me.countries = res.countries;
+                    me.acctypes = res.acctypes;
+                    me.trtyps = res.trtyps;
                 }
             });
         });

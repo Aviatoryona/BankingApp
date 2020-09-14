@@ -18,7 +18,8 @@
 package com.banking;
 
 import com.banking.entities.Customers;
-import com.banking.logic.CustomerLogic;
+import com.banking.interfaces.AppI;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,10 +46,16 @@ public class Register extends HttpServlet {
     @Inject
     Customers cm;
 
+    @EJB
+    CustomerLogicI customerLogicI;
+
+    @EJB
+    private AppI app;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Map<String, Object> map = new App().registerInit();
+        Map<String, Object> map = app.registerInit();
 
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(map));
@@ -62,7 +70,7 @@ public class Register extends HttpServlet {
 
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(
-                    new CustomerLogic().createCustomer(cm)
+                    customerLogicI.createCustomer(cm)
                     ? mapper.writeValueAsString(
                             new MessageModel(true, "Registration sucessfull")
                     )

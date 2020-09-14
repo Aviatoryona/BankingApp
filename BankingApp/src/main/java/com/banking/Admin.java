@@ -19,10 +19,13 @@ package com.banking;
 
 import com.banking.entities.Users;
 import com.banking.interfaces.AdminLogicI;
+import com.banking.interfaces.AppI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -44,6 +47,9 @@ public class Admin extends HttpServlet {
 
     @Inject
     private Users users;
+
+    @EJB
+    AppI appI;
 
     @EJB
     private AdminLogicI adminLogicI;
@@ -80,6 +86,12 @@ public class Admin extends HttpServlet {
                     break;
 
                 case "3":  //get all users
+                    printResult(response, adminLogicI.getUsers());
+                    break;
+
+                case "4":  //manage
+                    Map<String, Object> map = new HashMap<>(appI.registerInit());
+                    map.put("trtyps", adminLogicI.getTransactiontypes());
                     printResult(response, adminLogicI.getUsers());
                     break;
 
