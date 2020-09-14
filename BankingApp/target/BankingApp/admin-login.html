@@ -67,6 +67,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         <!--===============================================================================================-->
         <script src="js/custom/app.js" type="text/javascript"></script>
         <script src="js/custom/admin.js" type="text/javascript"></script>
+
         <script type="text/javascript">
                     $(document).ready(function () {
                         $('button[type="submit"]').click(function () {
@@ -74,8 +75,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         });
 
                         $('input').focusin(function () {
-                            var parent = $(this).parent();
-                            hideValidate(parent);
+                            hideValidate(this);
                         });
                     });
         </script>

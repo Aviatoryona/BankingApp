@@ -17,6 +17,7 @@
  */
 package com.banking;
 
+import com.banking.entities.Accounttypes;
 import com.banking.entities.Users;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.AppI;
@@ -47,6 +48,9 @@ public class Admin extends HttpServlet {
 
     @Inject
     private Users users;
+
+    @Inject
+    Accounttypes accounttypes;
 
     @EJB
     AppI appI;
@@ -111,6 +115,9 @@ public class Admin extends HttpServlet {
             switch (q) {
                 case "auth":
                     doLogin(request, response);
+                    break;
+                case "addacctype":
+
                     break;
             }
         }

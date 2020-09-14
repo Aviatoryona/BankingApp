@@ -18,25 +18,26 @@
 
                         <p>Provide more options to your clients</p>
 
-                        <form role="form" onsubmit="return false">
+                        <form role="form" id="miform" onsubmit="return false">
                             <div class="form-group">
                                 <label>Account Name</label>
-                                <input type="text" placeholder="Account Name" class="form-control" required>
+                                <input type="text" placeholder="Account Name" name="acctype" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Max Balance</label>
-                                <input type="number" min="5000" class="form-control" required>
+                                <input type="number" min="5000" name="accmaxbal" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Min Balance</label>
-                                <input type="number" min="0" class="form-control" required>
+                                <input type="number" min="0" name="accminbal" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" rows="4"></textarea>
+                                <textarea class="form-control" name="accdescription" rows="4"></textarea>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit">
+                                <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit"
+                                        onclick="admin.addAccountType()">
                                     <strong>Save</strong>
                                 </button>
                             </div>

@@ -95,6 +95,10 @@
 
                 sparklineCharts();
 
+                $('input').focusin(function () {
+                    hideValidate(this);
+                });
+
                 /*
                  *
                  */

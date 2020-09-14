@@ -46,11 +46,11 @@ admin.auth = function () {
     var usr = $('input[type="email"]').val();
     var pwd = $('input[type="password"]').val();
     if (usr == '') {
-        showValidate($('input[type="email"]'));
+        showValidate('input[type="email"]');
         return;
     }
     if (pwd == '') {
-        showValidate($('input[type="password"]'));
+        showValidate('input[type="password"]');
         return;
     }
 
@@ -249,5 +249,56 @@ admin.processIndex5 = function () { //Profile
 };
 
 /*
- * 
+ *
  */
+admin.addAccountType = function () {
+    var acctype = $('input[name="acctype"]').val();
+    if (acctype == '') {
+        showValidate('input[name="acctype"]');
+        return;
+    }
+    var accmaxbal = $('input[name="accmaxbal"]').val();
+    if (accmaxbal == '') {
+        showValidate('input[name="accmaxbal"]');
+        return;
+    }
+    var accminbal = $('input[name="accminbal"]').val();
+    if (accminbal == '') {
+        showValidate('input[name="accminbal"]');
+        return;
+    }
+    var accdescription = $('textarea[name="accdescription"]').val();
+    if (accdescription == '') {
+        showValidate('textarea[name="accdescription"]');
+        return;
+    }
+
+//    var data = $('form[id="miform"]').serialize();
+
+    app.loadData.call({
+        dataUrl: "admin",
+        method: 'POST',
+        isJson: true,
+        params: `q=addacctype&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
+        callBack: function (data) {
+            if (data.success) {
+                $('input[name="acctype"]').val('');
+                $('input[name="accmaxbal"]').val('');
+                $('input[name="accminbal"]').val('');
+                $('textarea[name="accdescription"]').val('');
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+            } else {
+                swal({
+                    title: "Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        }
+    });
+
+};

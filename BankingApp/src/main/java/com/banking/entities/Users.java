@@ -43,6 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
     @NamedQuery(name = "Users.findAllOrdered", query = "SELECT u FROM Users u ORDER BY u.usrId DESC"),
     @NamedQuery(name = "Users.findByUsrId", query = "SELECT u FROM Users u WHERE u.usrId = :usrId"),
+    @NamedQuery(name = "Users.findByUsrEmail", query = "SELECT u FROM Users u WHERE u.clientUserSd.ctEmail = :usrEmail"),
     @NamedQuery(name = "Users.findByUsrUsername", query = "SELECT u FROM Users u WHERE u.usrUsername = :usrUsername"),
     @NamedQuery(name = "Users.findByUsrPwd", query = "SELECT u FROM Users u WHERE u.usrPwd = :usrPwd"),
     @NamedQuery(name = "Users.findByUsrRole", query = "SELECT u FROM Users u WHERE u.usrRole = :usrRole"),
