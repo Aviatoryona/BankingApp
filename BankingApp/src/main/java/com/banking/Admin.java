@@ -126,6 +126,11 @@ public class Admin extends HttpServlet {
                     String email = request.getParameter("email");
                     printResult(response, customerLogicI.getCustomer(email));
                     break;
+
+                case "7":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    printResult(response, usersLogicI.getUser(id));
+                    break;
             }
             return;
         }

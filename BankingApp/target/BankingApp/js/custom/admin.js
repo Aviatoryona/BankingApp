@@ -451,13 +451,13 @@ admin.processIndex6 = function (usr_email) {//client details
 /*
  *
  */
-admin.processIndex6 = function (usr_email) {//client details
-    var index = 6;
+admin.processIndex7 = function (id) {//client details
+    var index = 7;
     var page = adminPages[index];
     loadTemplate(page);
 
     setTimeout(function () {
-        $.getJSON(`admin?action=${index}&email=${usr_email}`, function (customer) {
+        $.getJSON(`admin?action=${index}&id=${id}`, function (customer) {
             new Vue({
                 el: "#adm_home",
                 data: {
