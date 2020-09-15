@@ -451,7 +451,7 @@ admin.processIndex6 = function (usr_email) {//client details
 /*
  *
  */
-admin.processIndex7 = function (id) {//client details
+admin.processIndex7 = function (id) {//user details
     var index = 7;
     var page = adminPages[index];
     loadTemplate(page);
@@ -461,17 +461,11 @@ admin.processIndex7 = function (id) {//client details
             new Vue({
                 el: "#adm_home",
                 data: {
-                    fname: customer.clientUserSd.ctFname,
-                    lname: customer.clientUserSd.ctLname,
-                    rdate: customer.clientUserSd.ctDate,
-                    accno: customer.ctAccountnumber,
-                    gender: customer.ctGender,
+                    name: `${customer.clientUserSd.ctFname} ${customer.clientUserSd.ctLname}`,
                     email: customer.clientUserSd.ctEmail,
                     phone: customer.clientUserSd.ctPhone,
-                    country: customer.ctCountry,
-                    city: customer.ctCity,
-                    address: customer.ctAddress,
-                    acctype: customer.ctAccounttype
+                    username: customer.ctCountry,
+                    pwd: customer.ctCity
                 }
             });
         });
