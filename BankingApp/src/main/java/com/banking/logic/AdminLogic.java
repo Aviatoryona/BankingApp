@@ -60,17 +60,31 @@ public class AdminLogic implements AdminLogicI {
 
     @Override
     public int totalCustomers() {
-        return getRegisteredCustomers(-1).size();
+        return em.createQuery("SELECT COUNT(c.ctId) FROM Customers c", Integer.class)
+                .getSingleResult();
+//        return getRegisteredCustomers(-1).size();
     }
 
     @Override
-    public long totalProfit(Date start, Date end) {
-        List<Transactions> list = getTransactions(-1);
-        double sum = 0;
-        for (Transactions transactions : list) {
-            sum += transactions.getTrCharge();
+    public double totalProfit(Date start, Date end) {
+        String sql = start == null
+                ? "SELECT SUM(t.trCharge) FROM Transactions t"
+                : end == null
+                        ? "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= :trDate"
+                        : "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= ?1 AND t.trDate <= ?2";
+
+        Query q = em.createQuery(sql, Double.class);
+        if (start != null && end == null) {
+            q.setParameter("trDate", start);
+        } else if (start != null && end != null) {
+            q.setParameter(1, start);
+            q.setParameter(2, end);
         }
-        return Double.doubleToLongBits(sum);
+        return Double.parseDouble(String.valueOf(q.getSingleResult()));
+//        List<Transactions> list = getTransactions(-1);
+//        double sum = 0;
+//        sum = list.stream().map(transactions -> transactions.getTrCharge()).reduce(sum, (accumulator, _item) -> accumulator + _item);
+//        return sum;
     }
 
     @Override

@@ -18,10 +18,13 @@
 package com.banking;
 
 import com.banking.entities.Accounttypes;
+import com.banking.entities.Countries;
+import com.banking.entities.Transactiontypes;
 import com.banking.entities.Users;
 import com.banking.interfaces.AccounttypesI;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.AppI;
+import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -67,6 +70,12 @@ public class Admin extends HttpServlet {
 
     @EJB
     UsersLogicI usersLogicI;
+
+    @Inject
+    Countries countries;
+
+    @EJB
+    TransactionTypeLogicI transactionTypeLogicI;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -144,10 +153,10 @@ public class Admin extends HttpServlet {
                 }
                 break;
 
-                case "":
+                case "addctry":
                        try {
-                    BeanUtils.populate(users, request.getParameterMap());
-                    printResult(response, usersLogicI.addUser(users));
+                    BeanUtils.populate(countries, request.getParameterMap());
+                    printResult(response, appI.adCountry(countries));
                 } catch (IllegalAccessException | InvocationTargetException ex) {
                     printResult(response, new MessageModel(false, "Please try again"));
                 }
@@ -155,6 +164,35 @@ public class Admin extends HttpServlet {
 
             }
         }
+    }
+
+    /*
+
+     */
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String q = req.getParameter("q");
+        if (!StringUtils.isEmpty(q)) {
+            switch (q) {
+                case "trytype":
+                    String type = req.getParameter("type");
+                    double charge = Double.parseDouble(req.getParameter("tpCharge"));
+                    Transactiontypes t = transactionTypeLogicI.getTransactionType(type);
+                    if (t != null) {
+                        t.setTpCharge(charge);
+                    }
+                    printResult(resp, transactionTypeLogicI.addTransactiontypes(t));
+                    break;
+
+                case "usrname":
+                    break;
+
+                case "pwd":
+                    break;
+            }
+        }
+
     }
 
     /*

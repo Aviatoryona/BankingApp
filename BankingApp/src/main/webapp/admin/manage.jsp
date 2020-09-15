@@ -14,7 +14,7 @@
                     <div class="ibox-tools"></div>
                 </div>
                 <div class="ibox-content">
-                    <form>
+                    <form onsubmit="return false">
                         <select class="form-control" multiple="">
                             <option v-for="country in countries">
                                 {{country.ctryName}}
@@ -24,10 +24,10 @@
                         <p><i class="fa fa-plus-circle"></i> Countries</p>
                         <div class="form-group row">
                             <div class="col-lg-8">
-                                <input type="text" placeholder="Country" class="form-control" required/>
+                                <input name="ctryName" type="text" placeholder="Country" class="form-control" required/>
                             </div>
                             <div class="col-lg-4">
-                                <button class="btn btn-sm btn-white" type="submit">Save</button>
+                                <button class="btn btn-sm btn-white" type="submit" onclick="admin.a">Save</button>
                             </div>
                         </div>
                     </form>
@@ -50,7 +50,7 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group row">
                             <div class="col-lg-6">
-                                <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-refresh"></i>Update</a>
+                                <!--<a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-refresh"></i>Update</a>-->
                             </div>
                             <div class="col-lg-6">
                                 <a class="btn btn-sm btn-white" type="submit" data-toggle="modal" href="#modal-form"><i class="fa fa-plus-circle"></i> Account Type</a>

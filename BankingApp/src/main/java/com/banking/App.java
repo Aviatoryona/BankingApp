@@ -20,6 +20,7 @@ package com.banking;
 import com.banking.entities.Accounttypes;
 import com.banking.entities.Countries;
 import com.banking.interfaces.AppI;
+import com.banking.models.MessageModel;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +91,12 @@ public class App implements AppI {
         char[] cs = characters.toCharArray();
         code += String.valueOf(cs[new Random().nextInt(cs.length)]);
         return code.length() == 8 ? code : getAccessCode(code);
+    }
+
+    @Override
+    public MessageModel adCountry(Countries c) {
+        em.merge(c);
+        return new MessageModel(true, "Added " + c.getCtryName());
     }
 
 }

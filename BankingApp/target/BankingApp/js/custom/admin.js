@@ -25,7 +25,9 @@ var adminPages = {
     2: 'admin/clients.jsp',
     3: 'admin/users.jsp',
     4: 'admin/manage.jsp',
-    5: 'admin/profile.jsp'
+    5: 'admin/profile.jsp',
+    6: 'admin/client-details.jsp',
+    7: 'admin/user-details.jsp',
 };
 
 function showValidate(input) {
@@ -49,6 +51,18 @@ function validate(input) {
         }
     }
 }
+
+/*
+ *
+ * @returns {undefined}
+ */
+admin.dtTables = function () {
+    $('.dataTables-example').DataTable({
+        pageLength: 25,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp'
+    });
+};
 
 /*
  *
@@ -152,6 +166,7 @@ admin.processIndex1 = function () { //transactions
                 created: function () {
                     const me = this;
                     me.transactions = res;
+                    admin.dtTables();
                 }
             });
         });
@@ -182,6 +197,7 @@ admin.processIndex2 = function () { //clients
                 created: function () {
                     const me = this;
                     me.customers = res;
+                    admin.dtTables();
                 }
             });
         });
@@ -303,6 +319,9 @@ admin.addAccountType = function () {
                     text: data.message,
                     type: "success"
                 });
+                setTimeout(function () {
+                    admin.processIndex4.call();
+                }, 500);
             } else {
                 swal({
                     title: "Failed",
@@ -345,6 +364,9 @@ admin.addUser = function () {
                         text: data.message,
                         type: "success"
                     });
+                    setTimeout(function () {
+                        admin.processIndex3.call();
+                    }, 500);
                 } else {
                     swal({
                         title: "Failed",
@@ -355,4 +377,49 @@ admin.addUser = function () {
             }
         });
     }
+};
+
+/*
+ *
+ */
+admin.addCountry = function () {
+    var ctryName = $('input[name="ctryName"]').val();
+    if (ctryName == '') {
+        showValidate('input[name="ctryName"]');
+        return;
+    }
+
+    app.loadData.call({
+        dataUrl: "admin",
+        method: 'POST',
+        isJson: true,
+        params: `q=addctry&ctryName=${ctryName}`,
+        callBack: function (data) {
+            if (data.success) {
+                $('input[name="ctryName"]').val('');
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    admin.processIndex4.call();
+                }, 500);
+            } else {
+                swal({
+                    title: "Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        }
+    });
+
+};
+
+/*
+ * 
+ */
+admin.processIndex6 = function (usr_email) {//client details
+
 };

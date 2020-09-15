@@ -19,6 +19,7 @@ package com.banking.interfaces;
 
 import com.banking.entities.Accounttypes;
 import com.banking.entities.Countries;
+import com.banking.models.MessageModel;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Remote;
@@ -35,4 +36,6 @@ public interface AppI {
     List<Countries> getCountries();
 
     List<Accounttypes> getAccountTypes();
+
+    MessageModel adCountry(Countries c);
 }

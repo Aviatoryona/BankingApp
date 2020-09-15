@@ -103,11 +103,6 @@
                  *
                  */
                 admin.processIndex0.call();
-                $('.dataTables-example').DataTable({
-                    pageLength: 25,
-                    responsive: true,
-                    dom: '<"html5buttons"B>lTfgitp'
-                });
             });
         </script>
     </body>
