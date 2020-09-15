@@ -418,8 +418,63 @@ admin.addCountry = function () {
 };
 
 /*
- * 
+ *
  */
 admin.processIndex6 = function (usr_email) {//client details
+    var index = 6;
+    var page = adminPages[index];
+    loadTemplate(page);
 
+    setTimeout(function () {
+        $.getJSON(`admin?action=${index}&email=${usr_email}`, function (customer) {
+            new Vue({
+                el: "#adm_home",
+                data: {
+                    fname: customer.clientUserSd.ctFname,
+                    lname: customer.clientUserSd.ctLname,
+                    rdate: customer.clientUserSd.ctDate,
+                    accno: customer.ctAccountnumber,
+                    gender: customer.ctGender,
+                    email: customer.clientUserSd.ctEmail,
+                    phone: customer.clientUserSd.ctPhone,
+                    country: customer.ctCountry,
+                    city: customer.ctCity,
+                    address: customer.ctAddress,
+                    acctype: customer.ctAccounttype
+                }
+            });
+        });
+    }
+    , 500);
+};
+
+/*
+ *
+ */
+admin.processIndex6 = function (usr_email) {//client details
+    var index = 6;
+    var page = adminPages[index];
+    loadTemplate(page);
+
+    setTimeout(function () {
+        $.getJSON(`admin?action=${index}&email=${usr_email}`, function (customer) {
+            new Vue({
+                el: "#adm_home",
+                data: {
+                    fname: customer.clientUserSd.ctFname,
+                    lname: customer.clientUserSd.ctLname,
+                    rdate: customer.clientUserSd.ctDate,
+                    accno: customer.ctAccountnumber,
+                    gender: customer.ctGender,
+                    email: customer.clientUserSd.ctEmail,
+                    phone: customer.clientUserSd.ctPhone,
+                    country: customer.ctCountry,
+                    city: customer.ctCity,
+                    address: customer.ctAddress,
+                    acctype: customer.ctAccounttype
+                }
+            });
+        });
+    }
+    , 500);
 };

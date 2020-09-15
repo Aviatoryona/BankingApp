@@ -24,6 +24,7 @@ import com.banking.entities.Users;
 import com.banking.interfaces.AccounttypesI;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.AppI;
+import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
@@ -77,6 +78,9 @@ public class Admin extends HttpServlet {
     @EJB
     TransactionTypeLogicI transactionTypeLogicI;
 
+    @EJB
+    CustomerLogicI customerLogicI;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -118,6 +122,10 @@ public class Admin extends HttpServlet {
                     printResult(response, map);
                     break;
 
+                case "6":
+                    String email = request.getParameter("email");
+                    printResult(response, customerLogicI.getCustomer(email));
+                    break;
             }
             return;
         }

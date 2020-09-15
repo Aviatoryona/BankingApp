@@ -63,9 +63,13 @@ public class CustomerLogic implements CustomerLogicI {
     public Customers getCustomer(String email) {
 //        String sql = "SELECT * FROM customers WHERE ct_email=?";
 //        return em.find(Customers.class, email);
-        return (Customers) em.createNamedQuery("Customers.findByCtEmail")
-                .setParameter("ctEmail", email)
-                .getSingleResult();
+        try {
+            return (Customers) em.createNamedQuery("Customers.findByCtEmail")
+                    .setParameter("ctEmail", email)
+                    .getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     @Override
