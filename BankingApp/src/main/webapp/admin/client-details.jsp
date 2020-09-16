@@ -41,28 +41,28 @@
                     <form onsubmit="return false">
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" value="{{email}}" readonly=""></div>
+                            <div class="col-sm-10"><input type="text" class="form-control" v-bind:value="email" readonly=""></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" value="{{phone}}" readonly=""></div>
+                            <div class="col-sm-10"><input type="text" class="form-control" v-bind:value="phone" readonly=""></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
                             <div class="col-sm-6">
                                 <label class="col-sm-2 col-form-label">Country</label>
-                                <input type="text" class="col-sm-10 form-control" value="{{country}}" readonly="">
+                                <input type="text" class="col-sm-10 form-control" v-bind:value="country" readonly="">
                             </div>
                             <div class="col-sm-6">
                                 <label class="col-sm-2 col-form-label">City</label>
-                                <input type="text" class="col-sm-10 form-control" value="{{city}}" readonly="">
+                                <input type="text" class="col-sm-10 form-control" v-bind:value="city" readonly="">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Address</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" value="{{address}}" readonly=""></div>
+                            <div class="col-sm-10"><input type="text" class="form-control" v-bind:value="address" readonly=""></div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>
@@ -85,14 +85,14 @@
                         <div class="form-group row has-success">
                             <label class="col-lg-2 col-form-label">Account Type</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" value="{{acctype}}" readonly="">
+                                <input type="text" class="form-control" v-bind:value="cctype" readonly="">
                                 <span class="form-text m-b-none"></span>
                             </div>
                         </div>
                         <div class="form-group row has-error">
                             <label class="col-lg-2 col-form-label">Account Number</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" value="{{accno}}" readonly="">
+                                <input type="text" class="form-control" v-bind:value="accno" readonly="">
                             </div>
                         </div>
                     </form>

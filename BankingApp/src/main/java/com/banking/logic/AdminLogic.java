@@ -59,28 +59,32 @@ public class AdminLogic implements AdminLogicI {
     }
 
     @Override
-    public int totalCustomers() {
-        return em.createQuery("SELECT COUNT(c.ctId) FROM Customers c", Integer.class)
+    public long totalCustomers() {
+        return em.createQuery("SELECT COUNT(c.ctId) FROM Customers c", Long.class)
                 .getSingleResult();
 //        return getRegisteredCustomers(-1).size();
     }
 
     @Override
     public double totalProfit(Date start, Date end) {
-        String sql = start == null
-                ? "SELECT SUM(t.trCharge) FROM Transactions t"
-                : end == null
-                        ? "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= :trDate"
-                        : "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= ?1 AND t.trDate <= ?2";
+        try {
+            String sql = start == null
+                    ? "SELECT SUM(t.trCharge) FROM Transactions t"
+                    : end == null
+                            ? "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= :trDate"
+                            : "SELECT SUM(t.trCharge) FROM Transactions t WHERE t.trDate >= ?1 AND t.trDate <= ?2";
 
-        Query q = em.createQuery(sql, Double.class);
-        if (start != null && end == null) {
-            q.setParameter("trDate", start);
-        } else if (start != null && end != null) {
-            q.setParameter(1, start);
-            q.setParameter(2, end);
+            Query q = em.createQuery(sql, Double.class);
+            if (start != null && end == null) {
+                q.setParameter("trDate", start);
+            } else if (start != null && end != null) {
+                q.setParameter(1, start);
+                q.setParameter(2, end);
+            }
+            return Double.parseDouble(String.valueOf(q.getSingleResult()));
+        } catch (NumberFormatException e) {
+            return 0;
         }
-        return Double.parseDouble(String.valueOf(q.getSingleResult()));
 //        List<Transactions> list = getTransactions(-1);
 //        double sum = 0;
 //        sum = list.stream().map(transactions -> transactions.getTrCharge()).reduce(sum, (accumulator, _item) -> accumulator + _item);

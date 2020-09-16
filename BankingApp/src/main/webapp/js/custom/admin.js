@@ -420,7 +420,12 @@ admin.addCountry = function () {
 /*
  *
  */
-admin.processIndex6 = function (usr_email) {//client details
+admin.processIndex6 = function (parent) {//client details
+
+    var usr_email = $(parent).text();
+
+    console.log(usr_email);
+
     var index = 6;
     var page = adminPages[index];
     loadTemplate(page);
@@ -461,7 +466,7 @@ admin.processIndex7 = function (id) {//user details
             new Vue({
                 el: "#adm_home",
                 data: {
-                    name: `${customer.clientUserSd.ctFname} ${customer.clientUserSd.ctLname}`,
+                    name: customer.clientUserSd.ctFname + ' ' + customer.clientUserSd.ctLname,
                     email: customer.clientUserSd.ctEmail,
                     phone: customer.clientUserSd.ctPhone,
                     username: customer.ctCountry,

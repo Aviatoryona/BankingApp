@@ -30,7 +30,7 @@
                             <tbody>
                                 <tr class="gradeX" v-for="customer in customers">
                                     <td>{{customer.clientUserSd.ctFname}} {{customer.clientUserSd.ctLname}}</td>
-                                    <td><a href="javascript:void(0)" onclick="admin.processIndex6('{{customer.clientUserSd.ctEmail}}')">
+                                    <td><a href="javascript:void(0)" onclick="admin.processIndex6(this)">
                                             {{customer.clientUserSd.ctEmail}}
                                         </a>
                                     </td>

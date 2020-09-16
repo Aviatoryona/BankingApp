@@ -1,0 +1,48 @@
+DATABASE
+
+According to wikipedia a DATABASE is an organized collection of data, generally stored and
+accessed electronically from a computer system.
+
+SQL is a language to operate databases, it includes database creation, deletion, fetching
+rows, modifying rows
+
+Hibernate Query Language (HQL) and Java Persistence Query Language (JPQL) are query languages that enable us to write SQL queries using Objects.
+
+Both HQL and JPQL allow SELECT, UPDATE and DELETE.JPQL supports INSERT.
+
+We can write named queries by using @NamedQuery annotation and we can wrap
+several named queries like in an array like form using @NamedQueries annotation
+
+
+The SELECT clause
+The SELECT clause identifies which objects and values to return as the query results.
+Java Persistence Query Language requruires a select clause.
+
+The FROM clause defines the scope of object model type to implement in the Query, this model is usually the entity that was used to provide table columns and other
+table manipulation attributes. Identification variable is an alias (u) of root entity reference which is the entity class name (User). Identitification variable is usually in lower case.
+
+
+The WHERE clause of a query is made up of predicates which assert whether values in each potential row match the current criteria.
+It restricts the results returned from a select query and limits the scope of update and delete queries.
+
+joins
+We can use join keyword in line with FROM clause to define explicit relationship joins.
+This enables us to combine records from two or more tables in a database by using values common to each.
+
+Distinct
+We can use DISTINCT  to remove duplicates from a result set
+
+Example of distint is retrieving non repeative ids for customers that have made an order
+in one month despite many orders made by a single customer.
+
+
+HQL and JPQL also support aggregate functions ie built-in functions like avg(), sum(), count(), MAX, MIN..
+to perform what is known as the aggregate data calculations against a table or a specific table column.
+
+The SQL GROUP BY clause is used in collaboration with the SELECT statement to arrange
+identical data into groups. This GROUP BY clause follows the WHERE clause in a SELECT
+statement and precedes the ORDER BY clause.
+
+Reference:
+JBOSS official docs
+TutorialPoints SQL

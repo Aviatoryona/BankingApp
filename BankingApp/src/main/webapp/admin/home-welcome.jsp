@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="p-w-md m-t-sm" id="adm_home">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <h1 class="m-b-xs">
                 {{total_clients}}
             </h1>
@@ -17,7 +17,7 @@
             <div id="sparkline1" class="m-b-sm"></div>
 
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <h1 class="m-b-xs">
                 {{total_transactions}}
             </h1>
@@ -26,7 +26,7 @@
             </small>
             <div id="sparkline2" class="m-b-sm"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <div class="row m-t-xs">
                 <div class="col-6">
                     <h5 class="m-b-xs">Income today</h5>
@@ -54,7 +54,7 @@
                             <tbody>
                                 <tr v-for="customer in customers">
                                     <td>{{customer.clientUserSd.ctFname}} {{customer.clientUserSd.ctLname}}</td>
-                                    <td><a href="#">{{customer.clientUserSd.ctEmail}}</a></td>
+                                    <td><a href="javascript:void(0)" onclick="admin.processIndex6(this)">{{customer.clientUserSd.ctEmail}}</a></td>
                                     <td>{{customer.clientUserSd.ctPhone}}</td>
                                     <td>{{customer.ctAddress}}</td>
                                 </tr>

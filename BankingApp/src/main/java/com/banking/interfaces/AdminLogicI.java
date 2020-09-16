@@ -36,7 +36,7 @@ public interface AdminLogicI {
 
     int totalTransactions(Date start, Date end);
 
-    int totalCustomers();
+    long totalCustomers();
 
     double totalProfit(Date start, Date end);
 

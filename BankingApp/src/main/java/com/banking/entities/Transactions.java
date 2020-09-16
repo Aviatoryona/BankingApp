@@ -57,26 +57,19 @@ public class Transactions implements Serializable {
     @Basic(optional = false)
     @Column(name = "tr_id")
     private Integer trId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    
     @Column(name = "tr_accountnumber")
     private String trAccountnumber;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+
     @Column(name = "tr_type")
     private String trType;
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "tr_amount")
     private long trAmount;
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "tr_charge")
     private double trCharge;
-    @Basic(optional = false)
-    @NotNull
+
     @Column(name = "tr_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trDate;

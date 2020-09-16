@@ -57,7 +57,6 @@ public class Users implements Serializable {
     @Column(name = "usr_id")
     private Integer usrId;
 
-    @Size(min = 1, max = 255)
     @Column(name = "usr_username")
     private String usrUsername;
 
