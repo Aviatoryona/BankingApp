@@ -32,7 +32,9 @@
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" v-bind:value="username">
                             </div>
-                            <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                            <div class="col-sm-2">
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
@@ -40,7 +42,9 @@
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" v-bind:value="pwd">
                             </div>
-                            <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                            <div class="col-sm-2">
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                     </form>

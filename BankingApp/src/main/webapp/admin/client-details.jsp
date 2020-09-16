@@ -85,7 +85,7 @@
                         <div class="form-group row has-success">
                             <label class="col-lg-2 col-form-label">Account Type</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" v-bind:value="cctype" readonly="">
+                                <input type="text" class="form-control" v-bind:value="acctype" readonly="">
                                 <span class="form-text m-b-none"></span>
                             </div>
                         </div>

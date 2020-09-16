@@ -27,7 +27,7 @@
                                 <tr class="gradeX" v-for="customer in users">
                                     <td>{{customer.clientUserSd.ctFname}} {{customer.clientUserSd.ctLname}}</td>
                                     <td>
-                                        <a href="javascript:void(0)" onclick="admin.processIndex7(this)" :data="{{customer.usrId}}">
+                                        <a href="javascript:void(0)" onclick="admin.processIndex7(this)" :data="customer.usrId">
                                             {{customer.clientUserSd.ctEmail}}
                                         </a>
                                     </td>
