@@ -39,14 +39,12 @@
                 <div class="ibox-content">
                     <form onsubmit="return false">
                         <div class="form-group  row">
-                            <div class="col-sm-6">
-                                <label class="col-sm-2 col-form-label">First Name</label>
-                                <input type="text" class="col-sm-10 form-control" value="<%= cm.getClientUserSd().getCtFname()%>" readonly="">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="col-sm-2 col-form-label">Last Name</label>
-                                <input type="text" class="col-sm-10 form-control" value="<%= cm.getClientUserSd().getCtLname()%>" readonly="">
-                            </div>
+                            <label class="col-sm-2 col-form-label">First Name</label>
+                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getClientUserSd().getCtFname()%>" readonly="">
+                        </div>
+                        <div class="form-group  row">
+                            <label class="col-sm-2 col-form-label">Last Name</label>
+                            <input type="text" class="col-sm-10 form-control" value="<%= cm.getClientUserSd().getCtLname()%>" readonly="">
                         </div>
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Email</label>
