@@ -456,9 +456,7 @@ admin.processIndex6 = function (parent) {//client details
  *
  */
 admin.processIndex7 = function (parent) {//user details
-
     var id = $(parent).attr('data');
-
     var index = 7;
     var page = adminPages[index];
     loadTemplate(page);
