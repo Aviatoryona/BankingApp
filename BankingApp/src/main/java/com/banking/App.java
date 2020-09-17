@@ -67,14 +67,15 @@ public class App implements AppI {
     }
 
     //Generate account number
-    public static String getAccountNumber() {
+    @Override
+    public String getAccountNumber() {
         Date date = new Date();
         long l = date.getTime();
         String cvv = getCvv();
         return String.valueOf(l).concat(cvv);
     }
 
-    public static String getCvv() {
+    public String getCvv() {
         int x = new Random().nextInt(10000);
         String s = String.valueOf(x);
         if (s.length() < 3) {
@@ -87,7 +88,8 @@ public class App implements AppI {
     private static final String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$*";
 
     //generate access code
-    public static String getAccessCode(String code) {
+    @Override
+    public String getAccessCode(String code) {
         char[] cs = characters.toCharArray();
         code += String.valueOf(cs[new Random().nextInt(cs.length)]);
         return code.length() == 8 ? code : getAccessCode(code);

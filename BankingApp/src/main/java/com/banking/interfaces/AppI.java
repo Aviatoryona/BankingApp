@@ -38,4 +38,8 @@ public interface AppI {
     List<Accounttypes> getAccountTypes();
 
     MessageModel adCountry(Countries c);
+
+    String getAccountNumber();
+
+    String getAccessCode(String code);
 }

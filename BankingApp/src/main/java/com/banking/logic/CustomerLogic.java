@@ -17,11 +17,11 @@
  */
 package com.banking.logic;
 
-import com.banking.App;
 import com.banking.AppEnum;
 import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.entities.Transactiontypes;
+import com.banking.interfaces.AppI;
 import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.TranasctionLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
@@ -46,6 +46,9 @@ public class CustomerLogic implements CustomerLogicI {
 
     @PersistenceContext
     private EntityManager em;
+
+    @EJB
+    private AppI appI;
 
     @EJB
     private TransactionTypeLogicI transactionTypeLogicI;
@@ -74,7 +77,7 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public MessageModel checkEmail(String email) {
-        String accessCode = App.getAccessCode("");
+        String accessCode = appI.getAccessCode("");
         Customers customers = getCustomer(email);
         if (customers != null) {
             customers.setCtAccesscode(accessCode);
