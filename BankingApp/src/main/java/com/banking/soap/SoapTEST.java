@@ -17,22 +17,18 @@
  */
 package com.banking.soap;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-
 /**
  *
  * @author Aviator
  */
-@WebService(serviceName = "SoapTEST")
+//@WebService(serviceName = "SoapTEST")
 public class SoapTEST {
 
     /**
      * This is a sample web service operation
      */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
+//    @WebMethod(operationName = "hello")
+    public String hello(String txt) {//@WebParam(name = "name") 
         return "Hello " + txt + " !";
     }
 }
