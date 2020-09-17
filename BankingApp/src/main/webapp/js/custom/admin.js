@@ -301,33 +301,37 @@ admin.addAccountType = function () {
     }
 
 //    var data = $('form[id="miform"]').serialize();
-
+    $.post('admin', {
+        q: 'addacctype'
+    }, function (data) {
+        if (data.success) {
+            $('input[name="acctype"]').val('');
+            $('input[name="accmaxbal"]').val('');
+            $('input[name="accminbal"]').val('');
+            $('textarea[name="accdescription"]').val('');
+            swal({
+                title: "Done",
+                text: data.message,
+                type: "success"
+            });
+            setTimeout(function () {
+                admin.processIndex4.call();
+            }, 500);
+        } else {
+            swal({
+                title: "Failed",
+                text: data.message,
+                type: "error"
+            });
+        }
+    });
     app.loadData.call({
-        dataUrl: "admin",
+        dataUrl: "",
         method: 'POST',
         isJson: true,
-        params: `q=addacctype&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
+        params: `q=&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
         callBack: function (data) {
-            if (data.success) {
-                $('input[name="acctype"]').val('');
-                $('input[name="accmaxbal"]').val('');
-                $('input[name="accminbal"]').val('');
-                $('textarea[name="accdescription"]').val('');
-                swal({
-                    title: "Done",
-                    text: data.message,
-                    type: "success"
-                });
-                setTimeout(function () {
-                    admin.processIndex4.call();
-                }, 500);
-            } else {
-                swal({
-                    title: "Failed",
-                    text: data.message,
-                    type: "error"
-                });
-            }
+
         }
     });
 
@@ -477,3 +481,7 @@ admin.processIndex7 = function (parent) {//user details
     }
     , 500);
 };
+
+/*
+ *
+ */

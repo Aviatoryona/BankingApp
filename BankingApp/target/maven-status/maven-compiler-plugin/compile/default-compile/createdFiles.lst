@@ -6,6 +6,7 @@ com\banking\Test.class
 com\banking\entities\Accounttypes.class
 com\banking\entities\Countries.class
 com\banking\interfaces\TransactionTypeLogicI.class
+com\banking\soap\SoapTEST.class
 com\banking\logic\TransactionTypeLogic.class
 com\banking\Auth.class
 com\banking\logic\UsersLogic.class
@@ -15,9 +16,11 @@ com\banking\entities\Transactions.class
 com\banking\entities\Customers.class
 com\banking\logic\CustomerLogic.class
 com\banking\logic\TranasctionLogic.class
+com\banking\interfaces\AppI.class
 com\banking\models\MessageModel.class
 com\banking\App.class
 com\banking\entities\Transactiontypes.class
+com\banking\entities\ClientUserSd.class
 com\banking\logic\AccountTypeLogic.class
 com\banking\entities\Users.class
 com\banking\interfaces\AdminLogicI.class
