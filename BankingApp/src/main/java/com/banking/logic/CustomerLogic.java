@@ -18,6 +18,7 @@
 package com.banking.logic;
 
 import com.banking.AppEnum;
+import com.banking.annotations.SaveToDb;
 import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.entities.Transactiontypes;
@@ -48,6 +49,7 @@ public class CustomerLogic implements CustomerLogicI {
     private EntityManager em;
 
     @EJB
+    @SaveToDb(description = "call AppI to get AccountNumber and accesscode")
     private AppI appI;
 
     @EJB
@@ -58,6 +60,8 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public boolean createCustomer(Customers customerModel) {
+        customerModel.setCtAccountnumber(appI.getAccountNumber());
+        customerModel.setCtAccesscode(appI.getAccessCode(""));
         em.merge(customerModel);
         return true;
     }
