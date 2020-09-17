@@ -31,7 +31,7 @@ public enum AppEnum {
 
     private final String name;
 
-    AppEnum(String name) {
+    private AppEnum(String name) {
         this.name = name;
     }
 
