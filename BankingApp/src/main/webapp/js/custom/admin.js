@@ -59,8 +59,7 @@ function validate(input) {
 admin.dtTables = function () {
     $('.dataTables-example').DataTable({
         pageLength: 25,
-        responsive: true,
-        dom: '<"html5buttons"B>lTfgitp'
+        responsive: true
     });
 };
 
@@ -458,7 +457,7 @@ admin.processIndex6 = function (parent) {//client details
  */
 admin.processIndex7 = function (parent) {//user details
 
-    var id = $(parent).attr('data').val();
+    var id = $(parent).attr('data');
 
     var index = 7;
     var page = adminPages[index];
@@ -472,8 +471,8 @@ admin.processIndex7 = function (parent) {//user details
                     name: customer.clientUserSd.ctFname + ' ' + customer.clientUserSd.ctLname,
                     email: customer.clientUserSd.ctEmail,
                     phone: customer.clientUserSd.ctPhone,
-                    username: customer.ctCountry,
-                    pwd: customer.ctCity
+                    username: customer.usrUsername,
+                    pwd: customer.usrPwd
                 }
             });
         });
