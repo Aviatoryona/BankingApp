@@ -30,6 +30,8 @@ public class SoapTEST {
 
     /**
      * This is a sample web service operation
+     *
+     * @return
      */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
