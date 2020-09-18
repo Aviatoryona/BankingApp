@@ -19,6 +19,7 @@ package com.banking.rest;
 
 import com.banking.entities.Countries;
 import com.banking.interfaces.AppI;
+import com.banking.models.MessageModel;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -39,7 +40,7 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path("countries")
+@Path("/countries")
 public class CountriesFacadeREST extends AbstractFacade<Countries> {
 
     @PersistenceContext(unitName = "banking-app")
@@ -54,13 +55,15 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public void create(Countries entity) {
-        super.create(entity);
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_XML})
+    @Path("/addCountry")
+    public MessageModel create(Countries entity) {
+        System.out.println("com.banking.rest.CountriesFacadeREST.create()");
+        return super.create(entity);
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/editCountry/{id}")
     @Consumes({
         MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
     })
@@ -69,13 +72,13 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/removeCountry/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
+    @Path("/getCountry/{id}")
     @Produces({
         MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Countries find(@PathParam("id") Integer id) {
@@ -85,22 +88,24 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
     @GET
     @Override
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path("/getCountries")
     public List<Countries> findAll() {
-        return appI.getCountries();
+        System.out.println("com.banking.rest.CountriesFacadeREST.findAll()");
+        return super.findAll();
     }
 
     @GET
-    @Path("{from}/{to}")
+    @Path("/findCountries/{from}/{to}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<Countries> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
+    public MessageModel countREST() {
+        return super.count();
     }
 
     @Override

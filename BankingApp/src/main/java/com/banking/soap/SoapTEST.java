@@ -31,6 +31,7 @@ public class SoapTEST {
     /**
      * This is a sample web service operation
      *
+     * @param txt
      * @return
      */
     @WebMethod(operationName = "txt")

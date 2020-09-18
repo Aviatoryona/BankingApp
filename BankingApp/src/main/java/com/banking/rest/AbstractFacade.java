@@ -17,16 +17,18 @@
  */
 package com.banking.rest;
 
+import com.banking.models.MessageModel;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author Aviator
+ * @param <T>
  */
 public abstract class AbstractFacade<T> {
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -34,8 +36,9 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    public MessageModel create(T entity) {
         getEntityManager().persist(entity);
+        return new MessageModel(true, "Success");
     }
 
     public void edit(T entity) {
@@ -65,12 +68,12 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public int count() {
+    public MessageModel count() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return ((Long) q.getSingleResult()).intValue();
+        return new MessageModel(true, "", ((Long) q.getSingleResult()).intValue());
     }
 
 }
