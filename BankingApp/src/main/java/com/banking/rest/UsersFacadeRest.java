@@ -18,6 +18,7 @@
 package com.banking.rest;
 
 import com.banking.entities.Users;
+import com.banking.interfaces.UsersLogicI;
 import com.banking.logic.UsersLogic;
 import java.util.List;
 import javax.ejb.EJB;
@@ -34,19 +35,19 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path(value = "/users")
+@Path("/users")
 public class UsersFacadeRest {
 
     @PersistenceContext
     EntityManager em;
 
     @EJB
-    UsersLogic usersLogic;
+    UsersLogicI usersLogicI;
 
     @GET
     @Produces(value = {MediaType.APPLICATION_JSON})
-    @Path(value = "/all")
+    @Path("/all")
     public List<Users> getUsers() {
-        return usersLogic.getUsers(-1);
+        return usersLogicI.getUsers(-1);
     }
 }
