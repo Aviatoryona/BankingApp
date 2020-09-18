@@ -33,7 +33,7 @@ public class SoapTEST {
      *
      * @return
      */
-    @WebMethod(operationName = "hello")
+    @WebMethod(operationName = "txt")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
