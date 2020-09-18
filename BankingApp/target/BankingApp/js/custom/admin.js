@@ -521,3 +521,20 @@ admin.updateUserUsername = function (parent) {
         }
     });
 };
+
+admin.test = function () {
+    // capture and pass your form data in this params object
+    var params = {
+        name: 'name',
+        email: 'email'
+    };
+
+    //send data to server
+    // endpointurl should be http://localhost:8080/....
+    //If it fails, check how to set application/json header and making cross origin request
+    $.post('endpointurl', {
+        data: JSON.stringify(params)
+    }, function (response) {
+        console.log(response);
+    });
+};
