@@ -19,7 +19,6 @@ package com.banking.rest;
 
 import com.banking.entities.Countries;
 import com.banking.interfaces.AppI;
-import com.banking.models.MessageModel;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -45,9 +44,6 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
 
     @PersistenceContext(unitName = "banking-app")
     private EntityManager em;
-
-    @EJB
-    private AppI appI;
 
     public CountriesFacadeREST() {
         super(Countries.class);
