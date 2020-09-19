@@ -51,8 +51,8 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/addCountry")
     public String create(Countries entity) {
         System.out.println("com.banking.rest.CountriesFacadeREST.create()");
