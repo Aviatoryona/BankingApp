@@ -37,7 +37,7 @@
                     <div class="ibox-tools"> </div>
                 </div>
                 <div class="ibox-content">
-                    <form onsubmit="return false">
+                    <form onsubmit="return false" name="user-profile">
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">First Name</label>
                             <input type="text" class="col-sm-10 form-control" value="<%= cm.getClientUserSd().getCtFname()%>" readonly="">
@@ -71,7 +71,7 @@
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" value="<%= cm.getUsrPwd()%>">
+                                <input type="password" name="txtPwd" class="form-control" value="<%= cm.getUsrPwd()%>">
                             </div>
                             <div class="col-sm-2">
                                 <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>

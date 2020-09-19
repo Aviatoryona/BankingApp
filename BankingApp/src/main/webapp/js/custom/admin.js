@@ -497,8 +497,7 @@ admin.processIndex7 = function (parent) {//user details
 /*
  *
  */
-admin.updateUserUsername = function (parent) {
-
+admin.updateUserUsername = function () {
     var email = $('input[name="txtEmail"]').val();
     var txtUsrName = $('input[name="txtUsrName"]').val();
     if (!validateData(false, txtUsrName)) {
@@ -516,9 +515,7 @@ admin.updateUserUsername = function (parent) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         }
     }).done(function (data) {
-        if (console && console.log) {
-            console.log("Sample of data:", data.slice(0, 100));
-        }
+
     });
 };
 

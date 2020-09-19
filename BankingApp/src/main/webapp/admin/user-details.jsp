@@ -18,7 +18,9 @@
                     <form onsubmit="return false">
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" v-bind:value="email" readonly=""></div>
+                            <div class="col-sm-10">
+                                <input type="text" name="txtEmail" class="form-control" v-bind:value="email" readonly="">
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group  row">
@@ -29,7 +31,7 @@
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Username</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" v-bind:value="username">
+                                <input type="text" name="txtUsrName" class="form-control" v-bind:value="username">
                             </div>
                             <div class="col-sm-2">
                                 <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
@@ -39,7 +41,7 @@
                         <div class="form-group  row">
                             <label class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" v-bind:value="pwd">
+                                <input type="password" name="txtPwd"  class="form-control" v-bind:value="pwd">
                             </div>
                             <div class="col-sm-2">
                                 <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
