@@ -18,7 +18,11 @@
 package com.banking.rest;
 
 import com.banking.models.MessageModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
@@ -36,9 +40,14 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public MessageModel create(T entity) {
-        getEntityManager().persist(entity);
-        return new MessageModel(true, "Success");
+    public String create(T entity) {
+        try {
+            getEntityManager().persist(entity);
+            return new ObjectMapper().writeValueAsString(new MessageModel(true, "Success"));
+        } catch (JsonProcessingException ex) {
+            Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Failed";
     }
 
     public void edit(T entity) {
@@ -68,12 +77,12 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public MessageModel count() {
+    public int count() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
-        return new MessageModel(true, "", ((Long) q.getSingleResult()).intValue());
+        return ((Long) q.getSingleResult()).intValue();
     }
 
 }

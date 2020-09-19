@@ -17,11 +17,8 @@
  */
 package com.banking.rest;
 
-import com.banking.entities.Countries;
-import com.banking.interfaces.AppI;
-import com.banking.models.MessageModel;
+import com.banking.entities.Transactiontypes;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,70 +37,59 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path("/countries")
-public class CountriesFacadeREST extends AbstractFacade<Countries> {
+@Path("com.banking.entities.transactiontypes")
+public class TransactiontypesFacadeREST extends AbstractFacade<Transactiontypes> {
 
     @PersistenceContext(unitName = "banking-app")
     private EntityManager em;
 
-    @EJB
-    private AppI appI;
-
-    public CountriesFacadeREST() {
-        super(Countries.class);
+    public TransactiontypesFacadeREST() {
+        super(Transactiontypes.class);
     }
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/addCountry")
-    public String create(Countries entity) {
-        System.out.println("com.banking.rest.CountriesFacadeREST.create()");
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public String create(Transactiontypes entity) {
         return super.create(entity);
     }
 
     @PUT
-    @Path("/editCountry/{id}")
-    @Consumes({
-        MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML
-    })
-    public void edit(@PathParam("id") Integer id, Countries entity) {
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, Transactiontypes entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("/removeCountry/{id}")
+    @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("/getCountry/{id}")
-    @Produces({
-        MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Countries find(@PathParam("id") Integer id) {
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Transactiontypes find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/getCountries")
-    public List<Countries> findAll() {
-        System.out.println("com.banking.rest.CountriesFacadeREST.findAll()");
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Transactiontypes> findAll() {
         return super.findAll();
     }
 
     @GET
-    @Path("/findCountries/{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<Countries> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Path("{from}/{to}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Transactiontypes> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
-    @Path("/count")
+    @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
