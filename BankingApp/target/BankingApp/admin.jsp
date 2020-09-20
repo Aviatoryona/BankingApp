@@ -67,42 +67,47 @@
         <script src="js/custom/admin.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
-
-                var sparklineCharts = function () {
-                    $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
-                        type: 'line',
-                        width: '100%',
-                        height: '50',
-                        lineColor: '#1ab394',
-                        fillColor: "transparent"
-                    });
-
-                    $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
-                        type: 'line',
-                        width: '100%',
-                        height: '50',
-                        lineColor: '#1ab394',
-                        fillColor: "transparent"
-                    });
-                };
-
-                var sparkResize;
-
-                $(window).resize(function (e) {
-                    clearTimeout(sparkResize);
-                    sparkResize = setTimeout(sparklineCharts, 500);
-                });
-
-                sparklineCharts();
-
-                $('input').focusin(function () {
-                    hideValidate(this);
-                });
-
                 /*
                  *
                  */
                 admin.processIndex0.call();
+//                admin.dtTables.call();
+
+                /*
+                 *
+                 */
+                setTimeout(function () {
+                    var sparklineCharts = function () {
+                        $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
+                            type: 'line',
+                            width: '100%',
+                            height: '50',
+                            lineColor: '#1ab394',
+                            fillColor: "transparent"
+                        });
+
+                        $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
+                            type: 'line',
+                            width: '100%',
+                            height: '50',
+                            lineColor: '#1ab394',
+                            fillColor: "transparent"
+                        });
+                    };
+
+                    var sparkResize;
+
+                    $(window).resize(function (e) {
+                        clearTimeout(sparkResize);
+                        sparkResize = setTimeout(sparklineCharts, 500);
+                    });
+
+                    sparklineCharts();
+
+                    $('input').focusin(function () {
+                        hideValidate(this);
+                    });
+                }, 1000);
             });
         </script>
     </body>

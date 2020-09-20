@@ -34,7 +34,7 @@
                                 <input type="text" name="txtUsrName" class="form-control" v-bind:value="username">
                             </div>
                             <div class="col-sm-2">
-                                <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning" onclick="admin.updateUserUsername()">update</a>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -44,7 +44,7 @@
                                 <input type="password" name="txtPwd"  class="form-control" v-bind:value="pwd">
                             </div>
                             <div class="col-sm-2">
-                                <a href="javascript:void(0)" class="btn btn-xs btn-warning">update</a>
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning" onclick="admin.updateUserPassword()">update</a>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

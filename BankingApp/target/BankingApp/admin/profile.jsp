@@ -74,7 +74,7 @@
                                 <input type="password" name="txtPwd" class="form-control" value="<%= cm.getUsrPwd()%>">
                             </div>
                             <div class="col-sm-2">
-                                <a href="javascript:void(0)" class="col-sm-2 btn btn-xs btn-warning">update</a>
+                                <a href="javascript:void(0)" class="btn btn-xs btn-warning" onclick="admin.updateUserPassword()">update</a>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

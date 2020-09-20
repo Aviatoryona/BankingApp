@@ -50,7 +50,7 @@
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-md-12">
-                            <h1 class="no-margins" id="el_balance"><%= cm.getCtAccbalance()%></h1>
+                            <h1 class="no-margins" id="el_balance"><%= (cm.getCtAccbalance())%></h1>
                             <small>Acc. Balance(Kes)</small>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                     <td>{{transaction.trType}}</td>
                                     <td>{{transaction.trAmount}}</td>
                                     <td>{{transaction.trCharge}}</td>
-                                    <td>{{transaction.trDate}}</td>
+                                    <td>{{new Date(transaction.trDate)}}</td>
                                     <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                                 </tr>
 

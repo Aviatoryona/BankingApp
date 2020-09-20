@@ -27,7 +27,7 @@
                                 <input name="ctryName" type="text" placeholder="Country" class="form-control" required/>
                             </div>
                             <div class="col-lg-4">
-                                <button class="btn btn-sm btn-white" type="submit" onclick="admin.a">Save</button>
+                                <button class="btn btn-sm btn-white" type="submit" onclick="admin.addCountry()">Save</button>
                             </div>
                         </div>
                     </form>

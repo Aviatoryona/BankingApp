@@ -114,7 +114,7 @@ function registerInit(data) {
         var element = document.getElementById("input_countries");
         var content = `<option selected disabled>Country</option>`;
         countries.forEach(country => {
-            content += `<option value="${country.ctry_name}">${country.ctry_name}</option>`;
+            content += `<option value="${country.ctryName}">${country.ctryName}</option>`;
         });
         element.innerHTML = content;
     }
@@ -134,15 +134,15 @@ function registerInit(data) {
  * do register
  */
 app.doRegister = function () {
-    var url = `ct_fname=` + this.fname
-            + `&ct_lname=` + this.lname
-            + `&ct_email=` + this.email
-            + `&ct_phone=` + this.phone
-            + `&ct_country=` + this.country
-            + `&ct_city=` + this.city
-            + `&ct_address=` + this.address
-            + `&ct_gender=` + this.gender
-            + `&ct_accounttype=` + this.acctype;
+    var url = `ctFname=` + this.fname
+            + `&ctLname=` + this.lname
+            + `&ctEmail=` + this.email
+            + `&ctPhone=` + this.phone
+            + `&ctCountry=` + this.country
+            + `&ctCity=` + this.city
+            + `&ctAddress=` + this.address
+            + `&ctGender=` + this.gender
+            + `&ctAccounttype=` + this.acctype;
     app.loadData.call({
         dataUrl: "register",
         method: 'POST',

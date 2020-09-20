@@ -19,6 +19,9 @@
                         <p>Provide more options to your clients</p>
 
                         <form role="form" id="miform" onsubmit="return false">
+                            <div class="form-group hide">
+                                <input type="text" name="addacctype" value="addacctype" class="form-control" required>
+                            </div>
                             <div class="form-group">
                                 <label>Account Name</label>
                                 <input type="text" placeholder="Account Name" name="acctype" class="form-control" required>

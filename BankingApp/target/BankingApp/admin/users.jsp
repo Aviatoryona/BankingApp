@@ -87,7 +87,7 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit"><strong>Save</strong></button>
+                            <button class="btn btn-sm btn-primary float-right m-t-n-xs" type="submit" onclick="admin.addUser()"><strong>Save</strong></button>
                         </div>
                     </form>
                 </div>

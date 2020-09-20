@@ -90,7 +90,7 @@
                                     <td>{{transaction.trType}}</td>
                                     <td>{{transaction.trAmount}}</td>
                                     <td>{{transaction.trCharge}}</td>
-                                    <td>{{transaction.trDate}}</td>
+                                    <td>{{new Date(transaction.trDate)}}</td>
                                     <td><a href="javascript:void(0)"><i class="fa fa-check text-navy"></i></a></td>
                                 </tr>
                             </tbody>
