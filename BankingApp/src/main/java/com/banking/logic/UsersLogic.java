@@ -82,7 +82,41 @@ public class UsersLogic implements UsersLogicI {
 
     @Override
     public MessageModel updateUser(Users users) {
-        return new MessageModel(true, "");
+        em.merge(users);
+        return new MessageModel(true, "User information updated");
+    }
+
+    @Override
+    public Users getUser(String email) {
+        try {
+            Query q = em.createNamedQuery("Users.findByUsrEmail", Users.class);
+            q.setParameter("usrEmail", email);
+            return (Users) q.getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    @Override
+    public MessageModel changeUsername(String email, String userName) {
+        Users u = getUser(email);
+        if (u == null) {
+            return new MessageModel(false, "User not found");
+        }
+        Users uu = u;
+        uu.setUsrUsername(userName);
+        return updateUser(uu);
+    }
+
+    @Override
+    public MessageModel changePwd(String email, String pwd) {
+        Users u = getUser(email);
+        if (u == null) {
+            return new MessageModel(false, "User not found");
+        }
+        Users uu = u;
+        uu.setUsrPwd(pwd);
+        return updateUser(uu);
     }
 
 }

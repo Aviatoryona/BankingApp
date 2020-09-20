@@ -12,12 +12,13 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
+ * adouble with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package com.banking.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,8 +31,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -51,13 +51,13 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Transactions.findByTrDate", query = "SELECT t FROM Transactions t WHERE t.trDate = :trDate")})
 public class Transactions implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final double serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "tr_id")
     private Integer trId;
-    
+
     @Column(name = "tr_accountnumber")
     private String trAccountnumber;
 
@@ -65,7 +65,7 @@ public class Transactions implements Serializable {
     private String trType;
 
     @Column(name = "tr_amount")
-    private long trAmount;
+    private double trAmount;
 
     @Column(name = "tr_charge")
     private double trCharge;
@@ -74,6 +74,9 @@ public class Transactions implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date trDate;
 
+    @Transient
+    private String convertedDate;
+
     public Transactions() {
     }
 
@@ -81,7 +84,7 @@ public class Transactions implements Serializable {
         this.trId = trId;
     }
 
-    public Transactions(Integer trId, String trAccountnumber, String trType, long trAmount, double trCharge, Date trDate) {
+    public Transactions(Integer trId, String trAccountnumber, String trType, double trAmount, double trCharge, Date trDate) {
         this.trId = trId;
         this.trAccountnumber = trAccountnumber;
         this.trType = trType;
@@ -114,11 +117,11 @@ public class Transactions implements Serializable {
         this.trType = trType;
     }
 
-    public long getTrAmount() {
+    public double getTrAmount() {
         return trAmount;
     }
 
-    public void setTrAmount(long trAmount) {
+    public void setTrAmount(double trAmount) {
         this.trAmount = trAmount;
     }
 
@@ -143,6 +146,20 @@ public class Transactions implements Serializable {
         int hash = 0;
         hash += (trId != null ? trId.hashCode() : 0);
         return hash;
+    }
+
+    /**
+     * @return the convertedDate
+     */
+    public String getConvertedDate() {
+        return convertedDate;
+    }
+
+    /**
+     * @param convertedDate the convertedDate to set
+     */
+    public void setConvertedDate(String convertedDate) {
+        this.convertedDate = new SimpleDateFormat().format(getTrDate());
     }
 
     @Override

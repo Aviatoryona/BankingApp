@@ -50,7 +50,7 @@ function process_home_dashboard(res) {
         el: '#home',
         data: {
             el_deposit: res.object.deposit,
-            el_withdrawal: res.object.deposit,
+            el_withdrawal: res.object.withdraw,
             transactions: []
         },
         created: function () {

@@ -35,4 +35,6 @@ public interface AccounttypesI {
 
     List<Accounttypes> getAccounttypeses();
 
+    Accounttypes getAccounttypes(String type);
+
 }

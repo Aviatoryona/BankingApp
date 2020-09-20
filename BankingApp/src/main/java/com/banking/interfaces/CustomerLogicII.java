@@ -17,34 +17,9 @@
  */
 package com.banking.interfaces;
 
-import com.banking.entities.Users;
-import com.banking.models.MessageModel;
-import java.util.List;
-import javax.ejb.Remote;
-
 /**
  *
  * @author Aviator
  */
-@Remote
-public interface UsersLogicI {
-
-    Users getUser(int id);
-
-    Users getUser(String email);
-
-    Users getUser(String username, String pwd);
-
-    MessageModel addUser(Users users);
-
-    MessageModel removeUser(Users users);
-
-    List<Users> getUsers(int limit);
-
-    MessageModel updateUser(Users users);
-
-    MessageModel changeUsername(String email, String userName);
-
-    MessageModel changePwd(String email, String pwd);
-
+public interface CustomerLogicII extends CustomerLogicI {
 }

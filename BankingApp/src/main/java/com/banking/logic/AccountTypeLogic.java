@@ -20,6 +20,7 @@ package com.banking.logic;
 import com.banking.entities.Accounttypes;
 import com.banking.interfaces.AccounttypesI;
 import com.banking.models.MessageModel;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -39,6 +40,7 @@ public class AccountTypeLogic implements AccounttypesI {
 
     @Override
     public MessageModel addAccountType(Accounttypes accounttypes) {
+        accounttypes.setAccdate(Calendar.getInstance().getTime());
         em.merge(accounttypes);
         return new MessageModel(true, "Successfully added", accounttypes);
     }
@@ -52,6 +54,15 @@ public class AccountTypeLogic implements AccounttypesI {
     @Override
     public List<Accounttypes> getAccounttypeses() {
         return em.createNamedQuery("Accounttypes.findAll").getResultList();
+    }
+
+    @Override
+    public Accounttypes getAccounttypes(String type) {
+        try {
+            return (Accounttypes) em.createNamedQuery("Accounttypes.findByAcctype").setParameter("acctype", type).getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
     }
 
 }

@@ -37,7 +37,7 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path("com.banking.entities.accounttypes")
+@Path("/accounttypes")
 public class AccounttypesFacadeREST extends AbstractFacade<Accounttypes> {
 
     @PersistenceContext(unitName = "banking-app")
@@ -55,41 +55,42 @@ public class AccounttypesFacadeREST extends AbstractFacade<Accounttypes> {
     }
 
     @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/edit/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Accounttypes entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/remove/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/get/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
     public Accounttypes find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path(value = "/getAll")
     public List<Accounttypes> findAll() {
         return super.findAll();
     }
 
     @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/find/{from}/{to}")
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Accounttypes> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());

@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
+ * adouble with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package com.banking.entities;
@@ -54,7 +54,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class Customers implements Serializable {
   
-    private static final long serialVersionUID = 1L;
+    private static final double serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -83,7 +83,7 @@ public class Customers implements Serializable {
     private String ctAccountnumber;
 
     @Column(name = "ct_accbalance")
-    private long ctAccbalance;
+    private double ctAccbalance;
 
     @Column(name = "ct_accesscode")
     private String ctAccesscode;
@@ -98,7 +98,7 @@ public class Customers implements Serializable {
         this.ctId = ctId;
     }
 
-    public Customers(Integer ctId, String ctNextkin, String ctAddress, String ctCity, String ctCountry, String ctGender, String ctAccounttype, String ctAccountnumber, long ctAccbalance, String ctAccesscode, ClientUserSd clientUserSd) {
+    public Customers(Integer ctId, String ctNextkin, String ctAddress, String ctCity, String ctCountry, String ctGender, String ctAccounttype, String ctAccountnumber, double ctAccbalance, String ctAccesscode, ClientUserSd clientUserSd) {
         this.ctId = ctId;
         this.ctNextkin = ctNextkin;
         this.ctAddress = ctAddress;
@@ -227,14 +227,14 @@ public class Customers implements Serializable {
     /**
      * @return the ctAccbalance
      */
-    public long getCtAccbalance() {
+    public double getCtAccbalance() {
         return ctAccbalance;
     }
 
     /**
      * @param ctAccbalance the ctAccbalance to set
      */
-    public void setCtAccbalance(long ctAccbalance) {
+    public void setCtAccbalance(double ctAccbalance) {
         this.ctAccbalance = ctAccbalance;
     }
 

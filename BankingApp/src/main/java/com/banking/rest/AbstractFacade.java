@@ -47,7 +47,7 @@ public abstract class AbstractFacade<T> {
         } catch (JsonProcessingException ex) {
             Logger.getLogger(AbstractFacade.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Failed";
+        return "{\"error\": true,\"message\": \"Failed to perform operation\"}";
     }
 
     public void edit(T entity) {

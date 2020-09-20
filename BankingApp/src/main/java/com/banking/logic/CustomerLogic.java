@@ -27,6 +27,7 @@ import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.TranasctionLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class CustomerLogic implements CustomerLogicI {
     public boolean createCustomer(Customers customerModel) {
         customerModel.setCtAccountnumber(appI.getAccountNumber());
         customerModel.setCtAccesscode(appI.getAccessCode(""));
+        customerModel.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
         em.merge(customerModel);
         return true;
     }
@@ -107,25 +109,38 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public double getTotalDeposits(Customers cm) {
-        List<Transactions> models = getDeposits(cm);
-        if (models != null) {
-            double sum = 0;
+        try {
+            List<Transactions> models = getWithdrawals(cm);
+            if (models != null) {
+                Query q = em.createQuery("SELECT SUM(t.trAmount) FROM Transactions t WHERE t.trAccountnumber=:trAccountnumber AND t.trType=:trType");
+                q.setParameter("trAccountnumber", cm.getCtAccountnumber());
+                q.setParameter("trType", AppEnum.DEPOSIT.getName());
 
-            for (Transactions model : models) {
-                sum += model.getTrAmount();
+                return (Double) q.getSingleResult();
+//            double sum = 9000;
+//            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
+//            return sum;
             }
-            return sum;
+        } catch (Exception e) {
         }
         return 0;
     }
 
     @Override
     public double getTotalWithdrawals(Customers cm) {
-        List<Transactions> models = getWithdrawals(cm);
-        if (models != null) {
-            double sum = 0;
-            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
-            return sum;
+        try {
+            List<Transactions> models = getWithdrawals(cm);
+            if (models != null) {
+                Query q = em.createQuery("SELECT SUM(t.trAmount) FROM Transactions t WHERE t.trAccountnumber=:trAccountnumber AND t.trType=:trType");
+                q.setParameter("trAccountnumber", cm.getCtAccountnumber());
+                q.setParameter("trType", AppEnum.WITHDRAW.getName());
+
+                return (Double) q.getSingleResult();
+//            double sum = 9000;
+//            sum = models.stream().map(model -> Double.longBitsToDouble(model.getTrAmount())).reduce(sum, (accumulator, _item) -> accumulator + _item);
+//            return sum;
+            }
+        } catch (Exception e) {
         }
         return 0;
     }
@@ -168,7 +183,7 @@ public class CustomerLogic implements CustomerLogicI {
             q.setParameter("trType", cm.getCtAccounttype());
         }
         q.setMaxResults(300);
-        return tranasctionLogicI.getTransactions(q);
+        return q.getResultList();//tranasctionLogicI.getTransactions(q);
     }
 
     @Override
@@ -182,7 +197,7 @@ public class CustomerLogic implements CustomerLogicI {
         }
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
-        transactions.setTrAmount(Double.doubleToLongBits(amount));
+        transactions.setTrAmount(amount);
         Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.DEPOSIT.getName());
         if (transactionType != null) {
             double newAmount = (cm1.getCtAccbalance() + Math.abs(amount)) - transactionType.getTpCharge();
@@ -212,7 +227,7 @@ public class CustomerLogic implements CustomerLogicI {
         }
         Transactions transactions = new Transactions();
         transactions.setTrAccountnumber(cm.getCtAccountnumber());
-        transactions.setTrAmount(Double.doubleToLongBits(amount));
+        transactions.setTrAmount(amount);
         Transactiontypes transactionType = transactionTypeLogicI.getTransactionType(AppEnum.WITHDRAW.getName());
         if (transactionType != null) {
             if (cm1.getCtAccbalance() < (amount + transactions.getTrCharge())) {
@@ -258,7 +273,7 @@ public class CustomerLogic implements CustomerLogicI {
     @Override
     public MessageModel updateAccountBal(double newBal, Customers cm) {
         //"UPDATE ".concat(tbName) + " SET ct_accbalance=? WHERE ct_accountnumber=?";
-        cm.setCtAccbalance(Double.doubleToLongBits(newBal));
+        cm.setCtAccbalance(newBal);
         em.merge(cm);
         return new MessageModel(true, "success", getCustomer(cm.getClientUserSd().getCtEmail()));
     }

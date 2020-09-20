@@ -19,11 +19,7 @@ package com.banking.rest;
 
 import com.banking.entities.Countries;
 import com.banking.interfaces.AppI;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -59,17 +55,10 @@ public class CountriesFacadeREST extends AbstractFacade<Countries> {
     @POST
     @Override
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     @Path("/addCountry")
     public String create(Countries entity) {
-        System.out.println("com.banking.rest.CountriesFacadeREST.create()");
-        try {
-            //        return super.create(entity);
-            return new ObjectMapper().writeValueAsString(appI.getCountries());
-        } catch (JsonProcessingException ex) {
-            Logger.getLogger(CountriesFacadeREST.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "Empty";
+        return super.create(entity);
     }
 
     @PUT

@@ -21,6 +21,7 @@ import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.interfaces.TranasctionLogicI;
 import com.banking.models.MessageModel;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -46,6 +47,7 @@ public class TranasctionLogic implements TranasctionLogicI {
 
     @Override
     public MessageModel createTransaction(Transactions model) {
+        model.setTrDate(Calendar.getInstance().getTime());
         em.merge(model);
         return new MessageModel(true, "Successfull");
     }

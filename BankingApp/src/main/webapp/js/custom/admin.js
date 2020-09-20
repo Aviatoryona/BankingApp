@@ -290,151 +290,6 @@ admin.processIndex5 = function () { //Profile
 /*
  *
  */
-admin.addAccountType = function () {
-    var acctype = $('input[name="acctype"]').val();
-    if (acctype == '') {
-        showValidate('input[name="acctype"]');
-        return;
-    }
-    var accmaxbal = $('input[name="accmaxbal"]').val();
-    if (accmaxbal == '') {
-        showValidate('input[name="accmaxbal"]');
-        return;
-    }
-    var accminbal = $('input[name="accminbal"]').val();
-    if (accminbal == '') {
-        showValidate('input[name="accminbal"]');
-        return;
-    }
-    var accdescription = $('textarea[name="accdescription"]').val();
-    if (accdescription == '') {
-        showValidate('textarea[name="accdescription"]');
-        return;
-    }
-
-//    var data = $('form[id="miform"]').serialize();
-    $.post('admin', {
-        q: 'addacctype'
-    }, function (data) {
-        if (data.success) {
-            $('input[name="acctype"]').val('');
-            $('input[name="accmaxbal"]').val('');
-            $('input[name="accminbal"]').val('');
-            $('textarea[name="accdescription"]').val('');
-            swal({
-                title: "Done",
-                text: data.message,
-                type: "success"
-            });
-            setTimeout(function () {
-                admin.processIndex4.call();
-            }, 500);
-        } else {
-            swal({
-                title: "Failed",
-                text: data.message,
-                type: "error"
-            });
-        }
-    });
-    app.loadData.call({
-        dataUrl: "",
-        method: 'POST',
-        isJson: true,
-        params: `q=&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
-        callBack: function (data) {
-
-        }
-    });
-
-};
-
-/*
- *
- */
-admin.addUser = function () {
-    /*==================================================================
-     [ Validate ]*/
-    var input = $('form input');
-    var check = true;
-    for (var i = 0; i < input.length; i++) {
-        if (validate(input[i]) == false) {
-            showValidate(input[i]);
-            check = false;
-        }
-    }
-    if (check) {
-        var vals = $('form').serialize();
-        console.log(vals);
-
-        app.loadData.call({
-            dataUrl: "admin",
-            method: 'POST',
-            isJson: true,
-            params: vals,
-            callBack: function (data) {
-                if (data.success) {
-                    swal({
-                        title: "Done",
-                        text: data.message,
-                        type: "success"
-                    });
-                    setTimeout(function () {
-                        admin.processIndex3.call();
-                    }, 500);
-                } else {
-                    swal({
-                        title: "Failed",
-                        text: data.message,
-                        type: "error"
-                    });
-                }
-            }
-        });
-    }
-};
-
-/*
- *
- */
-admin.addCountry = function () {
-    var ctryName = $('input[name="ctryName"]').val();
-    if (ctryName == '') {
-        showValidate('input[name="ctryName"]');
-        return;
-    }
-
-    app.loadData.call({
-        dataUrl: "admin",
-        method: 'POST',
-        isJson: true,
-        params: `q=addctry&ctryName=${ctryName}`,
-        callBack: function (data) {
-            if (data.success) {
-                $('input[name="ctryName"]').val('');
-                swal({
-                    title: "Done",
-                    text: data.message,
-                    type: "success"
-                });
-                setTimeout(function () {
-                    admin.processIndex4.call();
-                }, 500);
-            } else {
-                swal({
-                    title: "Failed",
-                    text: data.message,
-                    type: "error"
-                });
-            }
-        }
-    });
-
-};
-
-/*
- *
- */
 admin.processIndex6 = function (parent) {//client details
 
     var usr_email = $.trim($(parent).text());
@@ -497,6 +352,140 @@ admin.processIndex7 = function (parent) {//user details
 /*
  *
  */
+admin.addAccountType = function () {
+    var acctype = $('input[name="acctype"]').val();
+    if (acctype == '') {
+        showValidate('input[name="acctype"]');
+        return;
+    }
+    var accmaxbal = $('input[name="accmaxbal"]').val();
+    if (accmaxbal == '') {
+        showValidate('input[name="accmaxbal"]');
+        return;
+    }
+    var accminbal = $('input[name="accminbal"]').val();
+    if (accminbal == '') {
+        showValidate('input[name="accminbal"]');
+        return;
+    }
+    var accdescription = $('textarea[name="accdescription"]').val();
+    if (accdescription == '') {
+        showValidate('textarea[name="accdescription"]');
+        return;
+    }
+
+    var data = $('form[id="miform"]').serialize();
+    console.log(data);
+    $.post('admin', data, function (data) {
+        if (data.success) {
+            $('input[name="acctype"]').val('');
+            $('input[name="accmaxbal"]').val('');
+            $('input[name="accminbal"]').val('');
+            $('textarea[name="accdescription"]').val('');
+            swal({
+                title: "Done",
+                text: data.message,
+                type: "success"
+            });
+            setTimeout(function () {
+                admin.processIndex4.call();
+            }, 500);
+        } else {
+            swal({
+                title: "Failed",
+                text: data.message,
+                type: "error"
+            });
+        }
+    });
+    app.loadData.call({
+        dataUrl: "",
+        method: 'POST',
+        isJson: true,
+        params: `q=&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
+        callBack: function (data) {
+
+        }
+    });
+
+};
+
+/*
+ *
+ */
+admin.addUser = function () {
+    /*==================================================================
+     [ Validate ]*/
+    var input = $('form input');
+    var check = true;
+    for (var i = 0; i < input.length; i++) {
+        if (validate(input[i]) == false) {
+            showValidate(input[i]);
+            check = false;
+        }
+    }
+    if (check) {
+        var vals = $('form').serialize();
+        console.log(vals);
+        $.post('admin', vals, function (data) {
+            if (data.success) {
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    admin.processIndex3.call();
+                }, 500);
+            } else {
+                swal({
+                    title: "Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        })
+    }
+};
+
+/*
+ *
+ */
+admin.addCountry = function () {
+    var ctryName = $('input[name="ctryName"]').val();
+    if (ctryName == '') {
+        showValidate('input[name="ctryName"]');
+        return;
+    }
+
+    $.post('admin', {
+        q: 'addctry',
+        ctryName: `${ctryName}`
+    }, function (data) {
+        if (data.success) {
+            $('input[name="ctryName"]').val('');
+            swal({
+                title: "Done",
+                text: data.message,
+                type: "success"
+            });
+            setTimeout(function () {
+                admin.processIndex4.call();
+            }, 500);
+        } else {
+            swal({
+                title: "Failed",
+                text: data.message,
+                type: "error"
+            });
+        }
+    });
+
+};
+
+/*
+ *
+ */
 admin.updateUserUsername = function () {
     var email = $('input[name="txtEmail"]').val();
     var txtUsrName = $('input[name="txtUsrName"]').val();
@@ -508,6 +497,7 @@ admin.updateUserUsername = function () {
         url: "admin",
         type: 'PUT',
         data: {
+            'q': 'usrname',
             'usrname': txtUsrName,
             'email': email
         },
@@ -515,10 +505,63 @@ admin.updateUserUsername = function () {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         }
     }).done(function (data) {
-
+        if (data.success) {
+            swal({
+                title: "Successful",
+                text: data.message,
+                type: "success"
+            });
+        } else {
+            swal({
+                title: "Failed",
+                text: data.message,
+                type: "error"
+            });
+        }
     });
 };
 
+/*
+ *
+ */
+admin.updateUserPassword = function () {
+    var email = $('input[name="txtEmail"]').val();
+    var txtPwd = $('input[name="txtPwd"]').val();
+    if (!validateData(false, txtPwd)) {
+        showValidate('input[name="txtPwd"]');
+        return;
+    }
+    $.ajax({
+        url: "admin",
+        type: 'PUT',
+        data: {
+            'q': 'pwd',
+            'pwd': txtPwd,
+            'email': email
+        },
+        beforeSend: function (xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        }
+    }).done(function (data) {
+        if (data.success) {
+            swal({
+                title: "Successful",
+                text: data.message,
+                type: "success"
+            });
+        } else {
+            swal({
+                title: "Failed",
+                text: data.message,
+                type: "error"
+            });
+        }
+    });
+};
+
+/*
+ *
+ */
 admin.test = function () {
     // capture and pass your form data in this params object
     var params = {

@@ -18,11 +18,14 @@
 package com.banking.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -48,6 +51,9 @@ public class ClientUserSd implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date ctDate;
+
+    @Transient
+    private String convertedDate;
 
     /**
      * @return the ctFname
@@ -131,6 +137,20 @@ public class ClientUserSd implements Serializable {
      */
     public void setCtDate(Date ctDate) {
         this.ctDate = ctDate;
+    }
+
+    /**
+     * @return the convertedDate
+     */
+    public String getConvertedDate() {
+        return convertedDate;
+    }
+
+    /**
+     * @param convertedDate the convertedDate to set
+     */
+    public void setConvertedDate(String convertedDate) {
+        this.convertedDate = new SimpleDateFormat("MM dd, YYYY", Locale.getDefault()).format(getCtDate());
     }
 
 }

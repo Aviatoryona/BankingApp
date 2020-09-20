@@ -59,9 +59,9 @@ public class AdminLogic implements AdminLogicI {
     }
 
     @Override
-    public long totalCustomers() {
-        return em.createQuery("SELECT COUNT(c.ctId) FROM Customers c", Long.class)
-                .getSingleResult();
+    public int totalCustomers() {
+        return ((Long) em.createQuery("SELECT COUNT(c.ctId) FROM Customers c")
+                .getSingleResult()).intValue();
 //        return getRegisteredCustomers(-1).size();
     }
 

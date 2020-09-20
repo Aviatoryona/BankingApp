@@ -17,8 +17,12 @@
  */
 package com.banking.rest;
 
+import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
+import com.banking.interfaces.CustomerLogicI;
+import com.banking.interfaces.TranasctionLogicI;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,7 +41,7 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path("com.banking.entities.transactions")
+@Path("/transactions")
 public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
 
     @PersistenceContext(unitName = "banking-app")
@@ -49,14 +53,14 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public String create(Transactions entity) {
         return super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Transactions entity) {
         super.edit(entity);
     }
@@ -69,21 +73,21 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Transactions find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Transactions> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Transactions> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
@@ -99,5 +103,33 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
     protected EntityManager getEntityManager() {
         return em;
     }
+
+    @GET
+    @Path(value = "/getTransactions")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getTransactions() {
+        return tranasctionLogicI.getTransactions();
+    }
+
+    @GET
+    @Path(value = "/getLimitedTransactions/{limit}")
+    public List<Transactions> getTransactions(@PathParam(value = "email") int limit) {
+        return tranasctionLogicI.getTransactions(limit);
+    }
+
+    @POST
+    @Path(value = "/getTransactions/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getTransactions(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        return cm != null ? tranasctionLogicI.getTransactions(cm)
+                : null;
+    }
+
+    @EJB
+    private TranasctionLogicI tranasctionLogicI;
+
+    @EJB
+    private CustomerLogicI customerLogicI;
 
 }

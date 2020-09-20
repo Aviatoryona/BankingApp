@@ -18,6 +18,7 @@
 package com.banking;
 
 import com.banking.entities.Accounttypes;
+import com.banking.entities.ClientUserSd;
 import com.banking.entities.Countries;
 import com.banking.entities.Transactiontypes;
 import com.banking.entities.Users;
@@ -139,6 +140,9 @@ public class Admin extends HttpServlet {
                 .forward(request, response);
     }
 
+    @Inject
+    private ClientUserSd clientUserSd;
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -148,6 +152,7 @@ public class Admin extends HttpServlet {
                 case "auth":
                     doLogin(request, response);
                     break;
+
                 case "addacctype":
                     try {
                     BeanUtils.populate(accounttypes, request.getParameterMap());
@@ -159,7 +164,9 @@ public class Admin extends HttpServlet {
 
                 case "adduser":
                        try {
+                    BeanUtils.populate(clientUserSd, request.getParameterMap());
                     BeanUtils.populate(users, request.getParameterMap());
+                    users.setClientUserSd(clientUserSd);
                     printResult(response, usersLogicI.addUser(users));
                 } catch (IllegalAccessException | InvocationTargetException ex) {
                     printResult(response, new MessageModel(false, "Please try again"));
@@ -199,9 +206,15 @@ public class Admin extends HttpServlet {
                     break;
 
                 case "usrname":
+                    String usrname = req.getParameter("usrname");
+                    String email = req.getParameter("email");
+                    printResult(resp, usersLogicI.changeUsername(email, usrname));
                     break;
 
                 case "pwd":
+                    String pwd = req.getParameter("pwd");
+                    email = req.getParameter("email");
+                    printResult(resp, usersLogicI.changePwd(email, pwd));
                     break;
             }
         }

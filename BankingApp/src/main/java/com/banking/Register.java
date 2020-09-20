@@ -17,6 +17,7 @@
  */
 package com.banking;
 
+import com.banking.entities.ClientUserSd;
 import com.banking.entities.Customers;
 import com.banking.interfaces.AppI;
 import com.banking.interfaces.CustomerLogicI;
@@ -46,6 +47,9 @@ public class Register extends HttpServlet {
     @Inject
     Customers cm;
 
+    @Inject
+    private ClientUserSd clientUserSd;
+
     @EJB
     CustomerLogicI customerLogicI;
 
@@ -67,7 +71,9 @@ public class Register extends HttpServlet {
         try {
 
             BeanUtils.populate(cm, request.getParameterMap());
+            BeanUtils.populate(clientUserSd, request.getParameterMap());
 
+            cm.setClientUserSd(clientUserSd);
             ObjectMapper mapper = new ObjectMapper();
             response.getWriter().write(
                     customerLogicI.createCustomer(cm)

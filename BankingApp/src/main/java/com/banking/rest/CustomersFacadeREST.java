@@ -18,7 +18,12 @@
 package com.banking.rest;
 
 import com.banking.entities.Customers;
+import com.banking.entities.Transactions;
+import com.banking.interfaces.CustomerLogicI;
+import com.banking.interfaces.TransactionTypeLogicI;
+import com.banking.models.MessageModel;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,7 +42,7 @@ import javax.ws.rs.core.MediaType;
  * @author Aviator
  */
 @Stateless
-@Path("com.banking.entities.customers")
+@Path("/customers")
 public class CustomersFacadeREST extends AbstractFacade<Customers> {
 
     @PersistenceContext(unitName = "banking-app")
@@ -49,47 +54,49 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Path(value = "/create")
     public String create(Customers entity) {
         return super.create(entity);
     }
 
     @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/edit/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Customers entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/remove/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/get/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
     public Customers find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path(value = "/getAll")
     public List<Customers> findAll() {
         return super.findAll();
     }
 
     @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/find/{from}/{to}")
+    @Produces({MediaType.APPLICATION_JSON})
     public List<Customers> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
     @GET
-    @Path("count")
+    @Path("/count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
@@ -98,6 +105,134 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    @EJB
+    private CustomerLogicI customerLogicI;
+
+    @EJB
+    private TransactionTypeLogicI transactionTypeLogicI;
+
+    public boolean createCustomer(Customers customers) {
+        return customerLogicI.createCustomer(customers);
+    }
+
+    @GET
+    @Path(value = "/getByEmail/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Customers getCustomer(@PathParam(value = "email") String email) {
+        return customerLogicI.getCustomer(email);
+    }
+
+    @GET
+    @Path(value = "/checkEmail/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public MessageModel checkEmail(@PathParam(value = "email") String email) {
+        return customerLogicI.checkEmail(email);
+    }
+
+    @GET
+    @Path(value = "/checkPassword/{email}/{pwd}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public MessageModel checkPassword(@PathParam(value = "email") String email, @PathParam(value = "pwd") String pwd) {
+        return customerLogicI.checkPassword(email, pwd);
+    }
+
+    @POST
+    @Path(value = "/getTotalDeposits/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public double getTotalDeposits(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        return cm != null ? customerLogicI.getTotalDeposits(cm) : -1;
+    }
+
+    @POST
+    @Path(value = "/getTotalWithdrawals/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public double getTotalWithdrawals(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return -1;
+        }
+        return customerLogicI.getTotalWithdrawals(cm);
+    }
+
+    @POST
+    @Path(value = "/getBalance/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public double getBalance(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return -1;
+        }
+        return customerLogicI.getBalance(cm);
+    }
+
+    @POST
+    @Path(value = "/getDeposits/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getDeposits(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return null;
+        }
+        return customerLogicI.getDeposits(cm);
+    }
+
+    @POST
+    @Path(value = "/getWithdrawals/{email}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getWithdrawals(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return null;
+        }
+        return customerLogicI.getWithdrawals(cm);
+    }
+
+    @POST
+    @Path(value = "/getAllTransactions/{email}/{type}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getAllTransactions(@PathParam(value = "email") String email, @PathParam(value = "type") String transactionType) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return null;
+        }
+        return customerLogicI.getAllTransactions(cm, transactionTypeLogicI.getTransactionType(transactionType));
+    }
+
+    @POST
+    @Path(value = "/deposit/{email}/{amount}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public MessageModel deposit(@PathParam(value = "email") String email, @PathParam(value = "amount") double amount) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return new MessageModel(false, "Account validation failed");
+        }
+        return customerLogicI.deposit(cm, amount);
+    }
+
+    @POST
+    @Path(value = "/withdraw/{amount}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public MessageModel withdraw(@PathParam(value = "email") String email, @PathParam(value = "amount") double amount) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return new MessageModel(false, "Account validation failed");
+        }
+        return customerLogicI.withdraw(cm, amount);
+    }
+
+    @POST
+    @Path(value = "/checkBalance/{email}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public MessageModel checkBalance(@PathParam(value = "email") String email) {
+        Customers cm = customerLogicI.getCustomer(email);
+        if (cm == null) {
+            return new MessageModel(false, "Account validation failed");
+        }
+        return customerLogicI.checkBalance(cm);
     }
 
 }
