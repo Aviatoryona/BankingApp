@@ -21,6 +21,7 @@ import com.banking.entities.Accounttypes;
 import com.banking.entities.Users;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -52,7 +53,8 @@ public class UsersLogic implements UsersLogicI {
 
     @Override
     public MessageModel addUser(Users users) {
-        em.merge(users);
+        users.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
+        em.persist(users);
         return new MessageModel(true, "Successfully added", users);
     }
 
@@ -71,13 +73,14 @@ public class UsersLogic implements UsersLogicI {
     public Users getUser(String username, String pwd) {
         try {
             Query q = em.createQuery("SELECT u FROM Users u WHERE u.clientUserSd.ctEmail = :usrUsername OR u.usrUsername = :usrUsername AND u.usrPwd = :usrPwd");
-            q.setParameter("usrUsername", username);
-            q.setParameter("usrPwd", pwd);
+            q.setParameter("usrUsername", username.trim());
+            q.setParameter("usrPwd", pwd.trim());
             return (Users) q.getSingleResult();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return null;
         }
+
     }
 
     @Override

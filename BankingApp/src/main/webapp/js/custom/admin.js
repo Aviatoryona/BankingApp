@@ -16,9 +16,12 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+//do not change USED DVLPMT FOR REFERENCE
 var admin = {};
 
-//do not change USED DVLPMT FOR REFERENCE
+/*
+ * @type type
+ */
 var adminPages = {
     0: 'admin/home-welcome.jsp',
     1: 'admin/transactions.jsp',
@@ -30,16 +33,31 @@ var adminPages = {
     7: 'admin/user-details.jsp',
 };
 
+/*
+ *
+ * @param {type} input
+ * @returns {undefined}
+ */
 function showValidate(input) {
     var thisAlert = $(input).parent();
     $(thisAlert).addClass('has-error');
 }
 
+/*
+ *
+ * @param {type} input
+ * @returns {undefined}
+ */
 function hideValidate(input) {
     var thisAlert = $(input).parent();
     $(thisAlert).removeClass('has-error');
 }
 
+/*
+ *
+ * @param {type} input
+ * @returns {Boolean}
+ */
 function validate(input) {
     if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
         if ($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
@@ -52,6 +70,12 @@ function validate(input) {
     }
 }
 
+/*
+ *
+ * @param {type} isEmail
+ * @param {type} data
+ * @returns {Boolean}
+ */
 function validateData(isEmail, data) {
     if (isEmail) {
         if ((data.trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/)) == null) {
@@ -62,6 +86,8 @@ function validateData(isEmail, data) {
             return false;
         }
     }
+
+    return true;
 }
 
 /*
@@ -91,6 +117,11 @@ admin.auth = function () {
         return;
     }
 
+
+    /*
+     * @param {type} page
+     * @returns {undefined}
+     */
     app.loadData.call({
         dataUrl: "admin",
         method: 'POST',
@@ -109,6 +140,11 @@ admin.auth = function () {
     });
 };
 
+/*
+ *
+ * @param {type} page
+ * @returns {undefined}
+ */
 function loadTemplate(page) {
     app.loadTemplate.call({
         dataUrl: page,
@@ -120,6 +156,7 @@ function loadTemplate(page) {
         }
     });
 }
+
 /*
  *
  */
@@ -376,35 +413,32 @@ admin.addAccountType = function () {
 
     var data = $('form[id="miform"]').serialize();
     console.log(data);
-    $.post('admin', data, function (data) {
-        if (data.success) {
-            $('input[name="acctype"]').val('');
-            $('input[name="accmaxbal"]').val('');
-            $('input[name="accminbal"]').val('');
-            $('textarea[name="accdescription"]').val('');
-            swal({
-                title: "Done",
-                text: data.message,
-                type: "success"
-            });
-            setTimeout(function () {
-                admin.processIndex4.call();
-            }, 500);
-        } else {
-            swal({
-                title: "Failed",
-                text: data.message,
-                type: "error"
-            });
-        }
-    });
-    app.loadData.call({
-        dataUrl: "",
-        method: 'POST',
-        isJson: true,
-        params: `q=&acctype=${acctype}&accmaxbal=${accmaxbal}&accminbal=${accminbal}&accdescription=${accdescription}`,
-        callBack: function (data) {
-
+    $.ajax({
+        type: 'POST',
+        url: "admin",
+        data: data,
+        success: function (res, textStatus, jqXHR) {
+            var data = JSON.parse(res);
+            if (data.success) {
+                $('input[name="acctype"]').val('');
+                $('input[name="accmaxbal"]').val('');
+                $('input[name="accminbal"]').val('');
+                $('textarea[name="accdescription"]').val('');
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    admin.processIndex4.call();
+                }, 500);
+            } else {
+                swal({
+                    title: "Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
         }
     });
 
@@ -416,18 +450,21 @@ admin.addAccountType = function () {
 admin.addUser = function () {
     /*==================================================================
      [ Validate ]*/
-    var input = $('form input');
+    var input = $('#miform .user');
     var check = true;
+    console.log(input.length);
     for (var i = 0; i < input.length; i++) {
         if (validate(input[i]) == false) {
             showValidate(input[i]);
             check = false;
         }
     }
+
     if (check) {
-        var vals = $('form').serialize();
+        var vals = $('#miform').serialize();
         console.log(vals);
-        $.post('admin', vals, function (data) {
+        $.post('admin', vals, function (res) {
+            var data = JSON.parse(res);
             if (data.success) {
                 swal({
                     title: "Done",
@@ -444,8 +481,9 @@ admin.addUser = function () {
                     type: "error"
                 });
             }
-        })
+        });
     }
+
 };
 
 /*
@@ -461,7 +499,8 @@ admin.addCountry = function () {
     $.post('admin', {
         q: 'addctry',
         ctryName: `${ctryName}`
-    }, function (data) {
+    }, function (res) {
+        var data = JSON.parse(res);
         if (data.success) {
             $('input[name="ctryName"]').val('');
             swal({
@@ -504,7 +543,8 @@ admin.updateUserUsername = function () {
         beforeSend: function (xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         }
-    }).done(function (data) {
+    }).done(function (res) {
+        var data = JSON.parse(res);
         if (data.success) {
             swal({
                 title: "Successful",
@@ -542,7 +582,8 @@ admin.updateUserPassword = function () {
         beforeSend: function (xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         }
-    }).done(function (data) {
+    }).done(function (res) {
+        var data = JSON.parse(res);
         if (data.success) {
             swal({
                 title: "Successful",
@@ -561,6 +602,7 @@ admin.updateUserPassword = function () {
 
 /*
  *
+ * @returns {undefined}
  */
 admin.test = function () {
     // capture and pass your form data in this params object

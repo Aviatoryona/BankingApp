@@ -48,13 +48,7 @@ public class TransactionsFacadeSOAP {
     @WebMethod(operationName = "edit")
     @Oneway
     public void edit(@WebParam(name = "id") Integer id, @WebParam(name = "entity") Transactions entity) {
-        transactionsFacadeREST.edit(id, entity);
-    }
-
-    @WebMethod(operationName = "remove")
-    @Oneway
-    public void remove(@WebParam(name = "id") Integer id) {
-        transactionsFacadeREST.remove(id);
+        transactionsFacadeREST.edit(entity);
     }
 
     @WebMethod(operationName = "find")
@@ -65,11 +59,6 @@ public class TransactionsFacadeSOAP {
     @WebMethod(operationName = "findAll")
     public List<Transactions> findAll() {
         return transactionsFacadeREST.findAll();
-    }
-
-    @WebMethod(operationName = "findRange")
-    public List<Transactions> findRange(@WebParam(name = "from") Integer from, @WebParam(name = "to") Integer to) {
-        return transactionsFacadeREST.findRange(from, to);
     }
 
     @WebMethod(operationName = "countREST")

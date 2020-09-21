@@ -27,10 +27,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -53,47 +51,15 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
 
     @POST
     @Override
+    @Path(value = "/create")
     @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public String create(Transactions entity) {
         return super.create(entity);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Transactions entity) {
-        super.edit(entity);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
-    }
-
     @GET
-    @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public Transactions find(@PathParam("id") Integer id) {
-        return super.find(id);
-    }
-
-    @GET
-    @Override
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Transactions> findAll() {
-        return super.findAll();
-    }
-
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_JSON})
-    public List<Transactions> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
+    @Path("/count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
@@ -113,7 +79,8 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
 
     @GET
     @Path(value = "/getLimitedTransactions/{limit}")
-    public List<Transactions> getTransactions(@PathParam(value = "email") int limit) {
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Transactions> getTransactions(@PathParam(value = "limit") int limit) {
         return tranasctionLogicI.getTransactions(limit);
     }
 

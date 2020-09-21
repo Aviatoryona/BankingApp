@@ -76,7 +76,7 @@ public class UsersFacadeREST {
     }
 
     @GET
-    @Path(value = "/getUsers/{limity}")
+    @Path(value = "/getUsers/{limit}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Users> getUsers(@PathParam(value = "limit") int limit) {
         return usersLogicI.getUsers(limit);

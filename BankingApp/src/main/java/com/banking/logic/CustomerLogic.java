@@ -180,7 +180,7 @@ public class CustomerLogic implements CustomerLogicI {
         Query q = em.createQuery(sql);
         q.setParameter("trAccountnumber", cm.getCtAccountnumber());
         if (transactionType != null) {
-            q.setParameter("trType", cm.getCtAccounttype());
+            q.setParameter("trType", transactionType.getTpType());
         }
         q.setMaxResults(300);
         return q.getResultList();//tranasctionLogicI.getTransactions(q);

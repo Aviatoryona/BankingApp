@@ -213,7 +213,7 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
     }
 
     @POST
-    @Path(value = "/withdraw/{amount}")
+    @Path(value = "/withdraw/{email}/{amount}")
     @Produces({MediaType.APPLICATION_JSON})
     public MessageModel withdraw(@PathParam(value = "email") String email, @PathParam(value = "amount") double amount) {
         Customers cm = customerLogicI.getCustomer(email);

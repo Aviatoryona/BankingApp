@@ -27,4 +27,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     </body>
     <script src="js/custom/test.js" type="text/javascript"></script>
     <script src="js/custom/app.js" type="text/javascript"></script>
+
+    <script>
+        async function getData() {
+            fetch('http://localhost:8080/BankingApp/concorde/countries/getCountries')
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res);
+                    });
+        }
+
+        getData();
+    </script>
 </html>

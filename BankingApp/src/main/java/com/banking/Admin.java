@@ -55,33 +55,63 @@ import org.apache.commons.lang3.StringUtils;
 @WebServlet(name = "Admin", urlPatterns = {"/admin"})
 public class Admin extends HttpServlet {
 
+    /*
+     *
+     */
     @Inject
     private Users users;
 
+    /*
+     *
+     */
     @Inject
-    Accounttypes accounttypes;
+    private Accounttypes accounttypes;
 
+    /*
+     *
+     */
     @EJB
-    AppI appI;
+    private AppI appI;
 
+    /*
+     *
+     */
     @EJB
-    AccounttypesI accounttypesI;
+    private AccounttypesI accounttypesI;
 
+    /*
+     *
+     */
     @EJB
     private AdminLogicI adminLogicI;
 
+    /*
+     *
+     */
     @EJB
-    UsersLogicI usersLogicI;
+    private UsersLogicI usersLogicI;
 
+    /*
+     *
+     */
     @Inject
-    Countries countries;
+    private Countries countries;
 
+    /*
+     *
+     */
     @EJB
-    TransactionTypeLogicI transactionTypeLogicI;
+    private TransactionTypeLogicI transactionTypeLogicI;
 
+    /*
+     *
+     */
     @EJB
-    CustomerLogicI customerLogicI;
+    private CustomerLogicI customerLogicI;
 
+    /*
+     *
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -140,9 +170,15 @@ public class Admin extends HttpServlet {
                 .forward(request, response);
     }
 
+    /*
+     *
+     */
     @Inject
     private ClientUserSd clientUserSd;
 
+    /*
+     *
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -187,7 +223,7 @@ public class Admin extends HttpServlet {
     }
 
     /*
-
+     *
      */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -222,7 +258,7 @@ public class Admin extends HttpServlet {
     }
 
     /*
-
+     *
      */
     void printResult(HttpServletResponse response, Object object) throws IOException {
         try {
@@ -235,7 +271,7 @@ public class Admin extends HttpServlet {
     }
 
     /*
-
+     *
      */
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String usr = request.getParameter("usr");

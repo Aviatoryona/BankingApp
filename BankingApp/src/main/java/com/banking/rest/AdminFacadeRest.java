@@ -150,7 +150,7 @@ public class AdminFacadeRest {
     }
 
     @GET
-    @Path(value = "/getTransactiontypes")
+    @Path(value = "/getAccounttypes")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Accounttypes> getAccounttypes() {
         return adminLogicI.getAccounttypes();
