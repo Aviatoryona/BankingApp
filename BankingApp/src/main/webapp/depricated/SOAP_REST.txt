@@ -1,0 +1,31 @@
+SOAP AND REST
+We are living in a computer era where computers have change the way we live.
+Since the development of the web, there was need to communicate and share resources over the internet.
+The HyperText Trasfer protocol defined a request-response protocol in the client-server computing model.
+
+We can use both SOAP and REST for data communication between devices but the major difference is the architectural 
+style used by clients to access web services ie calls,and serialization. 
+
+A web service is an application component published and used on the web. The main purpose of web services is to make 
+reusable application components and to connect existing  software.
+
+SOAP(Simple Object Access Protocol) is a standard messaging protocol for exchanging data among computers.
+It is an XML based protocol for accessing web services and XML messaging over HTTP. The use of XML 
+makes it language and platform independent.
+
+Given the WSDL(Web Service Description Language) ie XML based language for describing web services, 
+we can create a web service. We can then use JAXB to marshall objects and unmarshall a SOAP message.
+
+A SOAP message is the XML document instance carried as payload over other network protocol.
+
+SOAP has its own XML schema, namespaces and processsing rules. A SOAP message markup has envelop, header and body
+elements.
+The envelop element defines the start and end of the message.
+
+
+REST (REprentational State Transfer) is an architecture for the web that uses HTTP protocol 
+using defined HTTP methods, GET,POST, PUT ,DELETE for data communication  using a unique 
+URI  over the internet.
+Unlike SOAP, REST uses both XML and JSON (Javascript Object Notation) document formats to transfer and receive data.
+REST provides an easier way to consume API built using JAX-RS.
+
