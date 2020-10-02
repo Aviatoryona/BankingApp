@@ -16,6 +16,9 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
+/*
+ *
+ */
 $(document).ready(function () {
     $('input').click(function () {
         $('input').css('border', '');
@@ -25,11 +28,15 @@ $(document).ready(function () {
 /*
  * Used to populate template data at a specified index using GET request
  */
-var BASE_URL = "http://localhost:8080/BankingApp/";
+const BASE_URL = "concorde/";
 
+/*
+ *
+ * @returns {app.processIndex}
+ */
 app.processIndex = function () {
     var index = this.index;
-    $.getJSON("dashboard?q=" + index, function (data) {
+    $.getJSON(`${BASE_URL}/admin/index`, function (data) {
         switch (index) {
             case 0:
                 process_home_dashboard(data);
@@ -75,8 +82,10 @@ function process_get_all_transactions(res) {
         }
     });
 }
+
 /*
  *
+ * @returns {undefined}
  */
 function doWithdraw() {
     var amntTxt = document.getElementById('amntTxt').value;
@@ -112,6 +121,7 @@ function doWithdraw() {
 
 /*
  *
+ * @returns {undefined}
  */
 function doWithdraw_1() {
     var amntTxt = document.getElementById('amntTxt').value;
@@ -150,6 +160,7 @@ function doWithdraw_1() {
 
 /*
  *
+ * @returns {undefined}
  */
 function doDeposit() {
     var amntTxt = document.getElementById('amntTxt').value;
@@ -185,6 +196,7 @@ function doDeposit() {
 
             });
 }
+
 /*
  *
  */

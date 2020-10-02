@@ -27,7 +27,6 @@ var buildFormContent = {
         "placeholder": "Email",
         "btnText": "Next",
         btnCallBack: function () {
-//            console.log('check mail');
             var email = document.getElementById("input_email").value;
             if (email == '') {
                 return;
@@ -84,7 +83,6 @@ function otherFormUtils() {
     return `<div id="mimsg"></div><a href="#">
                                 <small>Forgot password?</small>
                             </a>
-
                             <p class="text-muted text-center">
                                 <small>Do not have an account?</small>
                             </p>
@@ -92,21 +90,15 @@ function otherFormUtils() {
 }
 
 /*
- *
+ * 
  */
 function checkEmail(email) {
     app.loadData.call({
-        dataUrl: "rest/",
+        dataUrl: `concorde/customers/checkEmail/${email}`,
         method: 'POST',
         isJson: true,
-        params: `action=checkmail&email=` + email,
+        params: ``,
         callBack: function (data) {
-            //alert(data.message);
-//            swal({
-//                title: "Transaction Failed",
-//                text: data.message,
-//                type: "error"
-//            });
             if (data.success) {
                 document.getElementById("formData").innerHTML =
                         `<small style="color:red;">Password has been sent to your email</small>` +
