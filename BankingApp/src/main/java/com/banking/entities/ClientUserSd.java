@@ -23,9 +23,12 @@ import java.util.Date;
 import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -50,6 +53,7 @@ public class ClientUserSd implements Serializable {
     private String ctPic;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date ctDate;
 
     @Transient

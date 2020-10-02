@@ -24,46 +24,46 @@ $(document).ready(function () {
         $('input').css('border', '');
     });
 });
-
-/*
- * Used to populate template data at a specified index using GET request
- */
-const BASE_URL = "concorde/";
-
 /*
  *
  * @returns {app.processIndex}
  */
 app.processIndex = function () {
     var index = this.index;
-    $.getJSON(`${BASE_URL}/admin/index`, function (data) {
-        switch (index) {
-            case 0:
-                process_home_dashboard(data);
-                break;
-            case 3:
-                process_get_all_transactions(data);
-                break;
-        }
-    });
-};
+    var email = this.email;
+    switch (index) {
+        case 0:
+            process_home_dashboard();
+            break;
+        case 1:
+            break;
+        case 2:
+            process_balance(email);
+            break;
+        case 3:
+            process_get_all_transactions(email);
+            break;
+    }
 
+};
 /*
  *
  * @returns {undefined}
  */
-function process_home_dashboard(res) {
-    new Vue({
-        el: '#home',
-        data: {
-            el_deposit: res.object.deposit,
-            el_withdrawal: res.object.withdraw,
-            transactions: []
-        },
-        created: function () {
-            let cobject = this; // here stored currect instance
-            cobject.transactions = res.object.transactions;
-        }
+function process_home_dashboard() {
+    $.getJSON(`${BASE_URL}/customers/`, function (res) {
+        new Vue({
+            el: '#home',
+            data: {
+                el_deposit: res.object.deposit,
+                el_withdrawal: res.object.withdraw,
+                transactions: []
+            },
+            created: function () {
+                let cobject = this; // here stored currect instance
+                cobject.transactions = res.object.transactions;
+            }
+        });
     });
 }
 
@@ -71,15 +71,32 @@ function process_home_dashboard(res) {
  *
  * @returns {undefined}
  */
-function process_get_all_transactions(res) {
-    new Vue({
-        el: '#tr_table',
-        data: {
-            transactions: []
-        },
-        created: function () {
-            this.transactions = res;
-        }
+function process_get_all_transactions(email) {
+    $.getJSON(`${BASE_URL}/transactions/getTransactions/${email}`, function (res) {
+        new Vue({
+            el: '#tr_table',
+            data: {
+                transactions: []
+            },
+            created: function () {
+                this.transactions = res;
+            }
+        });
+    });
+}
+
+/*
+ *
+ * @returns {undefined}
+ */
+function process_balance(email) {
+    $.post(`${BASE_URL}/customers/getBalance/${email}`, function (data) {
+        new Vue({
+            el: '#balanceView',
+            data: {
+                bal: data
+            }
+        });
     });
 }
 
@@ -93,30 +110,33 @@ function doWithdraw() {
         $('#amntTxt').css('border', '1px solid red');
         return;
     }
-
-    $.post("dashboard",
-            {
-                "q": "w",
-                "amt": amntTxt
-            },
-            function (data, status) {
-                if (data.success) {
-                    swal({
-                        title: "Transaction Successful",
-                        text: data.message,
-                        type: "success"
-                    });
-                    setTimeout(function () {
-                        getTemplate(2); //display balance after a successful transaction
-                    }, 5000);
-                } else {
-                    swal({
-                        title: "Transaction Failed",
-                        text: data.message,
-                        type: "error"
-                    });
-                }
-            });
+    var mail = $('#amntTxt').attr('data');
+    jQuery.ajax({
+        url: `${BASE_URL}/customers/withdraw/${mail}/${amntTxt}`,
+        type: "POST",
+        data: ``,
+        processData: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data, textStatus, jqXHR) {
+            if (data.success) {
+                swal({
+                    title: "Transaction Successful",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    getTemplate(2); //display balance after a successful transaction
+                }, 5000);
+            } else {
+                swal({
+                    title: "Transaction Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        }
+    });
 }
 
 /*
@@ -168,33 +188,33 @@ function doDeposit() {
         $('#amntTxt').css('border', '1px solid red');
         return;
     }
-
-    $.post("dashboard",
-            {
-                "q": "d",
-                "amt": amntTxt
-            },
-            function (data, status) {
-//                var data = JSON.parse(data1);
-//            console.log(data);
-                if (data.success) {
-                    swal({
-                        title: "Transaction Successful",
-                        text: data.message,
-                        type: "success"
-                    });
-                    setTimeout(function () {
-                        getTemplate(2); //display balance after a successful transaction
-                    }, 5000);
-                } else {
-                    swal({
-                        title: "Transaction Failed",
-                        text: data.message,
-                        type: "error"
-                    });
-                }
-
-            });
+    var mail = $('#amntTxt').attr('data');
+    jQuery.ajax({
+        url: `${BASE_URL}/customers/deposit/${mail}/${amntTxt}`,
+        type: "POST",
+        data: ``,
+        processData: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data, textStatus, jqXHR) {
+            if (data.success) {
+                swal({
+                    title: "Transaction Successful",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    getTemplate(2); //display balance after a successful transaction
+                }, 5000);
+            } else {
+                swal({
+                    title: "Transaction Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        }
+    });
 }
 
 /*
@@ -233,3 +253,4 @@ function doDeposit1() {
         }
     });
 }
+

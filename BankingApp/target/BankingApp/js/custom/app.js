@@ -20,7 +20,13 @@
  *
  * @type type
  */
-var app = {};
+var app = app || {};
+
+
+/*
+ * Used to populate template data at a specified index using GET request
+ */
+const BASE_URL = "concorde";
 
 /*
  * init
@@ -55,7 +61,13 @@ app.loadData = function () {
     };
     xhr.open(me.method, me.dataUrl, true);
     if (me.params != null) {
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-type", typeof me.contentType !== 'undefined' ? me.contentType : "application/x-www-form-urlencoded");
+//        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        if (typeof me.contentType !== 'undefined')
+            if (me.contentType == 'application/json') {
+                xhr.send(JSON.stringify(me.params));
+                return;
+            }
         xhr.send(me.params);
     } else {
         xhr.send();
@@ -168,6 +180,27 @@ app.doRegister = function () {
         }
     });
 };
+
+/*
+ *create json dynamically from form
+ */
+function populateFormJson(formData, fieldName, fieldValue) {
+    var formFieldNameParts = fieldName.split('.');
+
+    var lastFieldNamePartIdx = formFieldNameParts.length - 1;
+    for (var i = 0; i < lastFieldNamePartIdx; ++i) {
+        var currentFieldNamePart = formFieldNameParts[i];
+
+        if (!(currentFieldNamePart in formData)) {
+            formData[currentFieldNamePart] = {};
+        }
+
+        formData = formData[currentFieldNamePart];
+    }
+
+    formData[formFieldNameParts[lastFieldNamePartIdx]] = fieldValue;
+
+}
 
 /*
  * initialize app

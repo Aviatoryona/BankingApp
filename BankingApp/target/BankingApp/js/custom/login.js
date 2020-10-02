@@ -90,14 +90,15 @@ function otherFormUtils() {
 }
 
 /*
- * 
+ *
  */
 function checkEmail(email) {
     app.loadData.call({
-        dataUrl: `concorde/customers/checkEmail/${email}`,
+        dataUrl: `auth`, //${BASE_URL}customers/checkEmail/${email}
         method: 'POST',
         isJson: true,
-        params: ``,
+        params: `action=checkmail&email=${email}`,
+//        contentType: 'application/json',
         callBack: function (data) {
             if (data.success) {
                 document.getElementById("formData").innerHTML =

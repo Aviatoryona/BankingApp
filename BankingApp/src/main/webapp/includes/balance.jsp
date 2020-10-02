@@ -13,7 +13,7 @@
     Customers cm = (Customers) request.getSession().getAttribute(AppEnum.LOGGED_IN_USER.getName());
 %>
 <!DOCTYPE html>
-<div class="row">
+<div class="row" id="balanceView">
     <div class="col-md-4">
         <button class="btn btn-info btn-circle" type="button" onclick="getTemplate(0)">
             <i class="fa fa-arrow-left"></i>
@@ -27,7 +27,7 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="no-margins">KES <%= cm.getCtAccbalance()%></h1>
+                        <h1 class="no-margins">KES {{bal}}</h1>
                         <small>Balance <%=new SimpleDateFormat("MMM dd, yyyy h:m:s").format(new Date())%></small>
                     </div>
                 </div>

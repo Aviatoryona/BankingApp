@@ -169,7 +169,7 @@ admin.processIndex0 = function () {  //home
         /*
          * call this function to load and bind data to loaded template
          */
-        $.getJSON(`admin?action=${index}`, function (res) {
+        $.getJSON(`${BASE_URL}/admin/`, function (res) {
             console.log(res);
             new Vue({
                 el: '#adm_home',
@@ -204,7 +204,7 @@ admin.processIndex1 = function () { //transactions
         /*
          * call this function to load and bind data to loaded template
          */
-        $.getJSON(`admin?action=${index}`, function (res) {
+        $.getJSON(`${BASE_URL}/admin/getTransactions/-1`, function (res) {
             console.log(res);
             new Vue({
                 el: '#adm_home',
@@ -235,7 +235,7 @@ admin.processIndex2 = function () { //clients
         /*
          * call this function to load and bind data to loaded template
          */
-        $.getJSON(`admin?action=${index}`, function (res) {
+        $.getJSON(`${BASE_URL}/admin/getRegisteredCustomers/-1`, function (res) {
             console.log(res);
             new Vue({
                 el: '#adm_home',
@@ -265,7 +265,7 @@ admin.processIndex3 = function () { //users
         /*
          * call this function to load and bind data to loaded template
          */
-        $.getJSON(`admin?action=${index}`, function (res) {
+        $.getJSON(`${BASE_URL}/admin/getUsers`, function (res) {
             console.log(res);
             new Vue({
                 el: '#adm_home',
@@ -338,7 +338,7 @@ admin.processIndex6 = function (parent) {//client details
     loadTemplate(page);
 
     setTimeout(function () {
-        $.getJSON(`admin?action=${index}&email=${usr_email}`, function (customer) {
+        $.getJSON(`${BASE_URL}/admin/getCustomer/${usr_email}`, function (customer) {
             new Vue({
                 el: "#adm_home",
                 data: {
@@ -370,7 +370,7 @@ admin.processIndex7 = function (parent) {//user details
     loadTemplate(page);
 
     setTimeout(function () {
-        $.getJSON(`admin?action=${index}&id=${id}`, function (customer) {
+        $.getJSON(`${BASE_URL}/admin/getUser/${id}`, function (customer) {
             new Vue({
                 el: "#adm_home",
                 data: {

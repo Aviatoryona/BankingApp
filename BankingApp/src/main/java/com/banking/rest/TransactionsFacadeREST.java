@@ -84,7 +84,7 @@ public class TransactionsFacadeREST extends AbstractFacade<Transactions> {
         return tranasctionLogicI.getTransactions(limit);
     }
 
-    @POST
+    @GET
     @Path(value = "/getTransactions/{email}")
     @Produces({MediaType.APPLICATION_JSON})
     public List<Transactions> getTransactions(@PathParam(value = "email") String email) {

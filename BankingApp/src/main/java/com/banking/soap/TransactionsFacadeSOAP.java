@@ -71,16 +71,16 @@ public class TransactionsFacadeSOAP {
         return transactionsFacadeREST.getTransactions();
     }
 
-    @WebMethod(operationName = "getTransactions_1")
-    @RequestWrapper(className = "getTransactions_1")
-    @ResponseWrapper(className = "getTransactions_1Response")
+    @WebMethod(operationName = "getTransactionsWithLimit")
+    @RequestWrapper(className = "getTransactionsWithLimit")
+    @ResponseWrapper(className = "getTransactionsWithLimitResponse")
     public List<Transactions> getTransactions(@WebParam(name = "limit") int limit) {
         return transactionsFacadeREST.getTransactions(limit);
     }
 
-    @WebMethod(operationName = "getTransactions_2")
-    @RequestWrapper(className = "getTransactions_2")
-    @ResponseWrapper(className = "getTransactions_2Response")
+    @WebMethod(operationName = "getTransactionsByEmail")
+    @RequestWrapper(className = "getTransactionsByEmail")
+    @ResponseWrapper(className = "getTransactionsByEmailResponse")
     public List<Transactions> getTransactions(@WebParam(name = "email") String email) {
         return transactionsFacadeREST.getTransactions(email);
     }

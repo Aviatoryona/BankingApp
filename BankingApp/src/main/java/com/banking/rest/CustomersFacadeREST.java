@@ -17,12 +17,15 @@
  */
 package com.banking.rest;
 
+import com.banking.AppEnum;
 import com.banking.entities.Customers;
 import com.banking.entities.Transactions;
 import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -235,4 +238,15 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
         return customerLogicI.checkBalance(cm);
     }
 
+    @GET
+    @Path(value = "/")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public MessageModel processIndexHome(Customers cm) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(AppEnum.DEPOSIT.getName(), customerLogicI.getTotalDeposits(cm));
+        map.put(AppEnum.WITHDRAW.getName(), customerLogicI.getTotalWithdrawals(cm));
+        map.put(AppEnum.TRANSACTIONS.getName(), customerLogicI.getAllTransactions(cm, null));
+        return new MessageModel(true, "", map);
+    }
 }

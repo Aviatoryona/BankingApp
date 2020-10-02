@@ -239,7 +239,7 @@ public class AdminFacadeRest {
     }
 
     @GET
-    @Path(value = "/index")
+    @Path(value = "/")
     @Produces({MediaType.APPLICATION_JSON})
     public MessageModel processIndex0() {
         return adminLogicI.processIndex0();

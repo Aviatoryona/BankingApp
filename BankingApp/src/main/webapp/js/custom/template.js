@@ -35,6 +35,7 @@ var pages = {
 app.processTemplate = function () {
     var index0 = this.index;
     var page = pages[index0];
+    var mail = $('.container').attr('data');
     app.loadTemplate.call({
         dataUrl: page,
         method: 'GET',
@@ -46,7 +47,7 @@ app.processTemplate = function () {
             /*
              * call this function to load and bind data to loaded template
              */
-            app.processIndex.call({index: index0});
+            app.processIndex.call({index: index0, email: mail});
 
         }
     });
