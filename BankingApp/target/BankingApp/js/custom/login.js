@@ -96,7 +96,7 @@ function otherFormUtils() {
  */
 function checkEmail(email) {
     app.loadData.call({
-        dataUrl: "auth",
+        dataUrl: "rest/",
         method: 'POST',
         isJson: true,
         params: `action=checkmail&email=` + email,
