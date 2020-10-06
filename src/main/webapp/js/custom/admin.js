@@ -31,6 +31,7 @@ var adminPages = {
     5: 'admin/profile.jsp',
     6: 'admin/client-details.jsp',
     7: 'admin/user-details.jsp',
+    8: 'includes/placeholder.html',
 };
 
 /*
@@ -142,7 +143,7 @@ admin.auth = function () {
  * @param {type} page
  * @returns {undefined}
  */
-function loadTemplate(page) {
+function loadTemplate(page, callBack = null) {
     app.loadTemplate.call({
         dataUrl: page,
         method: 'POST',
@@ -150,8 +151,33 @@ function loadTemplate(page) {
         params: null,
         callBack: function (data) {
             $('#mi_content').html(data);
+            if (callBack != null)
+                callBack();
         }
     });
+}
+
+/*
+ *
+ * @returns {undefined}
+ */
+function setPlaceholder(callBack = null) {
+    $('#mi_content').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox">
+        <div class="ibox-content">
+            <img src="./img/waiting_Live.gif"/>
+        </div>
+    </div>
+</div>`);
+
+    /*
+     *
+     *
+     */
+    if (callBack != null)
+        setTimeout(function () {
+            callBack();
+        }, 3000);
 }
 
 /*
@@ -160,32 +186,33 @@ function loadTemplate(page) {
 admin.processIndex0 = function () {  //home
     var index = 0;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
         /*
          * call this function to load and bind data to loaded template
          */
         $.getJSON(`${BASE_URL}/admin/`, function (res) {
             console.log(res);
-            new Vue({
-                el: '#adm_home',
-                data: {
-                    incomeToday: res.object.profit_today,
-                    incomeTotal: res.object.total_profit,
-                    total_clients: res.object.num_customers,
-                    total_transactions: res.object.num_transactions,
-                    customers: [],
-                    transactions: []
-                },
-                created: function () {
-                    const me = this;
-                    me.customers = res.object.customers;
-                    me.transactions = res.object.transactions;
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        incomeToday: res.object.profit_today,
+                        incomeTotal: res.object.total_profit,
+                        total_clients: res.object.num_customers,
+                        total_transactions: res.object.num_transactions,
+                        customers: [],
+                        transactions: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.customers = res.object.customers;
+                        me.transactions = res.object.transactions;
+                    }
+                });
             });
+
         });
-    }, 1000);
+    });
 
 };
 
@@ -195,27 +222,28 @@ admin.processIndex0 = function () {  //home
 admin.processIndex1 = function () { //transactions
     var index = 1;
     var page = adminPages[index];
-    loadTemplate(page);
+    setPlaceholder(function () {
 
-    setTimeout(function () {
         /*
          * call this function to load and bind data to loaded template
          */
         $.getJSON(`${BASE_URL}/admin/getLimitedTransactions/-1`, function (res) {
             console.log(res);
-            new Vue({
-                el: '#adm_home',
-                data: {
-                    transactions: []
-                },
-                created: function () {
-                    const me = this;
-                    me.transactions = res;
-                    admin.dtTables();
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        transactions: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.transactions = res;
+                        admin.dtTables();
+                    }
+                });
             });
         });
-    }, 1000);
+    });
 
 };
 
@@ -225,28 +253,28 @@ admin.processIndex1 = function () { //transactions
 admin.processIndex2 = function () { //clients
     var index = 2;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
 
         /*
          * call this function to load and bind data to loaded template
          */
         $.getJSON(`${BASE_URL}/admin/getRegisteredCustomers/-1`, function (res) {
             console.log(res);
-            new Vue({
-                el: '#adm_home',
-                data: {
-                    customers: []
-                },
-                created: function () {
-                    const me = this;
-                    me.customers = res;
-                    admin.dtTables();
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        customers: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.customers = res;
+                        admin.dtTables();
+                    }
+                });
             });
         });
-    }, 1000);
+    });
 
 };
 
@@ -256,26 +284,26 @@ admin.processIndex2 = function () { //clients
 admin.processIndex3 = function () { //users
     var index = 3;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
         /*
          * call this function to load and bind data to loaded template
          */
         $.getJSON(`${BASE_URL}/admin/getUsers`, function (res) {
             console.log(res);
-            new Vue({
-                el: '#adm_home',
-                data: {
-                    users: []
-                },
-                created: function () {
-                    const me = this;
-                    me.users = res;
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        users: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.users = res;
+                    }
+                });
             });
         });
-    }, 1000);
+    });
 
 };
 
@@ -285,30 +313,30 @@ admin.processIndex3 = function () { //users
 admin.processIndex4 = function () { //Manage
     var index = 4;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
         /*
          * call this function to load and bind data to loaded template
          */
         $.getJSON(`admin?action=${index}`, function (res) {
             console.log(res);
-            new Vue({
-                el: '#adm_home',
-                data: {
-                    countries: [],
-                    acctypes: [],
-                    trtyps: []
-                },
-                created: function () {
-                    const me = this;
-                    me.countries = res.countries;
-                    me.acctypes = res.acctypes;
-                    me.trtyps = res.trtyps;
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        countries: [],
+                        acctypes: [],
+                        trtyps: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.countries = res.countries;
+                        me.acctypes = res.acctypes;
+                        me.trtyps = res.trtyps;
+                    }
+                });
             });
         });
-    }, 1000);
+    });
 
 };
 
@@ -318,7 +346,9 @@ admin.processIndex4 = function () { //Manage
 admin.processIndex5 = function () { //Profile
     var index = 5;
     var page = adminPages[index];
-    loadTemplate(page);
+    setPlaceholder(function () {
+        loadTemplate(page);
+    });
 };
 
 /*
@@ -332,39 +362,38 @@ admin.processIndex6 = function (parent) {//client details
 
     var index = 6;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
         $.getJSON(`${BASE_URL}/admin/getCustomer/${usr_email}`, function (customer) {
             setTimeout(function () {
                 $.getJSON(`${BASE_URL}/transactions/getTransactions/${usr_email}`, function (res) {
-                    new Vue({
-                        el: "#adm_home",
-                        data: {
-                            fname: customer.clientUserSd.ctFname,
-                            lname: customer.clientUserSd.ctLname,
-                            rdate: customer.clientUserSd.ctDate,
-                            accno: customer.ctAccountnumber,
-                            gender: customer.ctGender,
-                            email: customer.clientUserSd.ctEmail,
-                            phone: customer.clientUserSd.ctPhone,
-                            country: customer.ctCountry,
-                            city: customer.ctCity,
-                            address: customer.ctAddress,
-                            acctype: customer.ctAccounttype,
-                            transactions: []
-                        },
-                        created: function () {
-                            this.transactions = res;
-                            $('.dataTables-example').DataTable();
-                        }
+                    loadTemplate(page, function () {
+                        new Vue({
+                            el: "#adm_home",
+                            data: {
+                                fname: customer.clientUserSd.ctFname,
+                                lname: customer.clientUserSd.ctLname,
+                                rdate: customer.clientUserSd.ctDate,
+                                accno: customer.ctAccountnumber,
+                                gender: customer.ctGender,
+                                email: customer.clientUserSd.ctEmail,
+                                phone: customer.clientUserSd.ctPhone,
+                                country: customer.ctCountry,
+                                city: customer.ctCity,
+                                address: customer.ctAddress,
+                                acctype: customer.ctAccounttype,
+                                transactions: []
+                            },
+                            created: function () {
+                                this.transactions = res;
+                                $('.dataTables-example').DataTable();
+                            }
+                        });
                     });
                 });
             }, 300);
 
         });
-    }
-    , 500);
+    });
 };
 
 /*
@@ -374,23 +403,43 @@ admin.processIndex7 = function (parent) {//user details
     var id = $.trim($(parent).attr('data'));
     var index = 7;
     var page = adminPages[index];
-    loadTemplate(page);
-
-    setTimeout(function () {
+    setPlaceholder(function () {
         $.getJSON(`${BASE_URL}/admin/getUser/${id}`, function (customer) {
-            new Vue({
-                el: "#adm_home",
-                data: {
-                    name: customer.clientUserSd.ctFname + ' ' + customer.clientUserSd.ctLname,
-                    email: customer.clientUserSd.ctEmail,
-                    phone: customer.clientUserSd.ctPhone,
-                    username: customer.usrUsername,
-                    pwd: customer.usrPwd
-                }
+            loadTemplate(page, function () {
+                new Vue({
+                    el: "#adm_home",
+                    data: {
+                        name: customer.clientUserSd.ctFname + ' ' + customer.clientUserSd.ctLname,
+                        email: customer.clientUserSd.ctEmail,
+                        phone: customer.clientUserSd.ctPhone,
+                        username: customer.usrUsername,
+                        pwd: customer.usrPwd
+                    }
+                });
             });
         });
-    }
-    , 500);
+    });
+};
+
+app.submitForm = function () {
+    var url = this.url;
+    var params = JSON.stringify(this.params);
+    var bfor = this.bfor;
+    var afta = this.afta;
+    jQuery.ajax({
+        url: `${url}`,
+        type: "POST",
+        data: params,
+        processData: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            bfor();
+        },
+        success: function (data, textStatus, jqXHR) {
+            afta(data);
+        }
+    });
 };
 
 /*
@@ -422,7 +471,7 @@ admin.addAccountType = function () {
     console.log(data);
     $.ajax({
         type: 'POST',
-        url: "admin",
+        url: `${BASE_URL}/accounttypes/create`,
         data: data,
         success: function (res, textStatus, jqXHR) {
             var data = JSON.parse(res);
@@ -469,7 +518,8 @@ admin.addUser = function () {
     if (check) {
         var vals = $('#miform').serialize();
         console.log(vals);
-        $.post('admin', vals, function (res) {
+
+        $.post(`${BASE_URL}/users/addUser`, vals, function (res) {
             var data = JSON.parse(res);
             if (data.success) {
                 swal({
@@ -502,30 +552,38 @@ admin.addCountry = function () {
         return;
     }
 
-    $.post('admin', {
-        q: 'addctry',
-        ctryName: `${ctryName}`
-    }, function (res) {
-        var data = JSON.parse(res);
-        if (data.success) {
-            $('input[name="ctryName"]').val('');
-            swal({
-                title: "Done",
-                text: data.message,
-                type: "success"
-            });
-            setTimeout(function () {
-                admin.processIndex4.call();
-            }, 500);
-        } else {
-            swal({
-                title: "Failed",
-                text: data.message,
-                type: "error"
-            });
+    /*
+     *
+     * @type type
+     */
+    var obj = {
+        url: `${BASE_URL}/countries/addCountry`,
+        params: {
+            ctryName: `${ctryName}`
+        },
+        bfor: function () {
+        },
+        afta: function (data) {
+            if (data.success) {
+                $('input[name="ctryName"]').val('');
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    admin.processIndex4.call();
+                }, 500);
+            } else {
+                swal({
+                    title: "Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
         }
-    });
-
+    };
+    app.submitForm.call(obj);
 };
 
 /*
@@ -603,26 +661,5 @@ admin.updateUserPassword = function () {
                 type: "error"
             });
         }
-    });
-};
-
-/*
- *
- * @returns {undefined}
- */
-admin.test = function () {
-    // capture and pass your form data in this params object
-    var params = {
-        name: 'name',
-        email: 'email'
-    };
-
-    //send data to server
-    // endpointurl should be http://localhost:8080/....
-    //If it fails, check how to set application/json header and making cross origin request
-    $.post('endpointurl', {
-        data: JSON.stringify(params)
-    }, function (response) {
-        console.log(response);
     });
 };

@@ -83,7 +83,7 @@ public class Accounttypes implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "accdate")
+    @Column(name = "accdate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date accdate;
 

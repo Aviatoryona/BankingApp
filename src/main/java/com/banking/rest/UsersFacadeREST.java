@@ -65,7 +65,7 @@ public class UsersFacadeREST {
 
     @GET
     @Path(value = "/addUser")
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     @Produces({MediaType.APPLICATION_JSON})
     public MessageModel addUser(Users users) {
         return usersLogicI.addUser(users);

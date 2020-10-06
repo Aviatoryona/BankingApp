@@ -33,24 +33,41 @@ var pages = {
  * @returns {undefined}
  */
 app.processTemplate = function () {
+
+    $('.container').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox">
+        <div class="ibox-content">
+            <img src="./img/waiting_Live.gif"/>
+        </div>
+    </div>
+</div>`);
+
+    /*
+     *
+     *
+     */
+
     var index0 = this.index;
     var page = pages[index0];
     var mail = $('.container').attr('data');
-    app.loadTemplate.call({
-        dataUrl: page,
-        method: 'GET',
-        isJson: false,
-        params: null,
-        callBack: function (data) {
-            $('.container').html(data);
+    setTimeout(function () {
+        app.loadTemplate.call({
+            dataUrl: page,
+            method: 'GET',
+            isJson: false,
+            params: null,
+            callBack: function (data) {
+                $('.container').html(data);
 
-            /*
-             * call this function to load and bind data to loaded template
-             */
-            app.processIndex.call({index: index0, email: mail});
+                /*
+                 * call this function to load and bind data to loaded template
+                 */
+                app.processIndex.call({index: index0, email: mail});
 
-        }
-    });
+            }
+        });
+    }, 3000);
+
 };
 
 /*

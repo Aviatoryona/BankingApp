@@ -5,9 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="p-w-md m-t-sm" id="adm_home">
+<div class="p-w-md m-t-sm  animated fadeInDown" id="adm_home">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="ibox ">
                 <div class="ibox-title">
                     <h5>All Users</h5>
@@ -46,9 +46,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-6">
             <div class="ibox ">
                 <div class="ibox-title">
                     <h5><i class="fa fa-plus-circle"></i> User</h5>
@@ -56,7 +54,7 @@
                 </div>
                 <div class="ibox-content">
                     <p>Add user to assign roles</p>
-                    <form id="miform" role="form" onsubmit="return false">
+                    <form class="m-t" id="miform" role="form" onsubmit="return false">
                         <div class="form-group" style="display: none">
                             <input type="text" name="q" value="adduser" class="form-control user">
                         </div>

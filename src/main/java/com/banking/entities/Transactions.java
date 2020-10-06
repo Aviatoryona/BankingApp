@@ -70,7 +70,7 @@ public class Transactions implements Serializable {
     @Column(name = "tr_charge")
     private double trCharge;
 
-    @Column(name = "tr_date")
+    @Column(name = "tr_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date trDate;
 

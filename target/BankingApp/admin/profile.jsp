@@ -27,7 +27,7 @@
 
 
 %>
-<div class="p-w-md m-t-sm" id="adm_home">
+<div class="p-w-md m-t-sm  animated fadeInDown" id="adm_home">
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-6">

@@ -49,7 +49,8 @@ public class AccounttypesFacadeREST extends AbstractFacade<Accounttypes> {
 
     @POST
     @Override
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Path(value = "/create")
+    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public String create(Accounttypes entity) {
         return super.create(entity);
     }
