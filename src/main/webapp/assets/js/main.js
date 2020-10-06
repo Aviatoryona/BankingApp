@@ -1,20 +1,20 @@
 ;
-(function($) {
+(function ($) {
     "use strict";
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         /**-----------------------------
          *  Navbar fix
          * ---------------------------*/
-        $(document).on('click', '.navbar-area .navbar-nav li.menu-item-has-children>a', function(e) {
+        $(document).on('click', '.navbar-area .navbar-nav li.menu-item-has-children>a', function (e) {
             e.preventDefault();
         })
 
         /*-------------------------------------
-            menu
-        -------------------------------------*/
-        $('.navbar-area .menu').on('click', function() {
+         menu
+         -------------------------------------*/
+        $('.navbar-area .menu').on('click', function () {
             $(this).toggleClass('open');
             $('.navbar-area .navbar-collapse').toggleClass('sopen');
         });
@@ -25,7 +25,7 @@
             $(".in-mobile ul li.menu-item-has-children").append('<i class="fas fa-chevron-right"></i>');
             $('<i class="fas fa-chevron-right"></i>').insertAfter("");
 
-            $(".menu-item-has-children a").on('click', function(e) {
+            $(".menu-item-has-children a").on('click', function (e) {
                 // e.preventDefault();
 
                 $(this).siblings('.sub-menu').animate({
@@ -37,7 +37,7 @@
         var menutoggle = $('.menu-toggle');
         var mainmenu = $('.navbar-nav');
 
-        menutoggle.on('click', function() {
+        menutoggle.on('click', function () {
             if (menutoggle.hasClass('is-active')) {
                 mainmenu.removeClass('menu-open');
             } else {
@@ -46,74 +46,75 @@
         });
 
         /*----------------------
-            Search Popup
-        -----------------------*/
+         Search Popup
+         -----------------------*/
         var bodyOvrelay = $('#body-overlay');
         var searchPopup = $('#search-popup');
         var accountForm = $('#accountForm');
 
-        $(document).on('click', '#body-overlay', function(e) {
+        $(document).on('click', '#body-overlay', function (e) {
             e.preventDefault();
             bodyOvrelay.removeClass('active');
             searchPopup.removeClass('active');
             accountForm.removeClass('active');
         });
-        $(document).on('click', '#search', function(e) {
+        $(document).on('click', '#search', function (e) {
             e.preventDefault();
             searchPopup.addClass('active');
             bodyOvrelay.addClass('active');
         });
 
-        $(document).on('click', '#account', function(e) {
+        $(document).on('click', '#account', function (e) {
             e.preventDefault();
-            accountForm.addClass('active');
-            bodyOvrelay.addClass('active');
+//            accountForm.addClass('active');
+//            bodyOvrelay.addClass('active');
+            window.location.href = 'auth';
         });
 
         /**-----------------------------
-         * Signin Signup PopUp 
+         * Signin Signup PopUp
          * ---------------------------*/
-        $(document).on('click', '.user', function(e) {
+        $(document).on('click', '.user', function (e) {
             e.preventDefault();
             $('.signin-signup-popup').addClass('active');
             $('.body-overlay').addClass('active');
         });
 
-        $(document).on('click', '#body-overlay', function(e) {
+        $(document).on('click', '#body-overlay', function (e) {
             e.preventDefault();
             $('.signin-signup-popup').removeClass('active');
             $('.body-overlay').removeClass('active');
         });
 
-        $(document).on('click', '.when-click-change-signup', function(e) {
+        $(document).on('click', '.when-click-change-signup', function (e) {
             e.preventDefault();
             $('.signup-part').addClass('part-active');
             $('.signin-part').addClass('part-hide');
         });
 
-        $(document).on('click', '.when-click-change-signin', function(e) {
+        $(document).on('click', '.when-click-change-signin', function (e) {
             e.preventDefault();
             $('.signup-part').removeClass('part-active');
             $('.signin-part').removeClass('part-hide');
         });
 
         /*--------------------------------------------------
-            select onput
-        ---------------------------------------------------*/
-        $(document).ready(function() {
+         select onput
+         ---------------------------------------------------*/
+        $(document).ready(function () {
             $('select').niceSelect();
         });
         /* -----------------------------------------------------
-            Variables
-        ----------------------------------------------------- */
+         Variables
+         ----------------------------------------------------- */
         var leftArrow = '<i class="la la-arrow-left"></i>';
         var rightArrow = '<i class="la la-arrow-right"></i>';
         var leftAngle = '<i class="la la-angle-left"></i>';
         var rightAngle = '<i class="la la-angle-right"></i>';
 
         /*------------------------------------------------
-            banner-slider
-        ------------------------------------------------*/
+         banner-slider
+         ------------------------------------------------*/
         $('.banner-slider').owlCarousel({
             loop: true,
             margin: 30,
@@ -126,8 +127,8 @@
         });
 
         /*------------------------------------------------
-            Magnific JS
-        ------------------------------------------------*/
+         Magnific JS
+         ------------------------------------------------*/
         $('.play-btn').magnificPopup({
             type: 'iframe',
             removalDelay: 260,
@@ -154,8 +155,8 @@
 
 
         /*------------------------------------------------
-            envestor-slider
-        ------------------------------------------------*/
+         envestor-slider
+         ------------------------------------------------*/
         $('.envestor-slider').owlCarousel({
             loop: true,
             margin: 30,
@@ -178,8 +179,8 @@
         });
 
         /*------------------------------------------------
-            partner-slider
-        ------------------------------------------------*/
+         partner-slider
+         ------------------------------------------------*/
         $('.partner-slider').owlCarousel({
             loop: true,
             margin: 30,
@@ -205,9 +206,9 @@
 
 
         /*------------------
-           back to top
-        ------------------*/
-        $(document).on('click', '.back-to-top', function() {
+         back to top
+         ------------------*/
+        $(document).on('click', '.back-to-top', function () {
             $("html,body").animate({
                 scrollTop: 0
             }, 2000);
@@ -215,10 +216,10 @@
 
     });
 
-    $(window).on("scroll", function() {
+    $(window).on("scroll", function () {
         /*---------------------------------------
-        sticky menu activation && Sticky Icon Bar
-        -----------------------------------------*/
+         sticky menu activation && Sticky Icon Bar
+         -----------------------------------------*/
         var mainMenuTop = $(".navbar-area");
         if ($(window).scrollTop() >= 1) {
             mainMenuTop.addClass('navbar-area-fixed');
@@ -235,38 +236,38 @@
     });
 
 
-    $(window).on('load', function() {
+    $(window).on('load', function () {
 
         /*-----------------
-            preloader
-        ------------------*/
+         preloader
+         ------------------*/
         var preLoder = $("#preloader");
         preLoder.fadeOut(0);
 
         /*-----------------
-            back to top
-        ------------------*/
+         back to top
+         ------------------*/
         var backtoTop = $('.back-to-top')
         backtoTop.fadeOut();
 
         /*---------------------
-            Cancel Preloader
-        ----------------------*/
-        $(document).on('click', '.cancel-preloader a', function(e) {
+         Cancel Preloader
+         ----------------------*/
+        $(document).on('click', '.cancel-preloader a', function (e) {
             e.preventDefault();
             $("#preloader").fadeOut(2000);
         });
 
         // account form animations
-        $('#account').on('click',  function() {
+        $('#account').on('click', function () {
             $('#accountForm').fadeToggle();
         })
-        $(document).mouseup(function(e) {
+        $(document).mouseup(function (e) {
             var container = $("#accountForm");
 
             if (!container.is(e.target) // if the target of the click isn't the container...
-                &&
-                container.has(e.target).length === 0) // ... nor a descendant of the container
+                    &&
+                    container.has(e.target).length === 0) // ... nor a descendant of the container
             {
                 container.fadeOut();
             }
