@@ -467,14 +467,23 @@ admin.addAccountType = function () {
         return;
     }
 
-    var data = $('form[id="miform"]').serialize();
-    console.log(data);
-    $.ajax({
-        type: 'POST',
+//    var data = $('form[id="miform"]').serialize();
+//    console.log(data);
+    /*
+     *
+     * @type type
+     */
+    var obj = {
         url: `${BASE_URL}/accounttypes/create`,
-        data: data,
-        success: function (res, textStatus, jqXHR) {
-            var data = JSON.parse(res);
+        params: {
+            'acctype': acctype,
+            'accmaxbal': accmaxbal,
+            'accminbal': accminbal,
+            'accdescription': accdescription
+        },
+        bfor: function () {
+        },
+        afta: function (data) {
             if (data.success) {
                 $('input[name="acctype"]').val('');
                 $('input[name="accmaxbal"]').val('');
@@ -496,7 +505,8 @@ admin.addAccountType = function () {
                 });
             }
         }
-    });
+    };
+    app.submitForm.call(obj);
 };
 
 /*
@@ -516,28 +526,53 @@ admin.addUser = function () {
     }
 
     if (check) {
-        var vals = $('#miform').serialize();
-        console.log(vals);
+//        var vals = $('#miform').serialize();
+//        console.log(vals);
 
-        $.post(`${BASE_URL}/users/addUser`, vals, function (res) {
-            var data = JSON.parse(res);
-            if (data.success) {
-                swal({
-                    title: "Done",
-                    text: data.message,
-                    type: "success"
-                });
-                setTimeout(function () {
-                    admin.processIndex3.call();
-                }, 500);
-            } else {
-                swal({
-                    title: "Failed",
-                    text: data.message,
-                    type: "error"
-                });
+        var vals = {
+            "usrUsername": $('input[name="usrUsername"]').val(),
+            "usrPwd": $('input[name="usrPwd"]').val(),
+            "usrRole": 1,
+            "usrStatus": 1,
+            clientUserSd: {
+                'ctFname': $('input[name="ctFname"]').val(),
+                'ctLname': $('input[name="ctLname"]').val(),
+                'ctEmail': $('input[name="ctEmail"]').val(),
+                'ctPhone': $('input[name="ctPhone"]').val(),
+                'ctPic': ''
             }
-        });
+        };
+
+
+        /*
+         *
+         * @type type
+         */
+        var obj = {
+            url: `${BASE_URL}/users/addUser`,
+            params: vals,
+            bfor: function () {
+            },
+            afta: function (data) {
+                if (data.success) {
+                    swal({
+                        title: "Done",
+                        text: data.message,
+                        type: "success"
+                    });
+                    setTimeout(function () {
+                        admin.processIndex3.call();
+                    }, 500);
+                } else {
+                    swal({
+                        title: "Failed",
+                        text: data.message,
+                        type: "error"
+                    });
+                }
+            }
+        };
+        app.submitForm.call(obj);
     }
 
 };
