@@ -58,4 +58,6 @@ public interface CustomerLogicI {
     MessageModel checkBalance(Customers cm);
 
     MessageModel updateAccountBal(double newBal, Customers cm);
+
+    MessageModel search(String q);
 }

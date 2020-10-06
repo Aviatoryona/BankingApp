@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Customers.findAllOrderById", query = "SELECT c FROM Customers c ORDER BY c.ctId DESC")
 })
 public class Customers implements Serializable {
-  
+
     private static final double serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
