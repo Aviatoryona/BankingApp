@@ -63,7 +63,7 @@ public class UsersFacadeREST {
         return usersLogicI.getUser(username, pwd);
     }
 
-    @GET
+    @POST
     @Path(value = "/addUser")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})

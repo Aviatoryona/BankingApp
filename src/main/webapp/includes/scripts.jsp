@@ -15,8 +15,11 @@
 
 <!-- DataTables -->
 
-<script src="js/plugins/dataTables/datatables.min.js"></script>
-<script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+<!--<script src="js/plugins/dataTables/datatables.min.js"></script>
+<script src="js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>-->
+
+<!-- FooTable -->
+<script src="js/plugins/footable/footable.all.min.js"></script>
 
 <!-- Flot -->
 <script src="js/plugins/flot/jquery.flot.js"></script>

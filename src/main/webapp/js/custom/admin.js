@@ -96,7 +96,7 @@ function validateData(isEmail, data) {
  * @returns {undefined}
  */
 admin.dtTables = function () {
-    $('.dataTables-example').DataTable();
+    $('.dataTables-example').footable();//.DataTable();
 };
 
 /*
@@ -479,7 +479,8 @@ admin.addAccountType = function () {
             'acctype': acctype,
             'accmaxbal': accmaxbal,
             'accminbal': accminbal,
-            'accdescription': accdescription
+            'accdescription': accdescription,
+            'accdate': new Date()
         },
         bfor: function () {
         },
@@ -539,10 +540,10 @@ admin.addUser = function () {
                 'ctLname': $('input[name="ctLname"]').val(),
                 'ctEmail': $('input[name="ctEmail"]').val(),
                 'ctPhone': $('input[name="ctPhone"]').val(),
-                'ctPic': ''
+                'ctPic': '',
+                'ctDate': new Date()
             }
         };
-
 
         /*
          *

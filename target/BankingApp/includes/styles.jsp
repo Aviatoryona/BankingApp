@@ -14,7 +14,11 @@
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
 
-<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<!-- FooTable -->
+<link href="css/plugins/footable/footable.core.css" rel="stylesheet">
+
+<!--DataTable-->
+<!--<link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">-->
 
 <!-- Sweet Alert -->
 <link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
