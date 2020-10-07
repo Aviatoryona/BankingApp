@@ -10,10 +10,10 @@
         <div class="col-lg-6"></div>
         <div class="col-lg-6">
             <div class="input-group">
-                From: <input placeholder="From" type="date" class="form-control form-control-sm">
-                To: <input placeholder="To" type="date" class="form-control form-control-sm">
+                From: <input placeholder="From" type="date" id="inp_from" class="form-control form-control-sm">
+                To: <input placeholder="To" type="date" id="inp_to"  class="form-control form-control-sm">
                 <span class="input-group-append">
-                    <button type="button" class="btn btn-sm btn-primary">Go!</button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="admin.searchTransaction()">Go!</button>
                 </span>
             </div>
         </div>

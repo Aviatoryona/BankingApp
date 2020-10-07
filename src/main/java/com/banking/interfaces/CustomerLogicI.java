@@ -59,5 +59,5 @@ public interface CustomerLogicI {
 
     MessageModel updateAccountBal(double newBal, Customers cm);
 
-    MessageModel search(String q);
+    List<Customers> search(String q);
 }

@@ -249,4 +249,11 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
         map.put(AppEnum.TRANSACTIONS.getName(), customerLogicI.getAllTransactions(cm, null));
         return new MessageModel(true, "", map);
     }
+
+    @GET
+    @Path(value = "/search/{q}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public List<Customers> search(@PathParam(value = "q") String q) {
+        return customerLogicI.search(q);
+    }
 }

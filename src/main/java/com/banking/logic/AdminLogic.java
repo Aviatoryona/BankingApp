@@ -182,6 +182,7 @@ public class AdminLogic implements AdminLogicI {
         return q.getResultList();
     }
 
+    /**/
     @Override
     public List<Users> getUsers() {
         return usersLogicI.getUsers(-1);

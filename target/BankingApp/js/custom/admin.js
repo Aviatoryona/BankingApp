@@ -699,3 +699,75 @@ admin.updateUserPassword = function () {
         }
     });
 };
+
+/*
+ *
+ */
+admin.searchClients = function () {
+    var q = $('#search_clients').val();
+    if (q == '')
+        return;
+
+    var index = 2;
+    var page = adminPages[index];
+    setPlaceholder(function () {
+
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`${BASE_URL}/customers/search/${q}`, function (res) {
+            console.log(res);
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        customers: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.customers = res;
+                        admin.dtTables();
+                    }
+                });
+            });
+        });
+    });
+};
+
+/*
+ *
+ */
+admin.searchTransaction = function () {
+    var inp_from = $('#inp_from').val();
+    var inp_to = $('#inp_to').val();
+
+    if (inp_from == '')
+        return;
+    if (inp_to == '')
+        inp_to = new Date();
+
+    var index = 1;
+    var page = adminPages[index];
+    setPlaceholder(function () {
+
+        /*
+         * call this function to load and bind data to loaded template
+         */
+        $.getJSON(`${BASE_URL}/admin/getTransactions/-1/${inp_from}/${inp_to}`, function (res) {
+            console.log(res);
+            loadTemplate(page, function () {
+                new Vue({
+                    el: '#adm_home',
+                    data: {
+                        transactions: []
+                    },
+                    created: function () {
+                        const me = this;
+                        me.transactions = res;
+                        admin.dtTables();
+                    }
+                });
+            });
+        });
+    });
+};
