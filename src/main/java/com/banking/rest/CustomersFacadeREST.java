@@ -116,6 +116,10 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
     @EJB
     private TransactionTypeLogicI transactionTypeLogicI;
 
+    @POST
+    @Path(value = "/create")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public boolean createCustomer(Customers customers) {
         return customerLogicI.createCustomer(customers);
     }

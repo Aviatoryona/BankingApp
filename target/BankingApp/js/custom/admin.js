@@ -531,6 +531,7 @@ admin.addUser = function () {
 //        console.log(vals);
 
         var vals = {
+            "usrId": -1,
             "usrUsername": $('input[name="usrUsername"]').val(),
             "usrPwd": $('input[name="usrPwd"]').val(),
             "usrRole": 1,
@@ -541,7 +542,8 @@ admin.addUser = function () {
                 'ctEmail': $('input[name="ctEmail"]').val(),
                 'ctPhone': $('input[name="ctPhone"]').val(),
                 'ctPic': '',
-                'ctDate': new Date()
+                'ctDate': new Date(),
+                "convertedDate": null
             }
         };
 

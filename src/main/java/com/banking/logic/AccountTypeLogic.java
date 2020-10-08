@@ -40,9 +40,13 @@ public class AccountTypeLogic implements AccounttypesI {
 
     @Override
     public MessageModel addAccountType(Accounttypes accounttypes) {
-        accounttypes.setAccdate(Calendar.getInstance().getTime());
-        em.merge(accounttypes);
-        return new MessageModel(true, "Successfully added", accounttypes);
+        try {
+            accounttypes.setAccdate(Calendar.getInstance().getTime());
+            em.merge(accounttypes);
+            return new MessageModel(true, "Successfully added", accounttypes);
+        } catch (Exception e) {
+            return new MessageModel(false, "Failed", accounttypes);
+        }
     }
 
     @Override

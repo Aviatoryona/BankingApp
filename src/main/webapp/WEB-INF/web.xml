@@ -8,7 +8,6 @@
         </session-timeout>
     </session-config>
 
-
     <servlet>
         <servlet-name>Resteasy</servlet-name>
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>

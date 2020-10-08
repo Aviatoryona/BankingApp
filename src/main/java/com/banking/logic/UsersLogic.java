@@ -21,7 +21,6 @@ import com.banking.entities.Accounttypes;
 import com.banking.entities.Users;
 import com.banking.interfaces.UsersLogicI;
 import com.banking.models.MessageModel;
-import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -53,9 +52,14 @@ public class UsersLogic implements UsersLogicI {
 
     @Override
     public MessageModel addUser(Users users) {
-        users.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
-        em.persist(users);
-        return new MessageModel(true, "Successfully added", users);
+//        users.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
+//        em.persist(users);
+        try {
+            em.merge(users);
+            return new MessageModel(true, "Successfully added", users);
+        } catch (Exception e) {
+            return new MessageModel(false, "Failed", users);
+        }
     }
 
     @Override

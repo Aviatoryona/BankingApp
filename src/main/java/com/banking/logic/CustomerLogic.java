@@ -281,9 +281,9 @@ public class CustomerLogic implements CustomerLogicI {
     @Override
     public List<Customers> search(String q) {
 //        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE '%" + q + "%') OR (c.clientUserSd.ctFname LIKE '%" + q + "%') OR (c.clientUserSd.ctLname LIKE '%" + q + "%') OR (c.ctAccountnumber LIKE '%" + q + "%') OR (c.ctCountry LIKE '%" + q + "%') OR (c.ctCity LIKE %" + q + "%) OR (c.ctAccounttype LIKE '%" + q + "%')  ORDER BY c.ctId DESC");
-//        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE '%:q%') OR (c.clientUserSd.ctFname LIKE '%:q%') OR (c.clientUserSd.ctLname LIKE '%:q%') OR (c.ctAccountnumber LIKE '%:q%') OR (c.ctCountry LIKE '%:q%') OR (c.ctCity LIKE '%:q%') OR (c.ctAccounttype LIKE '%:q%')  ORDER BY c.ctId DESC");
-        Query query = em.createQuery("SELECT c FROM Customers c  ORDER BY c.ctId DESC");
-//        query.setParameter("q", q);
+        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE '%:q%') OR (c.clientUserSd.ctFname LIKE '%:q%') OR (c.clientUserSd.ctLname LIKE '%:q%') OR (c.ctAccountnumber LIKE '%:q%') OR (c.ctCountry LIKE '%:q%') OR (c.ctCity LIKE '%:q%') OR (c.ctAccounttype LIKE '%:q%')  ORDER BY c.ctId DESC");
+//        Query query = em.createQuery("SELECT c FROM Customers c  ORDER BY c.ctId DESC");
+        query.setParameter("q", q);
         return query.getResultList();
     }
 
