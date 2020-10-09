@@ -159,29 +159,6 @@ function loadTemplate(page, callBack = null) {
 
 /*
  *
- * @returns {undefined}
- */
-function setPlaceholder(callBack = null) {
-    $('#mi_content').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
-    <div class="ibox">
-        <div class="ibox-content">
-            <img src="./img/waiting_Live.gif"/>
-        </div>
-    </div>
-</div>`);
-
-    /*
-     *
-     *
-     */
-    if (callBack != null)
-        setTimeout(function () {
-            callBack();
-        }, 3000);
-}
-
-/*
- *
  */
 admin.processIndex0 = function () {  //home
     var index = 0;
@@ -385,7 +362,7 @@ admin.processIndex6 = function (parent) {//client details
                             },
                             created: function () {
                                 this.transactions = res;
-                                $('.dataTables-example').DataTable();
+                                admin.dtTables();
                             }
                         });
                     });
@@ -418,27 +395,6 @@ admin.processIndex7 = function (parent) {//user details
                 });
             });
         });
-    });
-};
-
-app.submitForm = function () {
-    var url = this.url;
-    var params = JSON.stringify(this.params);
-    var bfor = this.bfor;
-    var afta = this.afta;
-    jQuery.ajax({
-        url: `${url}`,
-        type: "POST",
-        data: params,
-        processData: false,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        beforeSend: function (xhr) {
-            bfor();
-        },
-        success: function (data, textStatus, jqXHR) {
-            afta(data);
-        }
     });
 };
 

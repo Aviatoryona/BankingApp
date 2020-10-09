@@ -27,7 +27,6 @@ import com.banking.interfaces.CustomerLogicI;
 import com.banking.interfaces.TranasctionLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,11 +60,15 @@ public class CustomerLogic implements CustomerLogicI {
 
     @Override
     public boolean createCustomer(Customers customerModel) {
-        customerModel.setCtAccountnumber(appI.getAccountNumber());
-        customerModel.setCtAccesscode(appI.getAccessCode(""));
-        customerModel.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
-        em.merge(customerModel);
-        return true;
+        try {
+            customerModel.setCtAccountnumber(appI.getAccountNumber());
+            customerModel.setCtAccesscode(appI.getAccessCode(""));
+//        customerModel.getClientUserSd().setCtDate(Calendar.getInstance().getTime());
+            em.merge(customerModel);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -281,9 +284,9 @@ public class CustomerLogic implements CustomerLogicI {
     @Override
     public List<Customers> search(String q) {
 //        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE '%" + q + "%') OR (c.clientUserSd.ctFname LIKE '%" + q + "%') OR (c.clientUserSd.ctLname LIKE '%" + q + "%') OR (c.ctAccountnumber LIKE '%" + q + "%') OR (c.ctCountry LIKE '%" + q + "%') OR (c.ctCity LIKE %" + q + "%) OR (c.ctAccounttype LIKE '%" + q + "%')  ORDER BY c.ctId DESC");
-        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE '%:q%') OR (c.clientUserSd.ctFname LIKE '%:q%') OR (c.clientUserSd.ctLname LIKE '%:q%') OR (c.ctAccountnumber LIKE '%:q%') OR (c.ctCountry LIKE '%:q%') OR (c.ctCity LIKE '%:q%') OR (c.ctAccounttype LIKE '%:q%')  ORDER BY c.ctId DESC");
+        Query query = em.createQuery("SELECT c FROM Customers c WHERE (c.clientUserSd.ctEmail LIKE :q) OR (c.clientUserSd.ctFname LIKE :q) OR (c.clientUserSd.ctLname LIKE :q) OR (c.ctAccountnumber LIKE :q) OR (c.ctCountry LIKE :q) OR (c.ctCity LIKE :q) OR (c.ctAccounttype LIKE :q)  ORDER BY c.ctId DESC");
 //        Query query = em.createQuery("SELECT c FROM Customers c  ORDER BY c.ctId DESC");
-        query.setParameter("q", q);
+        query.setParameter("q", String.format("%s%s%s", "%", q, "%"));
         return query.getResultList();
     }
 

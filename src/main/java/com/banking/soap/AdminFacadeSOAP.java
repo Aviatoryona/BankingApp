@@ -111,7 +111,7 @@ public class AdminFacadeSOAP {
     @WebMethod(operationName = "getTransactions_2")
     @RequestWrapper(className = "getTransactions_2")
     @ResponseWrapper(className = "getTransactions_2Response")
-    public List<Transactions> getTransactions(@WebParam(name = "limit") int limit, @WebParam(name = "start") Date start, @WebParam(name = "end") Date end) {
+    public List<Transactions> getTransactions(@WebParam(name = "limit") int limit, @WebParam(name = "start") String start, @WebParam(name = "end") String end) {
         return adminFacadeRest.getTransactions(limit, start, end);
     }
 

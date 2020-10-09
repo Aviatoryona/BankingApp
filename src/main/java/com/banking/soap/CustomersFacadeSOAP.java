@@ -78,7 +78,7 @@ public class CustomersFacadeSOAP {
     }
 
     @WebMethod(operationName = "createCustomer")
-    public boolean createCustomer(@WebParam(name = "customers") Customers customers) {
+    public MessageModel createCustomer(@WebParam(name = "customers") Customers customers) {
         return customersFacadeREST.createCustomer(customers);
     }
 
