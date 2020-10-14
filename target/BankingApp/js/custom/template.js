@@ -33,24 +33,14 @@ var pages = {
  * @returns {undefined}
  */
 app.processTemplate = function () {
-
-    $('.container').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
-    <div class="ibox">
-        <div class="ibox-content">
-            <img src="./img/waiting_Live.gif"/>
-        </div>
-    </div>
-</div>`);
-
     /*
      *
      *
      */
-
     var index0 = this.index;
     var page = pages[index0];
     var mail = $('.container').attr('data');
-    setTimeout(function () {
+    templatePlaceHolder(function () {
         app.loadTemplate.call({
             dataUrl: page,
             method: 'GET',
@@ -66,9 +56,31 @@ app.processTemplate = function () {
 
             }
         });
-    }, 3000);
+    });
 
 };
+
+/*
+ *
+ * @returns {undefined}
+ */
+function templatePlaceHolder(callBack = null) {
+    $('.container').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox">
+        <div class="ibox-content">
+            <img src="./img/waiting_Live.gif"/>
+        </div>
+    </div>
+</div>`);
+    /*
+     *
+     *
+     */
+    if (callBack != null)
+        setTimeout(function () {
+            callBack();
+        }, 3000);
+}
 
 /*
  *

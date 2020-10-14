@@ -26,6 +26,8 @@ import com.banking.interfaces.AccounttypesI;
 import com.banking.interfaces.AdminLogicI;
 import com.banking.interfaces.TransactionTypeLogicI;
 import com.banking.models.MessageModel;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -131,8 +133,14 @@ public class AdminFacadeRest {
     @GET
     @Path(value = "/getTransactions/{limit}/{start}/{end}")
     @Produces({MediaType.APPLICATION_JSON})
-    public List<Transactions> getTransactions(@PathParam(value = "limit") int limit, @PathParam(value = "start") Date start, @PathParam(value = "end") Date end) {
-        return adminLogicI.getTransactions(limit, start, end);
+    public List<Transactions> getTransactions(@PathParam(value = "limit") int limit, @PathParam(value = "start") String start1, @PathParam(value = "end") String end1) {
+        try {
+            Date start = new SimpleDateFormat().parse(start1);
+            Date end = end1.isEmpty() ? new Date() : new SimpleDateFormat().parse(end1);
+            return adminLogicI.getTransactions(limit, start, end);
+        } catch (ParseException e) {
+            return new ArrayList<>();
+        }
     }
 
     @GET

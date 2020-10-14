@@ -21,13 +21,10 @@
  * @type type
  */
 var app = app || {};
-
-
 /*
  * Used to populate template data at a specified index using GET request
  */
 const BASE_URL = "concorde";
-
 /*
  * init
  */
@@ -36,7 +33,6 @@ app.init = function () {
         register();
     });
 };
-
 /*
  * http request
  */
@@ -73,7 +69,6 @@ app.loadData = function () {
         xhr.send();
     }
 };
-
 /*
  *
  * @returns {undefined}
@@ -91,11 +86,9 @@ app.fetchData = async function () {
         cache: 'default',
         body: body
     });
-
     var res = await fetch(myRequest);
     return me.isJson ? res.json() : res.text();
 };
-
 /*
  *
  * @returns {undefined}
@@ -113,6 +106,31 @@ app.loadTemplate = function () {
         error: function (jqXHR, textStatus, errorThrown) {
 //            console.log(jqXHR);
             me.callBack("Error encountered");
+        }
+    });
+};
+
+/*
+ *
+ * @returns {app.submitForm}
+ */
+app.submitForm = function () {
+    var url = this.url;
+    var params = JSON.stringify(this.params);
+    var bfor = this.bfor;
+    var afta = this.afta;
+    jQuery.ajax({
+        url: `${url}`,
+        type: "POST",
+        data: params,
+        processData: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        beforeSend: function (xhr) {
+            bfor();
+        },
+        success: function (data, textStatus, jqXHR) {
+            afta(data);
         }
     });
 };
@@ -143,9 +161,65 @@ function registerInit(data) {
 }
 
 /*
- * do register
+ *
+ * @returns {undefined}
  */
 app.doRegister = function () {
+    var json = {
+        "ctId": -1,
+        "ctNextkin": '',
+        "ctAddress": this.address,
+        "ctCity": this.city,
+        "ctCountry": this.country,
+        "ctGender": this.gender,
+        "ctAccounttype": this.acctype,
+        "ctAccountnumber": "",
+        "ctAccbalance": 0,
+        "ctAccesscode": '',
+        "clientUserSd": {
+            "ctFname": this.fname,
+            "ctLname": this.lname,
+            "ctEmail": this.email,
+            "ctPhone": this.phone,
+            "ctPic": '',
+            "ctDate": new Date(),
+            "convertedDate": new Date()
+        }
+    };
+    /*
+     *
+     * @type type
+     */
+    var obj = {
+        url: `${BASE_URL}/customers/createAccount`,
+        params: json,
+        bfor: function () {
+        },
+        afta: function (data) {
+            if (data.success) {
+                swal({
+                    title: "Done",
+                    text: data.message,
+                    type: "success"
+                });
+                setTimeout(function () {
+                    window.location.href = "auth";
+                }, 5000);
+            } else {
+                swal({
+                    title: "Registration Failed",
+                    text: data.message,
+                    type: "error"
+                });
+            }
+        }
+    };
+    app.submitForm.call(obj);
+};
+/*
+ * do register
+ */
+app.doRegister1 = function () {
 
     var url = `ctFname=` + this.fname
             + `&ctLname=` + this.lname
@@ -156,7 +230,6 @@ app.doRegister = function () {
             + `&ctAddress=` + this.address
             + `&ctGender=` + this.gender
             + `&ctAccounttype=` + this.acctype;
-
     app.loadData.call({
         dataUrl: "register",
         method: 'POST',
@@ -182,17 +255,14 @@ app.doRegister = function () {
         }
     });
 };
-
 /*
  *create json dynamically from form
  */
 function populateFormJson(formData, fieldName, fieldValue) {
     var formFieldNameParts = fieldName.split('.');
-
     var lastFieldNamePartIdx = formFieldNameParts.length - 1;
     for (var i = 0; i < lastFieldNamePartIdx; ++i) {
         var currentFieldNamePart = formFieldNameParts[i];
-
         if (!(currentFieldNamePart in formData)) {
             formData[currentFieldNamePart] = {};
         }
@@ -201,9 +271,29 @@ function populateFormJson(formData, fieldName, fieldValue) {
     }
 
     formData[formFieldNameParts[lastFieldNamePartIdx]] = fieldValue;
-
 }
 
+/*
+ *
+ * @returns {undefined}
+ */
+function setPlaceholder(callBack = null) {
+    $('#mi_content').html(`<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="ibox">
+        <div class="ibox-content">
+            <img src="./img/waiting_Live.gif"/>
+        </div>
+    </div>
+</div>`);
+    /*
+     *
+     *
+     */
+    if (callBack != null)
+        setTimeout(function () {
+            callBack();
+        }, 3000);
+}
 
 /*
  * initialize app

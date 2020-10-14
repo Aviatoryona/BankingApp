@@ -131,23 +131,52 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                      */
                     function register() {
                         var fname = document.getElementById('input_fname').value;
+                        if (fname == '') {
+                            $('#input_fname').addClass('has-error');
+                            return false;
+                        }
+
                         var lname = document.getElementById('input_lname').value;
+                        if (lname == '') {
+                            $('#input_lname').addClass('has-error');
+                            return false;
+                        }
                         var email = document.getElementById('input_email').value;
+                        if (email == '') {
+                            $('#input_email').addClass('has-error');
+                            return false;
+                        }
                         var phone = document.getElementById('input_phone').value;
+                        if (phone == '') {
+                            $('#input_phone').addClass('has-error');
+                            return false;
+                        }
                         var country = document.getElementById('input_countries').value;
                         if (country == '') {
+                            $('#input_countries').addClass('has-error');
                             return false;
                         }
 
                         var city = document.getElementById('input_city').value;
-                        var address = document.getElementById('input_address').value;
-                        var gender = document.getElementById('input_gender').value;
-                        var acctype = document.getElementById('input_accounttypes').value;
-
-                        if (acctype == '') {
+                        if (city == '') {
+                            $('#input_city').addClass('has-error');
                             return false;
                         }
-
+                        var address = document.getElementById('input_address').value;
+                        if (address == '') {
+                            $('#input_address').addClass('has-error');
+                            return false;
+                        }
+                        var gender = document.getElementById('input_gender').value;
+                        if (gender == '') {
+                            $('#input_gender').addClass('has-error');
+                            return false;
+                        }
+                        var acctype = document.getElementById('input_accounttypes').value;
+                        if (acctype == '') {
+                            $('#input_accounttypes').addClass('has-error');
+                            return false;
+                        }
 
                         var customer = {
                             "fname": fname,
@@ -162,7 +191,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                         };
 
 
-                        var json = JSON.stringify(customer);
+//                        var json = JSON.stringify(customer);
 //                        console.log(json);
 
 //                        console.log(customer);

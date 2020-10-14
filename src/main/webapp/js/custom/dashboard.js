@@ -111,31 +111,33 @@ function doWithdraw() {
         return;
     }
     var mail = $('#amntTxt').attr('data');
-    jQuery.ajax({
-        url: `${BASE_URL}/customers/withdraw/${mail}/${amntTxt}`,
-        type: "POST",
-        data: ``,
-        processData: false,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data, textStatus, jqXHR) {
-            if (data.success) {
-                swal({
-                    title: "Transaction Successful",
-                    text: data.message,
-                    type: "success"
-                });
-                setTimeout(function () {
-                    getTemplate(2); //display balance after a successful transaction
-                }, 5000);
-            } else {
-                swal({
-                    title: "Transaction Failed",
-                    text: data.message,
-                    type: "error"
-                });
+    templatePlaceHolder(function () {
+        jQuery.ajax({
+            url: `${BASE_URL}/customers/withdraw/${mail}/${amntTxt}`,
+            type: "POST",
+            data: ``,
+            processData: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data, textStatus, jqXHR) {
+                if (data.success) {
+                    swal({
+                        title: "Transaction Successful",
+                        text: data.message,
+                        type: "success"
+                    });
+                    setTimeout(function () {
+                        getTemplate(2); //display balance after a successful transaction
+                    }, 5000);
+                } else {
+                    swal({
+                        title: "Transaction Failed",
+                        text: data.message,
+                        type: "error"
+                    });
+                }
             }
-        }
+        });
     });
 }
 
@@ -189,31 +191,33 @@ function doDeposit() {
         return;
     }
     var mail = $('#amntTxt').attr('data');
-    jQuery.ajax({
-        url: `${BASE_URL}/customers/deposit/${mail}/${amntTxt}`,
-        type: "POST",
-        data: ``,
-        processData: false,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (data, textStatus, jqXHR) {
-            if (data.success) {
-                swal({
-                    title: "Transaction Successful",
-                    text: data.message,
-                    type: "success"
-                });
-                setTimeout(function () {
-                    getTemplate(2); //display balance after a successful transaction
-                }, 5000);
-            } else {
-                swal({
-                    title: "Transaction Failed",
-                    text: data.message,
-                    type: "error"
-                });
+    templatePlaceHolder(function () {
+        jQuery.ajax({
+            url: `${BASE_URL}/customers/deposit/${mail}/${amntTxt}`,
+            type: "POST",
+            data: ``,
+            processData: false,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data, textStatus, jqXHR) {
+                if (data.success) {
+                    swal({
+                        title: "Transaction Successful",
+                        text: data.message,
+                        type: "success"
+                    });
+                    setTimeout(function () {
+                        getTemplate(2); //display balance after a successful transaction
+                    }, 5000);
+                } else {
+                    swal({
+                        title: "Transaction Failed",
+                        text: data.message,
+                        type: "error"
+                    });
+                }
             }
-        }
+        });
     });
 }
 

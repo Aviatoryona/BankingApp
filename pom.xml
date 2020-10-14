@@ -12,8 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>13</maven.compiler.source>
-        <maven.compiler.target>13</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jakartaee>8.0</jakartaee>
@@ -204,11 +204,19 @@
             <artifactId>swagger-jaxrs</artifactId>
             <version>1.6.2</version>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.code.maven-replacer-plugin/maven-replacer-plugin -->
         <dependency>
             <groupId>com.google.code.maven-replacer-plugin</groupId>
             <artifactId>maven-replacer-plugin</artifactId>
             <version>1.4.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api -->
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+            <version>2.0.0-RC6</version>
         </dependency>
 
 
@@ -222,8 +230,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>13</source>
-                    <target>13</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>

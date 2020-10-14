@@ -117,11 +117,13 @@ public class CustomersFacadeREST extends AbstractFacade<Customers> {
     private TransactionTypeLogicI transactionTypeLogicI;
 
     @POST
-    @Path(value = "/create")
+    @Path(value = "/createAccount")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public boolean createCustomer(Customers customers) {
-        return customerLogicI.createCustomer(customers);
+    public MessageModel createCustomer(Customers customers) {
+        return customerLogicI.createCustomer(customers)
+                ? new MessageModel(true, "Registration sucessfull")
+                : new MessageModel(false, "Failed, please try again");
     }
 
     @GET
