@@ -17,6 +17,7 @@
  */
 package com.banking.entities;
 
+import static com.banking.entities.Accounttypes.AccounttypesFindAll;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -28,6 +29,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,13 +45,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "accounttypes")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Accounttypes.findAll", query = "SELECT a FROM Accounttypes a"),
+    @NamedQuery(name = AccounttypesFindAll, query = "SELECT a FROM Accounttypes a"),
     @NamedQuery(name = "Accounttypes.findByAccid", query = "SELECT a FROM Accounttypes a WHERE a.accid = :accid"),
     @NamedQuery(name = "Accounttypes.findByAcctype", query = "SELECT a FROM Accounttypes a WHERE a.acctype = :acctype"),
     @NamedQuery(name = "Accounttypes.findByAccminbal", query = "SELECT a FROM Accounttypes a WHERE a.accminbal = :accminbal"),
     @NamedQuery(name = "Accounttypes.findByAccmaxbal", query = "SELECT a FROM Accounttypes a WHERE a.accmaxbal = :accmaxbal"),
     @NamedQuery(name = "Accounttypes.findByAccdate", query = "SELECT a FROM Accounttypes a WHERE a.accdate = :accdate")})
 public class Accounttypes implements Serializable {
+
+    static final String AccounttypesFindAll = "Accounttypes.findAll";
 
     private static final long serialVersionUID = 1L;
     @Id
